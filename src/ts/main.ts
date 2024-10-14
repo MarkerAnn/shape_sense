@@ -1,16 +1,36 @@
-import '../style/style.css'
-import { setupCounter } from './counter'
+// main.ts
+class App {
+  private calculatorButtons: NodeListOf<HTMLButtonElement>
 
-document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
-  <div>
-    <h1>Vite + TypeScript</h1>
-    <div class="card">
-      <button id="counter" type="button"></button>
-    </div>
-    <p class="read-the-docs">
-      Click on the Vite and TypeScript logos to learn more
-    </p>
-  </div>
-`
+  constructor() {
+    this.calculatorButtons = document.querySelectorAll(
+      '.calculator-item button'
+    )
+    this.init()
+  }
 
-setupCounter(document.querySelector<HTMLButtonElement>('#counter')!)
+  private init(): void {
+    this.setupEventListeners()
+  }
+
+  private setupEventListeners(): void {
+    this.calculatorButtons.forEach((button) => {
+      button.addEventListener(
+        'click',
+        this.handleCalculatorButtonClick.bind(this)
+      )
+    })
+  }
+
+  private handleCalculatorButtonClick(event: Event): void {
+    const button = event.target as HTMLButtonElement
+    const calculatorType = button.id.replace('calculate-', '')
+    console.log(`Opening calculator: ${calculatorType}`)
+    // Add logic to open the calculators
+  }
+}
+
+// Start the application when DOm loaded
+document.addEventListener('DOMContentLoaded', () => {
+  new App()
+})
