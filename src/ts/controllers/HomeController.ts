@@ -1,30 +1,16 @@
-import { Controller } from './AbstractController'
-import { HealthCalculatorModel } from '../models/HealthCalculatorModel'
 import { HomeView } from '../views/HomeView'
-import { RouteEnum } from '../utils/Routes'
 
-export class HomeController extends Controller<HomeView> {
-  private onNavigate: (route: RouteEnum) => void
+export class HomeController {
+  private view: HomeView
 
-  constructor(
-    model: HealthCalculatorModel,
-    view: HomeView,
-    onNavigate: (route: RouteEnum) => void
-  ) {
-    super(model, view)
-    this.onNavigate = onNavigate
+  constructor() {
+    this.view = new HomeView()
   }
 
-  bindEvents(): void {
-    this.view.bindCalculatorButtons(this.handleCalculatorButtonClick.bind(this))
-  }
-
-  private handleCalculatorButtonClick(calculatorType: RouteEnum): void {
-    this.onNavigate(calculatorType)
-    console.log(calculatorType)
+  init(container: HTMLElement): void {
+    this.view.render(container)
   }
 }
-
 // import { InterfaceController } from '../Interfaces/InterfaceController'
 // import { HomeView } from '../views/HomeView'
 // import { CalculatorType } from '../utils/CalculatorTypes'

@@ -1,49 +1,41 @@
-import { RouteEnum, ROUTES, getRouteFromPath } from './utils/Routes'
-
-type RouteCallback = () => void
+//import { BmiController } from './controllers/BmiController'
+import { HomeController } from './controllers/HomeController'
 
 export class Router {
-  private routes: Map<RouteEnum, RouteCallback>
+  private currentController: HomeController | null = null
 
-  constructor() {
-    this.routes = new Map()
-    this.handlePopState = this.handlePopState.bind(this)
-    window.addEventListener('popstate', this.handlePopState)
+  listen(): void {
+    window.addEventListener('hashchange', () => {
+      const route = window.location.hash.slice(1) // Deletes the # character
+      this.navigate(route)
+    })
+
+    // Navigate to the current URL or the default route
+    const initialRoute = window.location.hash.slice(1) || '/'
+    this.navigate(initialRoute)
   }
 
-  addRoute(route: RouteEnum, callback: RouteCallback): void {
-    this.routes.set(route, callback)
-  }
+  navigate(route: string): void {
+    const app = document.getElementById('app')
+    if (!app) return
 
-  navigateTo(route: RouteEnum): void {
-    const path = ROUTES[route]
-    history.pushState(null, '', path)
-    this.handleRoute(route)
-  }
+    app.innerHTML = ''
 
-  private handlePopState(): void {
-    const path = window.location.pathname
-    const route = getRouteFromPath(path)
-    if (route !== undefined) {
-      this.handleRoute(route)
-    } else {
-      console.error(`No route found for path: ${path}`)
-      //TODO: redirect to error page or homepage
+    switch (route) {
+      case '/':
+        this.currentController = new HomeController()
+        break
+      case '/bmi':
+        //this.currentController = new BmiController()
+        break
+      // Add more routes here
+      default:
+        app.innerHTML = '<h2>404 Not Found</h2>'
+        return
     }
-  }
 
-  private handleRoute(route: RouteEnum): void {
-    const callback = this.routes.get(route)
-    if (callback) {
-      callback()
-    } else {
-      console.error(`No handler found for route: ${RouteEnum[route]}`)
+    if (this.currentController) {
+      this.currentController.init(app)
     }
-  }
-
-  getCurrentRoute(): RouteEnum | undefined {
-    return getRouteFromPath(window.location.pathname)
   }
 }
-
-// TODO: Error handeling

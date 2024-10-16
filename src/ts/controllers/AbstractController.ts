@@ -1,23 +1,20 @@
-import { View } from '../views/AbstractView'
-import { HealthCalculatorModel } from '../models/HealthCalculatorModel'
+import { AbstractView } from '../views/AbstractView'
 
-export abstract class Controller<T extends View> {
-  protected model: HealthCalculatorModel
-  protected view: T
+export abstract class AbstractController {
+  protected view: AbstractView
 
-  constructor(model: HealthCalculatorModel, view: T) {
-    this.model = model
+  constructor(view: AbstractView) {
     this.view = view
-    this.bindEvents()
   }
 
-  abstract bindEvents(): void
-
-  mount(): void {
-    this.view.mount()
+  // Common controller logic
+  init(app: HTMLElement): void {
+    this.view.render(app)
   }
 
-  unmount(): void {
-    this.view.unmount()
-  }
+  abstract calculateBMI(
+    weight: number,
+    height: number,
+    unitSystem: string
+  ): void
 }
