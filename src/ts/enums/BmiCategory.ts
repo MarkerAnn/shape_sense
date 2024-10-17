@@ -1,4 +1,3 @@
-// bmiCategory.ts
 export enum BmiCategory {
   UNDERWEIGHT_SEVERE = 'underweight, severe thinness',
   UNDERWEIGHT_MODERATE = 'underweight, moderate thinness',

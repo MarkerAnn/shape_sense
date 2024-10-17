@@ -1,8 +1,17 @@
-//import { BmiController } from './controllers/BmiController'
+import { BmiController } from './controllers/BmiController'
 import { HomeController } from './controllers/HomeController'
+import { UserModel } from './models/UserModel'
+import { HealthCalculatorModel } from './models/HealthCalculatorModel'
 
 export class Router {
-  private currentController: HomeController | null = null
+  private currentController: HomeController | BmiController | null = null
+  private user: UserModel
+  private calculator: HealthCalculatorModel
+
+  constructor(user: UserModel, calculator: HealthCalculatorModel) {
+    this.user = user
+    this.calculator = calculator
+  }
 
   listen(): void {
     window.addEventListener('hashchange', () => {
@@ -26,7 +35,7 @@ export class Router {
         this.currentController = new HomeController()
         break
       case '/bmi':
-        //this.currentController = new BmiController()
+        this.currentController = new BmiController(this.user, this.calculator)
         break
       // Add more routes here
       default:

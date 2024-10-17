@@ -1,16 +1,14 @@
-import { HealthCalculatorFactory } from 'body-measurements'
+import { InterfaceHealthCalculator } from '../interfaces/InterfaceHealthCalculator'
+import { HealthCalculatorAdapter } from '../adapters/HealthCalculatorAdapter'
+import { UserModel } from './UserModel'
+import { getHealthRisk } from '../enums/HealthRisk'
+import { BmiCategory } from '../enums/BmiCategory'
 
-export class HealthCalculatorModel {
-  private calculator: ReturnType<
-    typeof HealthCalculatorFactory.createHealthCalculator
-  >
+export class HealthCalculatorModel implements InterfaceHealthCalculator {
+  private calculator: InterfaceHealthCalculator
 
-  constructor(
-    userData: Parameters<
-      typeof HealthCalculatorFactory.createHealthCalculator
-    >[0]
-  ) {
-    this.calculator = HealthCalculatorFactory.createHealthCalculator(userData)
+  constructor(userModel: UserModel) {
+    this.calculator = new HealthCalculatorAdapter(userModel)
   }
 
   // BMI
@@ -18,8 +16,13 @@ export class HealthCalculatorModel {
     return this.calculator.getBmi()
   }
 
-  getBmiType(): string {
+  getBmiType(): BmiCategory {
     return this.calculator.getBmiType()
+  }
+
+  getHealthRisk(): string {
+    const healthRisk = getHealthRisk(this.getBmiType())
+    return healthRisk
   }
 
   getBmiPrime(): number {
@@ -31,7 +34,7 @@ export class HealthCalculatorModel {
   }
 
   // Body composition
-  get getBodyFatPercentage(): number {
+  getBodyFatPercentage(): number {
     return this.calculator.getBodyFatPercentage()
   }
 

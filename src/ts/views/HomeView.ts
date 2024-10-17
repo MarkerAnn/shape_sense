@@ -1,20 +1,10 @@
 import { AbstractView } from './AbstractView'
-import { CalculatorType } from '../utils/CalculatorTypes'
+import { CalculatorType } from '../enums/CalculatorTypes'
 
 export class HomeView extends AbstractView {
   render(container: HTMLElement): void {
     container.innerHTML = `
-        <section class="hero">
-          <div class="hero-text">
-            <h1>Welcome to Shape Sense Zone</h1>
-            <p>
-              We offer a variety of health calculators to help you track your
-              progress and set your goals. Choose a calculator below to get
-              started.
-            </p>
-          </div>
-        </section>
-        <section class="calculators">
+        <section class="container">
           <h2>Our Calculators</h2>
           ${this.renderCalculatorItems()}
         </section>
@@ -29,7 +19,9 @@ export class HomeView extends AbstractView {
           <div>
             <h3>${type}</h3>
             <p>${this.getCalculatorDescription(type)}</p>
+            <div class="button-container">
             <a href="#/${type.toLowerCase()}" class="button">Calculate</a>
+            </div>
           </div>
           <img src="./assets/images/${type.toLowerCase()}.png" alt="${type} illustration">
         </div>

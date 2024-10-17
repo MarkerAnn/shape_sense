@@ -1,44 +1,55 @@
-// import { BmiView } from '../views/Bmiview'
-// import { BmiModel } from '../models/BmiModel'
-// import { BmiCategory } from '../utils/BmiCategory'
+import { BmiView } from '../views/Bmiview'
+import { BmiFormData } from '../types/FormTypes'
+import { UserModel } from '../models/UserModel'
+import { HealthCalculatorModel } from '../models/HealthCalculatorModel'
 
-// export class BmiController {
-//   constructor() {
-//     // Create a new instance of the view
-//     this.view = new BmiView(this)
-//   }
+export class BmiController {
+  private view: BmiView
+  private user: UserModel
+  private calculator: HealthCalculatorModel
 
-//   // Implementera den abstrakta metoden för BMI-beräkningar
-//   calculateBMI(weight: number, height: number, unitSystem: string): void {
-//     const bmiModel = new BmiModel(weight, height, unitSystem)
-//     const bmi = bmiModel.calculateBMI()
-//     const category = bmiModel.getBmiType() as BmiCategory
+  constructor(user: UserModel, calculator: HealthCalculatorModel) {
+    this.user = user
+    this.calculator = calculator
+    this.view = new BmiView()
+  }
 
-//     const healthRisk = this.getHealthRisk(category)
-//     this.view.displayResult(bmi, category, healthRisk)
-//   }
+  init(container: HTMLElement): void {
+    this.view.render(container)
+    this.view.bindCalculateEvent(this.handleCalculate.bind(this))
+    this.view.bindResetEvent(this.handleReset.bind(this))
+  }
 
-//   // Hämtar hälsorisk baserat på BMI-kategorin
-//   private getHealthRisk(bmiCategory: BmiCategory): string {
-//     switch (bmiCategory) {
-//       case BmiCategory.UNDERWEIGHT_SEVERE:
-//         return 'High risk of malnutrition, weakened immune system, and more.'
-//       case BmiCategory.UNDERWEIGHT_MODERATE:
-//         return 'Risks include nutrient deficiencies and weakened immune response.'
-//       case BmiCategory.UNDERWEIGHT_MILD:
-//         return 'Moderate risk of malnutrition.'
-//       case BmiCategory.NORMAL_WEIGHT:
-//         return 'Lowest health risks with a balanced lifestyle.'
-//       case BmiCategory.OVERWEIGHT_PRE_OBESE:
-//         return 'Increased risk of cardiovascular diseases and type 2 diabetes.'
-//       case BmiCategory.OBESE_CLASS_I:
-//         return 'Significant risk of metabolic syndrome and heart disease.'
-//       case BmiCategory.OBESE_CLASS_II:
-//         return 'Increased risk for heart disease and stroke.'
-//       case BmiCategory.OBESE_CLASS_III:
-//         return 'Severe health risks including reduced life expectancy.'
-//       default:
-//         return 'Unknown health risk.'
-//     }
-//   }
-// }
+  private handleCalculate(formData: BmiFormData): void {
+    try {
+      this.validateFormData(formData)
+      this.user.updateData(formData)
+      this.updateView()
+      this.view.hideError()
+    } catch (error) {
+      this.view.showError((error as Error).message)
+    }
+  }
+
+  private validateFormData(formData: BmiFormData): void {
+    if (isNaN(formData.height) || formData.height <= 0) {
+      throw new Error('Invalid height value')
+    }
+    if (isNaN(formData.weight) || formData.weight <= 0) {
+      throw new Error('Invalid weight value')
+    }
+  }
+
+  private updateView(): void {
+    const bmi = this.calculator.getBmi()
+    const bmiType = this.calculator.getBmiType()
+    const healthRisk = this.calculator.getHealthRisk()
+    this.view.updateResults(bmi, bmiType, healthRisk)
+  }
+
+  private handleReset(): void {
+    this.user.resetData()
+    this.view.resetForm()
+    this.view.hideError()
+  }
+}

@@ -7,6 +7,7 @@ const __dirname = path.dirname(__filename)
 
 export default defineConfig({
   root: 'src',
+  publicDir: path.resolve(__dirname, 'public'),
   build: {
     outDir: '../dist',
     emptyOutDir: true,
