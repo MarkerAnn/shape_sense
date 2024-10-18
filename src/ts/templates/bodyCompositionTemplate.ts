@@ -116,7 +116,7 @@ export const bodyCompositionTemplate = `
         </div>
       </form>
 
-      <!-- Form for Lean Body Mass -->
+            <!-- Form for Lean Body Mass -->
       <form id="lean-body-mass-form">
         <h3>Calculate Lean Body Mass</h3>
         <div class="input-group">
@@ -127,12 +127,21 @@ export const bodyCompositionTemplate = `
           </select>
         </div>
         <div class="input-group">
+          <label for="gender">Gender</label>
+          <div>
+            <input type="radio" id="male-lbm" name="gender" value="male">
+            <label for="male-lbm">Male</label>
+            <input type="radio" id="female-lbm" name="gender" value="female">
+            <label for="female-lbm">Female</label>
+          </div>
+        </div>
+        <div class="input-group">
           <label for="weight">Weight</label>
           <input type="text" id="weight" name="weight" placeholder="kg">
         </div>
         <div class="input-group">
-          <label for="waist">Waist Circumference</label>
-          <input type="text" id="waist" name="waist" placeholder="cm">
+          <label for="height">Height</label>
+          <input type="text" id="height" name="height" placeholder="cm">
         </div>
         <div class="button-group">
           <button type="submit">Calculate Lean Body Mass</button>

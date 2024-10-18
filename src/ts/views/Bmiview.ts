@@ -20,7 +20,7 @@ export class BmiView extends AbstractView {
     this.resultsTable = container.querySelector('.results table')
     this.weightInput = container.querySelector('#weight')
     this.heightInput = container.querySelector('#height')
-    this.unitSystemSelect = container.querySelector('#unitSystem')
+    this.unitSystemSelect = container.querySelector('select[name="unitSystem"]')
 
     this.unitSystemSelect?.addEventListener('change', () =>
       this.updatePlaceholders()
@@ -42,12 +42,20 @@ export class BmiView extends AbstractView {
   }
 
   private updatePlaceholders(): void {
-    if (this.unitSystemSelect?.value === 'imperial') {
-      this.heightInput?.setAttribute('placeholder', 'ft')
-      this.weightInput?.setAttribute('placeholder', 'lbs')
-    } else {
-      this.heightInput?.setAttribute('placeholder', 'm')
-      this.weightInput?.setAttribute('placeholder', 'kg')
+    // Check in the user has selected the imperial unit system
+    const isImperial = this.unitSystemSelect?.value === 'imperial'
+
+    // Define the placeholders for the height and weight fields
+    const placeholders = isImperial
+      ? { height: 'ft', weight: 'lbs' }
+      : { height: 'm', weight: 'kg' }
+
+    // Update the placeholders for the height and weight fields
+    if (this.heightInput) {
+      this.heightInput.setAttribute('placeholder', placeholders.height)
+    }
+    if (this.weightInput) {
+      this.weightInput.setAttribute('placeholder', placeholders.weight)
     }
   }
 

@@ -4,6 +4,9 @@ import { UserModel } from '../models/UserModel'
 import { HealthCalculatorModel } from '../models/HealthCalculatorModel'
 import { InterfaceController } from '../interfaces/InterfaceController'
 
+type CalculateHandler = (data: BmiFormData) => void
+type ResetHandler = () => void
+
 export class BmiController implements InterfaceController {
   private view: BmiView
   private user: UserModel
@@ -29,7 +32,7 @@ export class BmiController implements InterfaceController {
     this.view.fillForm(userData)
   }
 
-  private handleCalculate(formData: BmiFormData): void {
+  private handleCalculate: CalculateHandler = (formData) => {
     try {
       this.validateFormData(formData)
       this.user.setData(formData)
@@ -42,10 +45,18 @@ export class BmiController implements InterfaceController {
   }
 
   private validateFormData(formData: BmiFormData): void {
-    if (isNaN(formData.height) || formData.height <= 0) {
+    if (
+      formData.height === undefined ||
+      isNaN(formData.height) ||
+      formData.height <= 0
+    ) {
       throw new Error('Invalid height value')
     }
-    if (isNaN(formData.weight) || formData.weight <= 0) {
+    if (
+      formData.weight === undefined ||
+      isNaN(formData.weight) ||
+      formData.weight <= 0
+    ) {
       throw new Error('Invalid weight value')
     }
   }
@@ -58,7 +69,7 @@ export class BmiController implements InterfaceController {
     this.view.updateResults(bmi, bmiType, healthRisk, idealWeight)
   }
 
-  private handleReset(): void {
+  private handleReset: ResetHandler = () => {
     this.user.resetData()
     this.view.resetForm()
     this.view.hideError()
