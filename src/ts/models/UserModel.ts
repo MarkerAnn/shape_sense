@@ -18,7 +18,7 @@ export class UserModel {
     return userModelInstance
   }
 
-  public updateData(newData: Partial<User>): void {
+  public setData(newData: Partial<User>): void {
     Object.assign(this.data, newData)
     this.saveToSession()
   }

@@ -32,7 +32,7 @@ export class BmiController implements InterfaceController {
   private handleCalculate(formData: BmiFormData): void {
     try {
       this.validateFormData(formData)
-      this.user.updateData(formData)
+      this.user.setData(formData)
       this.updateView()
       console.log(this.user.getData(), 'handleCalculate')
       this.view.hideError()
