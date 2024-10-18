@@ -16,3 +16,30 @@ export interface TdeeFormData {
   gender: Gender
   activityLevel: ActivityLevel
 }
+
+export interface WaistHipRatioFormData {
+  unitSystem: UnitSystem
+  waist: number
+  hip: number
+}
+
+export interface WaistHeightRatioFormData {
+  unitSystem: UnitSystem
+  waist: number
+  height: number
+}
+
+export interface BodyFatPercentageFormData {
+  unitSystem: UnitSystem
+  gender: Gender
+  weight: number
+  waist: number
+  neck: number
+  hip?: number
+}
+
+export interface LeanBodyMassFormData {
+  unitSystem: UnitSystem
+  weight: number
+  waist: number
+}
