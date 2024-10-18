@@ -1,3 +1,9 @@
+import globals from 'globals'
+import typescriptParser from '@typescript-eslint/parser'
+import typescriptPlugin from '@typescript-eslint/eslint-plugin'
+import eslintPluginJs from '@eslint/js'
+import eslintPrettier from 'eslint-plugin-prettier'
+
 export default [
   {
     files: ['src/**/*.ts'],
@@ -5,17 +11,34 @@ export default [
       parser: typescriptParser,
       ecmaVersion: 'latest',
       sourceType: 'module',
+      globals: globals.browser,
     },
     plugins: {
       '@typescript-eslint': typescriptPlugin,
-      prettier,
+      prettier: eslintPrettier,
     },
-    extends: [
-      'eslint:recommended',
-      'plugin:@typescript-eslint/recommended',
-      'plugin:prettier/recommended',
-    ],
+    settings: {},
     rules: {
+      // ESLint's recommended JS rules
+      ...eslintPluginJs.configs.recommended.rules,
+
+      // TypeScript-ESLint recommended rules
+      ...typescriptPlugin.configs.recommended.rules,
+
+      // Prettier rules
+      'prettier/prettier': [
+        'error',
+        {
+          semi: false,
+          singleQuote: true,
+          trailingComma: 'es5',
+          printWidth: 80,
+          bracketSpacing: true,
+          arrowParens: 'always',
+          tabWidth: 2,
+        },
+      ],
+
       // Enforce no semicolons (as per my Prettier config)
       semi: ['error', 'never'],
 
@@ -26,17 +49,6 @@ export default [
       '@typescript-eslint/no-unused-vars': [
         'error',
         { argsIgnorePattern: '^_' },
-      ],
-
-      // Enforce Prettier rules
-      'prettier/prettier': [
-        'error',
-        {
-          semi: false,
-          singleQuote: true,
-          trailingComma: 'es5',
-          printWidth: 80, // Enforce max line length
-        },
       ],
 
       // Restrict certain import patterns
@@ -83,6 +95,13 @@ export default [
         { selector: 'class', format: ['PascalCase'] },
         { selector: 'interface', format: ['PascalCase'], prefix: ['I'] },
       ],
+
+      // New rules from Clean Code principles
+      'max-len': ['error', { code: 80 }],
+      'no-console': 'warn',
+      'no-magic-numbers': ['warn', { ignore: [-1, 0, 1, 2] }],
+      'prefer-arrow-callback': 'error',
+      'no-var': 'error',
     },
   },
   {
@@ -95,5 +114,4 @@ export default [
       'max-lines-per-function': 'off',
     },
   },
-  prettierConfig,
 ]

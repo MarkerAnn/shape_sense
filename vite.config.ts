@@ -16,9 +16,18 @@ export default defineConfig({
         main: path.resolve(__dirname, 'src/index.html'),
       },
     },
+    cssMinify: true, // Will delete my comments in pruduction/build mode
+    // Will delete my console.log() statements in pruduction/build mode
+    // minify: 'terser',
+    // terserOptions: {
+    //   compress: {
+    //     drop_console: true,
+    //   },
+    // },
   },
   server: {
     open: true,
+    hmr: true, // Will refresh the browser when I save a file
   },
   resolve: {
     alias: {
