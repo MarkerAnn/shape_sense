@@ -1,45 +1,28 @@
-import { UnitSystem } from '../enums/UnitSystem'
-import { Gender } from '../enums/Gender'
-import { ActivityLevel } from '../enums/ActivityLevel'
+import { User } from './User'
 
-export interface BmiFormData {
-  unitSystem: UnitSystem
-  height: number
-  weight: number
-}
+// BMI form data
+export type BmiFormData = Pick<User, 'unitSystem' | 'height' | 'weight'>
 
-export interface TdeeFormData {
-  unitSystem: UnitSystem
-  weight: number
-  height: number
-  age: number
-  gender: Gender
-  activityLevel: ActivityLevel
-}
+// TDEE form data
+export type TdeeFormData = Pick<
+  User,
+  'unitSystem' | 'weight' | 'height' | 'age' | 'gender' | 'activityLevel'
+>
 
-export interface WaistHipRatioFormData {
-  unitSystem: UnitSystem
-  waist: number
-  hip: number
-}
+// Waist-to-Hip Ratio form data
+export type WaistHipRatioFormData = Pick<User, 'unitSystem' | 'waist' | 'hip'>
 
-export interface WaistHeightRatioFormData {
-  unitSystem: UnitSystem
-  waist: number
-  height: number
-}
+// Waist-to-Height Ratio form data
+export type WaistHeightRatioFormData = Pick<
+  User,
+  'unitSystem' | 'waist' | 'height'
+>
 
-export interface BodyFatPercentageFormData {
-  unitSystem: UnitSystem
-  gender: Gender
-  weight: number
-  waist: number
-  neck: number
-  hip?: number
-}
+// Body Fat Percentage form data
+export type BodyFatPercentageFormData = Pick<
+  User,
+  'unitSystem' | 'gender' | 'weight' | 'waist' | 'neck' | 'hip'
+>
 
-export interface LeanBodyMassFormData {
-  unitSystem: UnitSystem
-  weight: number
-  waist: number
-}
+// Lean Body Mass form data
+export type LeanBodyMassFormData = Pick<User, 'unitSystem' | 'weight' | 'waist'>
