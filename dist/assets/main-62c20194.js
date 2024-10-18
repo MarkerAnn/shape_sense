@@ -1,0 +1,302 @@
+var I=Object.defineProperty;var S=(t,e,i)=>e in t?I(t,e,{enumerable:!0,configurable:!0,writable:!0,value:i}):t[e]=i;var l=(t,e,i)=>(S(t,typeof e!="symbol"?e+"":e,i),i);(function(){const e=document.createElement("link").relList;if(e&&e.supports&&e.supports("modulepreload"))return;for(const r of document.querySelectorAll('link[rel="modulepreload"]'))a(r);new MutationObserver(r=>{for(const s of r)if(s.type==="childList")for(const o of s.addedNodes)o.tagName==="LINK"&&o.rel==="modulepreload"&&a(o)}).observe(document,{childList:!0,subtree:!0});function i(r){const s={};return r.integrity&&(s.integrity=r.integrity),r.referrerPolicy&&(s.referrerPolicy=r.referrerPolicy),r.crossOrigin==="use-credentials"?s.credentials="include":r.crossOrigin==="anonymous"?s.credentials="omit":s.credentials="same-origin",s}function a(r){if(r.ep)return;r.ep=!0;const s=i(r);fetch(r.href,s)}})();var m=(t=>(t[t.HOME=0]="HOME",t[t.BMI=1]="BMI",t[t.BMR=2]="BMR",t[t.TDEE=3]="TDEE",t[t.BODY_COMPOSITION=4]="BODY_COMPOSITION",t[t.CALORIE_CALCULATION=5]="CALORIE_CALCULATION",t))(m||{});const M={0:"/",1:"/bmi",2:"/bmr",3:"/tdee",4:"/body-composition",5:"/calorie-calculation"};function A(t){const e=Object.entries(M).find(([i,a])=>a===t);return e?Number(e[0]):void 0}class w{}var u=(t=>(t.BMI="bmi",t.BMR="bmr",t.TDEE="tdee",t.BODY_COMPOSITION="body-composition",t.CALORIE_CALCULATION="calorie-calculation",t))(u||{});class B extends w{render(e){e.innerHTML=`
+        <section class="container">
+          <h2>Our Calculators</h2>
+          ${this.renderCalculatorItems()}
+        </section>
+      `}renderCalculatorItems(){return Object.values(u).map(e=>`
+        <div class="calculator-item">
+          <div>
+            <h3>${e}</h3>
+            <p>${this.getCalculatorDescription(e)}</p>
+            <div class="button-container">
+            <a href="#/${e.toLowerCase()}" class="button">Calculate</a>
+            </div>
+          </div>
+          <img src="./assets/images/${e.toLowerCase()}.png" alt="${e} illustration">
+        </div>
+      `).join("")}getCalculatorDescription(e){return{[u.BMI]:"Body Mass Index (BMI) - A measure of body fat based on weight and height.",[u.BMR]:"Basal Metabolic Rate (BMR) - The amount of energy your body needs to maintain basic functions while at rest.",[u.TDEE]:"Total Daily Energy Expenditure (TDEE) - The number of calories you burn daily, including activities and exercise.",[u.BODY_COMPOSITION]:"Body Composition - Calculate body fat percentage, waist-to-hip ratio, and lean body mass.",[u.CALORIE_CALCULATION]:"Calorie Calculations - Estimate daily calorie needs to reach your weight goal, and predict weight change based on your caloric intake."}[e]||"Description not available."}}class O{constructor(){l(this,"view");this.view=new B}init(e){this.view.render(e)}}const R=`
+      <section class="container">
+        <h2>BMI Calculator</h2>
+        <div class="content">
+        <p class="description">BMI is a measure of body fat based on height and weight that applies to adult men and women.</p>
+
+        <div class="additional-info">
+        <h2>What is BMI?</h2>
+        <p>Body Mass Index (BMI) is a simple calculation used to assess a person's body weight in relation to their height. It's calculated by dividing an individual's weight (in kilograms) by the square of their height (in meters). BMI is commonly used as a general indicator of whether someone is underweight, normal weight, overweight, or obese.</p>
+        <p>The BMI categories are:</p>
+        <ul>
+          <li>Underweight: BMI less than 18.5</li>
+          <li>Normal weight: BMI between 18.5 and 24.9</li>
+          <li>Overweight: BMI between 25 and 29.9</li>
+          <li>Obesity: BMI 30 or greater</li>
+        </ul>
+        <h3>Limitations of BMI</h3>
+        <p>While BMI is widely used, it has some limitations. It doesn't differentiate between muscle mass and fat mass, so individuals with high muscle mass (such as athletes) may be classified as overweight or obese even though they have low body fat. Additionally, BMI doesn't consider fat distribution, which is an important factor in assessing health risks. It also doesn't account for differences in body composition due to age, gender, or ethnicity.</p>
+        <p>For a more comprehensive assessment of health, BMI should be used alongside other measurements, such as waist-to-hip ratio or body fat percentage.</p>
+        </div>
+
+        <form id="bmi-form">
+          <div class="input-group">
+            <label for="unitSystem">Unit System</label>
+            <select id="unitSystem" name="unitSystem">
+              <option value="metric">Metric</option>
+              <option value="imperial">Imperial</option>
+            </select>
+          </div>
+          <div class="input-group">
+            <label for="height">Height</label>
+            <input type="text" id="height" name="height" placeholder="m">
+          </div>
+          <div class="input-group">
+            <label for="weight">Weight</label>
+            <input type="text" id="weight" name="weight" placeholder="kg">
+          </div>
+          <div class="button-group">
+            <button type="reset">Reset</button>
+            <button type="submit">Calculate</button>
+          </div>
+        </form>
+
+        <div class="error-message"></div>
+        <div class="results">
+          <h2>Results</h2>
+          <table>
+            <tr>
+              <td>BMI</td>
+              <td>-</td>
+            </tr>
+            <tr>
+              <td>Category</td>
+              <td>-</td>
+            </tr>
+            <tr>
+              <td>Health Risk</td>
+              <td>-</td>
+            </tr>
+            <tr>
+              <td>Ideal weight</td>
+              <td>-</td>
+            </tr>
+          </table>
+        </div>
+      </div>
+      <div class="sources">
+    Sources:
+    <ul>
+      <li>World Health Organization (WHO) – BMI Classification and Health Risks</li>
+      <li>National Institutes of Health (NIH) – Health Risks Associated with Overweight and Obesity</li>
+      <li>Centers for Disease Control and Prevention (CDC) – Body Mass Index and Health</li>
+      <li>Harvard School of Public Health – Understanding Obesity-Related Health Risks</li>
+    </ul>
+  </div>
+      </section>
+    `;class H extends w{constructor(){super(...arguments);l(this,"form",null);l(this,"errorMessage",null);l(this,"resultsTable",null);l(this,"heightInput",null);l(this,"weightInput",null);l(this,"unitSystemSelect",null)}render(i){var a;i.innerHTML=R,this.form=i.querySelector("#bmi-form"),this.errorMessage=i.querySelector(".error-message"),this.resultsTable=i.querySelector(".results table"),this.weightInput=i.querySelector("#weight"),this.heightInput=i.querySelector("#height"),this.unitSystemSelect=i.querySelector("#unitSystem"),(a=this.unitSystemSelect)==null||a.addEventListener("change",()=>this.updatePlaceholders())}fillForm(i){i.unitSystem&&this.unitSystemSelect&&(this.unitSystemSelect.value=i.unitSystem),i.height&&this.heightInput&&(this.heightInput.value=i.height.toString()),i.weight&&this.weightInput&&(this.weightInput.value=i.weight.toString()),console.log(i),this.updatePlaceholders()}updatePlaceholders(){var i,a,r,s,o;((i=this.unitSystemSelect)==null?void 0:i.value)==="imperial"?((a=this.heightInput)==null||a.setAttribute("placeholder","ft"),(r=this.weightInput)==null||r.setAttribute("placeholder","lbs")):((s=this.heightInput)==null||s.setAttribute("placeholder","m"),(o=this.weightInput)==null||o.setAttribute("placeholder","kg"))}bindCalculateEvent(i){var a;(a=this.form)==null||a.addEventListener("submit",r=>{r.preventDefault();const s=new FormData(this.form),o={unitSystem:s.get("unitSystem"),height:parseFloat(s.get("height")),weight:parseFloat(s.get("weight"))};i(o)})}showError(i){this.errorMessage&&(this.errorMessage.textContent=i,this.errorMessage.style.display="block")}hideError(){this.errorMessage&&(this.errorMessage.textContent="",this.errorMessage.style.display="none")}updateResults(i,a,r,s){if(this.resultsTable){const o=this.resultsTable.rows;o[0].cells[1].textContent=i.toFixed(2),o[1].cells[1].textContent=a,o[2].cells[1].textContent=r,o[3].cells[1].textContent=`${s[0].toFixed(0)} - ${s[1].toFixed(0)} kg`}}bindResetEvent(i){var a,r;(r=(a=this.form)==null?void 0:a.querySelector('button[type="reset"]'))==null||r.addEventListener("click",s=>{s.preventDefault(),i()})}resetForm(){this.form&&(this.form.reset(),this.updatePlaceholders()),this.clearResults()}clearResults(){if(this.resultsTable){const i=this.resultsTable.rows;i[0].cells[1].textContent="-",i[1].cells[1].textContent="-",i[2].cells[1].textContent="-"}}}class W{constructor(e,i){l(this,"view");l(this,"user");l(this,"calculator");this.user=e,this.calculator=i,this.view=new H}init(e){this.view.render(e),this.fillFormWithUserData(),console.log(this.user.getData(),"init"),this.view.bindCalculateEvent(this.handleCalculate.bind(this)),this.view.bindResetEvent(this.handleReset.bind(this))}fillFormWithUserData(){const e=this.user.getData();console.log(e,"construktor"),this.view.fillForm(e)}handleCalculate(e){try{this.validateFormData(e),this.user.updateData(e),this.updateView(),console.log(this.user.getData(),"handleCalculate"),this.view.hideError()}catch(i){this.view.showError(i.message)}}validateFormData(e){if(isNaN(e.height)||e.height<=0)throw new Error("Invalid height value");if(isNaN(e.weight)||e.weight<=0)throw new Error("Invalid weight value")}updateView(){const e=this.calculator.getBmi(),i=this.calculator.getBmiType(),a=this.calculator.getHealthRisk(),r=this.calculator.getIdealWeight();this.view.updateResults(e,i,a,r)}handleReset(){this.user.resetData(),this.view.resetForm(),this.view.hideError()}}const _=`
+<section class="container">
+    <h2>Body Composition Calculator</h2>
+    <div class="content">
+        <p class="description">Understand your body composition by calculating various metrics based on your body measurements. Get insights into your health status and risk factors.</p>
+
+        <div class="additional-info">
+            <h2>What is Body Composition?</h2>
+            <p>Body composition refers to the proportion of fat and non-fat mass in your body. A balanced body composition indicates a healthier lifestyle and can help reduce the risk of various health issues. It provides a deeper understanding beyond simple weight measurements, giving a comprehensive view of your physical condition.</p>
+            <h3>Key Measurements</h3>
+            <p>This calculator provides results for Waist-to-Hip Ratio (WHR), Waist-to-Height Ratio (WHtR), Body Fat Percentage, and Lean Body Mass. These measurements offer insights into fat distribution, potential health risks, and overall fitness levels:</p>
+            <ul>
+                <li>
+                    <strong>Waist-to-Hip Ratio (WHR):</strong> A useful indicator of fat distribution and potential risk for cardiovascular disease. 
+                    <em>Note:</em> WHR does not account for overall body fat percentage and may not accurately reflect risk for all body types, such as those with more muscle mass.
+                </li>
+                <li>
+                    <strong>Waist-to-Height Ratio (WHtR):</strong> An important measure for determining abdominal fat levels, which can be linked to health risks like diabetes and heart disease. 
+                    <em>Note:</em> WHtR focuses solely on abdominal fat and does not consider fat distribution in other areas of the body.
+                </li>
+                <li>
+                    <strong>Body Fat Percentage:</strong> The proportion of fat to your total body weight, providing a clearer picture of your health and fitness compared to BMI alone. 
+                    <em>Note:</em> Estimating body fat percentage through basic measurements may not be as accurate as methods like DEXA scans or hydrostatic weighing.
+                </li>
+                <li>
+                    <strong>Lean Body Mass:</strong> The weight of your muscles, bones, and organs, excluding fat. Understanding your lean body mass helps in setting fitness goals and managing weight. 
+                    <em>Note:</em> Lean body mass calculations can be affected by inaccuracies in body fat estimation, leading to less precise results.
+                </li>
+            </ul>
+        </div>
+
+        <!-- Form for Waist-to-Hip Ratio -->
+        <form id="waist-hip-ratio-form">
+            <h3>Calculate Waist-to-Hip Ratio</h3>
+
+        <div class="input-group">
+          <label for="unitSystem">Unit System</label>
+          <select id="unitSystem" name="unitSystem">
+            <option value="metric">Metric</option>
+            <option value="imperial">Imperial</option>
+          </select>
+        </div>
+        <div class="input-group">
+          <label for="waist">Waist Circumference</label>
+          <input type="text" id="waist" name="waist" placeholder="cm">
+        </div>
+        <div class="input-group">
+          <label for="hip">Hip Circumference</label>
+          <input type="text" id="hip" name="hip" placeholder="cm">
+        </div>
+        <div class="button-group">
+          <button type="submit">Calculate WHR</button>
+        </div>
+      </form>
+
+      <!-- Form for Waist-to-Height Ratio -->
+      <form id="waist-height-ratio-form">
+        <h3>Calculate Waist-to-Height Ratio</h3>
+        <div class="input-group">
+          <label for="unitSystem">Unit System</label>
+          <select id="unitSystem" name="unitSystem">
+            <option value="metric">Metric</option>
+            <option value="imperial">Imperial</option>
+          </select>
+        </div>
+        <div class="input-group">
+          <label for="waist">Waist Circumference</label>
+          <input type="text" id="waist" name="waist" placeholder="cm">
+        </div>
+        <div class="input-group">
+          <label for="height">Height</label>
+          <input type="text" id="height" name="height" placeholder="m">
+        </div>
+        <div class="button-group">
+          <button type="submit">Calculate WHtR</button>
+        </div>
+      </form>
+
+      <!-- Form for Body Fat Percentage -->
+      <form id="body-fat-percentage-form">
+        <h3>Calculate Body Fat Percentage</h3>
+        <div class="input-group">
+          <label for="unitSystem">Unit System</label>
+          <select id="unitSystem" name="unitSystem">
+            <option value="metric">Metric</option>
+            <option value="imperial">Imperial</option>
+          </select>
+        </div>
+        <div class="input-group">
+          <label for="gender">Gender</label>
+          <div>
+            <input type="radio" id="male" name="gender" value="male">
+            <label for="male">Male</label>
+            <input type="radio" id="female" name="gender" value="female">
+            <label for="female">Female</label>
+          </div>
+        </div>
+        <div class="input-group">
+          <label for="weight">Weight</label>
+          <input type="text" id="weight" name="weight" placeholder="kg">
+        </div>
+        <div class="input-group">
+          <label for="waist">Waist Circumference</label>
+          <input type="text" id="waist" name="waist" placeholder="cm">
+        </div>
+        <div class="input-group">
+          <label for="hip">Hip Circumference (for females only)</label>
+          <input type="text" id="hip" name="hip" placeholder="cm">
+        </div>
+        <div class="input-group">
+          <label for="neck">Neck Circumference</label>
+          <input type="text" id="neck" name="neck" placeholder="cm">
+        </div>
+        <div class="button-group">
+          <button type="submit">Calculate Body Fat Percentage</button>
+        </div>
+      </form>
+
+      <!-- Form for Lean Body Mass -->
+      <form id="lean-body-mass-form">
+        <h3>Calculate Lean Body Mass</h3>
+        <div class="input-group">
+          <label for="unitSystem">Unit System</label>
+          <select id="unitSystem" name="unitSystem">
+            <option value="metric">Metric</option>
+            <option value="imperial">Imperial</option>
+          </select>
+        </div>
+        <div class="input-group">
+          <label for="weight">Weight</label>
+          <input type="text" id="weight" name="weight" placeholder="kg">
+        </div>
+        <div class="input-group">
+          <label for="waist">Waist Circumference</label>
+          <input type="text" id="waist" name="waist" placeholder="cm">
+        </div>
+        <div class="button-group">
+          <button type="submit">Calculate Lean Body Mass</button>
+        </div>
+      </form>
+      
+      <!-- Error message area -->
+      <div class="error-message"></div>
+
+      <!-- Results area -->
+      <div class="results">
+        <h2>Results</h2>
+        <table>
+          <tr>
+            <td>Waist-to-Hip Ratio</td>
+            <td>-</td>
+          </tr>
+          <tr>
+            <td>Waist-to-Height Ratio</td>
+            <td>-</td>
+          </tr>
+          <tr>
+            <td>Body Fat Percentage</td>
+            <td>-</td>
+          </tr>
+          <tr>
+            <td>Lean Body Mass</td>
+            <td>-</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+    <div class="sources">
+      Sources:
+      <ul>
+        <li>Centers for Disease Control and Prevention (CDC) – Health Statistics</li>
+        <li>American Council on Exercise – Body Fat Percentage Guidelines</li>
+        <li>Harvard Medical School – Lean Body Mass Calculations</li>
+      </ul>
+    </div>
+  </section>
+`;class F extends w{render(e){e.innerHTML=_}}class L{constructor(e,i){l(this,"view");l(this,"user");l(this,"calculator");this.user=e,this.calculator=i,this.view=new F,console.log(this.user.getData()),console.log(this.calculator.getBmi())}init(e){this.view.render(e)}}class G{constructor(e,i){this.user=e,this.calculator=i}createController(e){switch(e){case m.HOME:return new O;case m.BMI:return new W(this.user,this.calculator);case m.BODY_COMPOSITION:return new L(this.user,this.calculator);default:throw new Error("404 Not Found")}}}class N{constructor(e,i){l(this,"currentController",null);l(this,"controllerFactory");this.controllerFactory=new G(e,i)}listen(){window.addEventListener("hashchange",()=>{const i=window.location.hash.slice(1);this.navigate(i)});const e=window.location.hash.slice(1)||"/";this.navigate(e)}navigate(e){const i=document.getElementById("app");if(!i)return;i.innerHTML="";const a=A(e);if(a!==void 0)try{this.currentController=this.controllerFactory.createController(a),this.currentController.init(i)}catch(r){console.error("Error creating controller:",r),i.innerHTML="<h2>An error occurred</h2>"}else i.innerHTML="<h2>404 Not Found</h2>"}}var E=(t=>(t.METRIC="metric",t.IMPERIAL="imperial",t))(E||{});let p=null;class C{constructor(){l(this,"data");const e=sessionStorage.getItem("userModel");this.data=e?JSON.parse(e):{unitSystem:"metric"}}static getInstance(){return p||(p=new C),p}updateData(e){Object.assign(this.data,e),this.saveToSession()}getData(){return{weight:this.data.weight,height:this.data.height,unitSystem:this.data.unitSystem,age:this.data.age,gender:this.data.gender,waist:this.data.waist,hip:this.data.hip,neck:this.data.neck,activityLevel:this.data.activityLevel,dailyCalories:this.data.dailyCalories,weightGoal:this.data.weightGoal,weeksToWeightGoal:this.data.weeksToWeightGoal}}resetData(){this.data={unitSystem:E.METRIC},this.saveToSession()}saveToSession(){sessionStorage.setItem("userModel",JSON.stringify(this.data))}}/**
+ * @license
+ * Copyright (c) [2024] [Angelica Marker]. ISC License. See LICENSE for details.
+ */class k{constructor(e,i,a,r,s,o){this.user=e,this.bmiCalculator=i,this.bodycompositionCalculator=a,this.bmrCalculator=r,this.tdeeCalculator=s,this.calorieCalculator=o}getBmi(){return this.bmiCalculator.calculateBmi(this.user)}getBmiType(){const e=this.getBmi();return this.bmiCalculator.calculateBmiType(e)}getBmiPrime(){const e=this.getBmi();return this.bmiCalculator.calculateBmiPrime(e)}getIdealWeight(){return this.bmiCalculator.calculateIdealWeight(this.user)}getWaistToHipRatio(){return this.bodycompositionCalculator.calculateWaistToHipRatio(this.user)}getWaistToHeightRatio(){return this.bodycompositionCalculator.calculateWaistToHeightRatio(this.user)}getBodyFatPercentage(){return this.bodycompositionCalculator.calculateBodyFatPercentage(this.user)}getLeanBodyMass(){return this.bodycompositionCalculator.calculateLeanBodyMass(this.user)}getBmrHarrisBenedict(){return this.bmrCalculator.calculateBmrHarrisBenedict(this.user)}getBmrMifflinStJeor(){return this.bmrCalculator.calculateBmrMifflinStJeor(this.user)}getTdeeHarrisBenedict(){const e=this.getBmrHarrisBenedict();return this.tdeeCalculator.calculateTdeeHarrisBenedict(this.user,e)}getTdeeMifflinStJeor(){const e=this.getBmrMifflinStJeor();return this.tdeeCalculator.calculateTdeeMifflinStJeor(this.user,e)}getCaloricSurplusOrDeficit(){const e=this.getTdeeHarrisBenedict();return this.calorieCalculator.calculateCaloricSurplusOrDeficit(this.user,e)}getEstimatedWeightChangeWeekly(){const e=this.getCaloricSurplusOrDeficit();return this.calorieCalculator.calculateEstimatedWeightChangeWeekly(e,this.user)}getEstimatedWeightChangeMonthly(){const e=this.getCaloricSurplusOrDeficit();return this.calorieCalculator.calculateEstimatedWeightChangeMonthly(e,this.user)}getEstimateTimeToWeightGoal(){const e=this.getCaloricSurplusOrDeficit();return this.calorieCalculator.calculateEstimatedWeeksToWeightGoal(e,this.user)}getCaloriesForWeightGoal(){const e=this.getTdeeHarrisBenedict();return this.calorieCalculator.calculateCaloriesForWeightGoal(this.user,e)}}/**
+ * @license
+ * Copyright (c) [2024] [Angelica Marker]. ISC License. See LICENSE for details.
+ */var c;(function(t){t.UnderweightSevereThinness="underweight, severe thinness",t.UnderweightModerateThinness="underweight, moderate thinness",t.UnderweightMildThinness="underweight, mild thinness",t.Normal="normal weight",t.Overweight="overweight, pre-obese",t.ObeseFirstGrade="obese, class I",t.ObeseSecondGrade="obese, class II",t.ObeseThirdGrade="obese, class III"})(c||(c={}));const T=[{min:0,max:15.9,type:c.UnderweightSevereThinness},{min:16,max:16.9,type:c.UnderweightModerateThinness},{min:17,max:18.4,type:c.UnderweightMildThinness},{min:18.5,max:24.9,type:c.Normal},{min:25,max:29.9,type:c.Overweight},{min:30,max:34.9,type:c.ObeseFirstGrade},{min:35,max:39.9,type:c.ObeseSecondGrade},{min:40,max:100,type:c.ObeseThirdGrade}];var g;(function(t){t.Sedentary="sedentary",t.Lightly="lightly",t.Moderately="moderately",t.Very="very",t.Extremely="extremely"})(g||(g={}));/**
+ * @license
+ * Copyright (c) [2024] [Angelica Marker]. ISC License. See LICENSE for details.
+ */class D{calculateBmi(e){return e.weight/Math.pow(e.height,2)}calculateBmiType(e){this.validateBmi(e);const i=this.roundBmi(e);return this.findBmiType(i)}calculateIdealWeight(e){const i=this.getNormalBmiRange(),a=this.calculateWeight(i.min,e.height),r=this.calculateWeight(i.max,e.height);return[a,r]}calculateBmiPrime(e){return e/25}validateBmi(e){if(e<=0||e>100)throw new Error(`BMI out of range. Please check your values. BMI: ${e}`)}roundBmi(e){return Math.round(e)}findBmiType(e){for(const i of T)if(e>=i.min&&e<=i.max)return i.type;throw new Error("Bmi Type could not be found")}getNormalBmiRange(){const e=T.find(i=>i.type===c.Normal);if(!e)throw new Error("Could not find normal BMI range.");return e}calculateWeight(e,i){return e*Math.pow(i,2)}}/**
+ * @license
+ * Copyright (c) [2024] [Angelica Marker]. ISC License. See LICENSE for details.
+ */class x{constructor(){this.CM_PER_METER=100,this.BODY_FAT_MALE={HEIGHT_LOG_FACTOR:70.041,WAIST_NECK_LOG_FACTOR:86.01,CONSTANT_FACTOR:36.76},this.BODY_FAT_FEMALE={HEIGHT_LOG_FACTOR:97.684,WAIST_HIP_NECK_LOG_FACTOR:163.205,CONSTANT_FACTOR:78.387},this.LEAN_BODY_MASS_MALE={WEIGHT_FACTOR:.407,HEIGHT_FACTOR:.267,SUBTRACTION_CONSTANT:19.2},this.LEAN_BODY_MASS_FEMALE={WEIGHT_FACTOR:.252,HEIGHT_FACTOR:.473,SUBTRACTION_CONSTANT:48.3}}calculateWaistToHipRatio(e){return this.validateWaistAndHip(e),e.waist/e.hip}calculateWaistToHeightRatio(e){this.validateWaistAndHeight(e);const i=this.convertHeightToCentimeter(e.height);return e.waist/i}calculateBodyFatPercentage(e){const i=this.convertHeightToCentimeter(e.height);return this.calculateBodyFatBasedOnGender(e,i)}calculateLeanBodyMass(e){const i=this.convertHeightToCentimeter(e.height);return this.calculateLeanBodyMassBasedOnGender(e,i)}convertHeightToCentimeter(e){return e*this.CM_PER_METER}calculateMaleBodyFat(e,i){this.validateWaistAndNeck(e);const a=e.waist-e.neck;this.validateDifference(a,"Invalid values: waist must be greater than neck for males.");const{HEIGHT_LOG_FACTOR:r,WAIST_NECK_LOG_FACTOR:s,CONSTANT_FACTOR:o}=this.BODY_FAT_MALE,n=r*Math.log10(i);return s*Math.log10(a)-n+o}calculateFemaleBodyFat(e,i){this.validateWaistHipAndNeck(e);const a=e.waist+e.hip-e.neck;this.validateDifference(a,"Invalid values: the sum of waist + hip - neck must be greater than zero for females.");const{HEIGHT_LOG_FACTOR:r,WAIST_HIP_NECK_LOG_FACTOR:s,CONSTANT_FACTOR:o}=this.BODY_FAT_FEMALE,n=r*Math.log10(i);return s*Math.log10(a)-n-o}validateWaistAndHip(e){if(!e.waist||!e.hip)throw new Error("Waist and hip measurements are required for waist to hip calculation.")}validateWaistAndHeight(e){if(!e.waist||!e.height)throw new Error("Waist and height measurements are required for waist to height calculation.")}validateWaistHipAndNeck(e){if(!e.waist||!e.neck||!e.hip)throw new Error("Waist, hip and neck is required to calculate body fat percentage for female")}validateWaistAndNeck(e){if(!e.waist||!e.neck)throw new Error("Waist and neck is required to calculate body fat percentage for male")}validateDifference(e,i){if(e<=0)throw new Error(i)}calculateBodyFatBasedOnGender(e,i){if(e.gender==="male")return this.calculateMaleBodyFat(e,i);if(e.gender==="female")return this.calculateFemaleBodyFat(e,i);throw new Error('Invalid gender. Gender must be either "male" or "female".')}calculateLeanBodyMassBasedOnGender(e,i){if(e.gender==="male")return this.calculateMaleLeanBodyMass(e,i);if(e.gender==="female")return this.calculateFemaleLeanBodyMass(e,i);throw new Error('Invalid gender. Gender must be either "male" or "female".')}calculateMaleLeanBodyMass(e,i){const{WEIGHT_FACTOR:a,HEIGHT_FACTOR:r,SUBTRACTION_CONSTANT:s}=this.LEAN_BODY_MASS_MALE;return a*e.weight+r*i-s}calculateFemaleLeanBodyMass(e,i){const{WEIGHT_FACTOR:a,HEIGHT_FACTOR:r,SUBTRACTION_CONSTANT:s}=this.LEAN_BODY_MASS_FEMALE;return a*e.weight+r*i-s}}/**
+ * @license
+ * Copyright (c) [2024] [Angelica Marker]. ISC License. See LICENSE for details.
+ */class P{constructor(){this.CM_PER_METER=100,this.MIFFLIN_ST_JEOR={WEIGHT_FACTOR:10,HEIGHT_FACTOR:6.25,AGE_FACTOR:5,MALE_ADJUSTMENT:5,FEMALE_ADJUSTMENT:-161},this.HARRIS_BENEDICT={FEMALE:{BASE:447.593,WEIGHT_FACTOR:9.247,HEIGHT_FACTOR:3.098,AGE_FACTOR:4.33},MALE:{BASE:88.362,WEIGHT_FACTOR:13.397,HEIGHT_FACTOR:4.799,AGE_FACTOR:5.677}}}calculateBmrHarrisBenedict(e){const i=this.convertHeightToCentimeter(e.height);return this.calculateBmrBasedOnGender(e,i)}calculateBmrMifflinStJeor(e){this.validateAge(e);const i=this.convertHeightToCentimeter(e.height),a=this.MIFFLIN_ST_JEOR.WEIGHT_FACTOR*e.weight,r=this.MIFFLIN_ST_JEOR.HEIGHT_FACTOR*i,s=this.MIFFLIN_ST_JEOR.AGE_FACTOR*e.age,o=e.gender==="male"?this.MIFFLIN_ST_JEOR.MALE_ADJUSTMENT:this.MIFFLIN_ST_JEOR.FEMALE_ADJUSTMENT;return a+r-s+o}convertHeightToCentimeter(e){return e*this.CM_PER_METER}harrisBenedictFemale(e,i){this.validateAge(e);const{BASE:a,WEIGHT_FACTOR:r,HEIGHT_FACTOR:s,AGE_FACTOR:o}=this.HARRIS_BENEDICT.FEMALE,n=r*e.weight,d=s*i,f=o*e.age;return a+n+d-f}harrisBenedictMale(e,i){this.validateAge(e);const{BASE:a,WEIGHT_FACTOR:r,HEIGHT_FACTOR:s,AGE_FACTOR:o}=this.HARRIS_BENEDICT.MALE,n=r*e.weight,d=s*i,f=o*e.age;return a+n+d-f}calculateBmrBasedOnGender(e,i){if(e.gender==="male")return this.harrisBenedictMale(e,i);if(e.gender==="female")return this.harrisBenedictFemale(e,i);throw new Error("Invalid gender, Gender must be either 'male' or 'female'.")}validateAge(e){if(!e.age)throw new Error("Age is required for calculateBmRHarrisBenedict method")}}/**
+ * @license
+ * Copyright (c) [2024] [Angelica Marker]. ISC License. See LICENSE for details.
+ */class U{constructor(){this.ACTIVITY_FACTORS={SEDENTARY:1.2,LIGHTLY:1.375,MODERATELY:1.55,VERY:1.725,EXTREMELY:1.9}}calculateTdeeMifflinStJeor(e,i){this.validateAgeAndActivityLevel(e);const a=i,r=this.getActivityFactor(e.activityLevel);return this.calculateTdee(a,r)}calculateTdeeHarrisBenedict(e,i){this.validateAgeAndActivityLevel(e);const a=i,r=this.getActivityFactor(e.activityLevel);return this.calculateTdee(a,r)}getActivityFactor(e){switch(e){case g.Sedentary:return this.ACTIVITY_FACTORS.SEDENTARY;case g.Lightly:return this.ACTIVITY_FACTORS.LIGHTLY;case g.Moderately:return this.ACTIVITY_FACTORS.MODERATELY;case g.Very:return this.ACTIVITY_FACTORS.VERY;case g.Extremely:return this.ACTIVITY_FACTORS.EXTREMELY;default:throw new Error("Activity level must be sedentary, lightly, moderately, very, or extremely")}}validateAgeAndActivityLevel(e){if(!e.age||!e.activityLevel)throw new Error("Age and activity level is required")}calculateTdee(e,i){return e*i}}/**
+ * @license
+ * Copyright (c) [2024] [Angelica Marker]. ISC License. See LICENSE for details.
+ */const J={min:0,max:700},Y={min:0,max:1543},$={min:0,max:2.5},q={min:0,max:8.2};function V(t){try{K(t),z(t),X(t),Q(t),Z(t),ee(t),j(t),te(t),ie(t),ae(t)}catch(e){const i=`Validation error in user object: ${JSON.stringify(t)} - ${e.message}. Stack trace: ${e.stack}`;throw new Error(i)}}function K(t){["age","waist","hip","neck","dailyCalories","weightGoal","weeksToWeightGoal"].forEach(i=>{if(i in t&&t[i]!==void 0&&typeof t[i]!="number")throw new TypeError(`${i} must be a number if provided`)})}function j(t){if(typeof t.unitSystem!="string")throw new TypeError(`Unit system must be a string. Check the unitSystem value in ${JSON.stringify(t)}`);if(t.unitSystem===void 0)throw new Error(`Unit system is required, imperial or metric. Check the unitSystem value in ${JSON.stringify(t)}`)}function b(t,e,i,a,r){if(t<e.min||t>e.max)throw new RangeError(`${i.charAt(0).toUpperCase()+i.slice(1)} using the ${a} system must be between ${e.min}-${e.max}. Check the ${i.toLowerCase()} value in ${JSON.stringify(r)}`)}function z(t){if(t.weight===void 0||typeof t.weight!="number")throw new Error(`Weight is required and must be a number. Check the weight value in ${JSON.stringify(t)}`);const e=t.unitSystem==="metric"?J:Y,i=t.unitSystem==="metric"?"metric":"imperial";b(t.weight,e,"weight",i,t)}function X(t){if(t.height===void 0||typeof t.height!="number")throw new Error(`Height is required and must be a number. Check the height value in ${JSON.stringify(t)}`);const e=t.unitSystem==="metric"?$:q,i=t.unitSystem==="metric"?"metric":"imperial";b(t.height,e,"height",i,t)}function Q(t){if(t.gender!==void 0&&t.gender!=="male"&&t.gender!=="female")throw new TypeError(`Gender must be male or female. Check the gender value in ${JSON.stringify(t)}`)}function Z(t){t.age!==void 0&&t.age<18&&console.warn(`Warning: health calculation might not be accurate for individuals under 18 years old. Check the age value in ${JSON.stringify(t)}`)}function ee(t){const e=["sedentary","lightly","moderately","very","extremely"];if(t.activityLevel!==void 0&&!e.includes(t.activityLevel))throw new TypeError(`Activity level must be sedentary, lightly, moderately, very or extremely. Check the activityLevel value in ${JSON.stringify(t)}`)}function te(t){if(t.dailyCalories!==void 0&&t.dailyCalories<0)throw new Error(`Daily calories can't be 0, leave the field empty if you don't want to use calorie calculation. User objekt - ${JSON.stringify(t)}`)}function ie(t){if(t.weightGoal!==void 0&&t.weightGoal<0)throw new Error(`The weight goal can't be 0, leave the field empty if you don't want to use calorie calculation. User objekt- ${JSON.stringify(t)}`)}function ae(t){if(t.weeksToWeightGoal!==void 0&&t.weeksToWeightGoal<0)throw new Error(`Weeks to reach weight goal must be equal or greater than 0. User objekt- ${JSON.stringify(t)}`)}/**
+ * @license
+ * Copyright (c) [2024] [Angelica Marker]. ISC License. See LICENSE for details.
+ */function re(t){return{...t}}/**
+ * @license
+ * Copyright (c) [2024] [Angelica Marker]. ISC License. See LICENSE for details.
+ */function se(t){return t.unitSystem==="metric"?t:{...t,height:oe(t.height),weight:v(t.weight),waist:t.waist!==void 0?y(t.waist):void 0,hip:t.hip!==void 0?y(t.hip):void 0,neck:t.neck!==void 0?y(t.neck):void 0,weightGoal:t.weightGoal!==void 0?v(t.weightGoal):void 0,unitSystem:"metric"}}function oe(t){return t*.3048}function v(t){return t*.453592}function y(t){return t*2.54}/**
+ * @license
+ * Copyright (c) [2024] [Angelica Marker]. ISC License. See LICENSE for details.
+ */class le{constructor(){this.DAYS_IN_WEEK=7,this.DAYS_IN_MONTH=30,this.CALORIES_PER_KILO=7700,this.REFERENCE_WEIGHT=70}calculateCaloricSurplusOrDeficit(e,i){return this.validateDailyCalories(e),i-e.dailyCalories}calculateEstimatedWeightChangeWeekly(e,i){return this.estimateWeightChange(e,i,this.DAYS_IN_WEEK)}calculateEstimatedWeightChangeMonthly(e,i){return this.estimateWeightChange(e,i,this.DAYS_IN_MONTH)}calculateEstimatedWeeksToWeightGoal(e,i){this.validateWeightGoal(i);const a=this.estimateWeightChange(e,i,this.DAYS_IN_WEEK),r=i.weightGoal-i.weight,o=Math.abs(r)/Math.abs(a);return Math.ceil(o)}calculateCaloriesForWeightGoal(e,i){this.validateWeightGoal(e),this.validateWeeksInUser(e);const a=e.weightGoal-e.weight,o=Math.abs(a)/e.weeksToWeightGoal*this.CALORIES_PER_KILO/this.DAYS_IN_WEEK;return a>0?Math.round(i+o):Math.round(i-o)}validateDailyCalories(e){if(!e.dailyCalories)throw new Error("dailyCalories is required for calorie calculation")}validateWeightGoal(e){if(!e.weightGoal)throw new Error("weightGoal is required for some calories calculation")}validateWeeksInUser(e){if(!e.weeksToWeightGoal)throw new Error("weeksToWeightGoal is required for some calories calculation")}estimateWeightChange(e,i,a){const r=this.CALORIES_PER_KILO*(i.weight/this.REFERENCE_WEIGHT);return e*a/r}}/**
+ * @license
+ * Copyright (c) [2024] [Angelica Marker]. ISC License. See LICENSE for details.
+ */class ne{static createHealthCalculator(e){V(e);const i=re(e),a=se(i),r=new D,s=new x,o=new P,n=new U,d=new le;return new k(a,r,s,o,n,d)}}var h=(t=>(t.UNDERWEIGHT_SEVERE="underweight, severe thinness",t.UNDERWEIGHT_MODERATE="underweight, moderate thinness",t.UNDERWEIGHT_MILD="underweight, mild thinness",t.NORMAL_WEIGHT="normal weight",t.OVERWEIGHT_PRE_OBESE="overweight, pre-obese",t.OBESE_CLASS_I="obese, class I",t.OBESE_CLASS_II="obese, class II",t.OBESE_CLASS_III="obese, class III",t))(h||{});class ce{static fromString(e){const i=e.toLowerCase().trim();for(const[a,r]of Object.entries(h))if(r.toLowerCase()===i)return h[a];throw new Error(`Invalid BMI category: ${e}`)}}function he(t){switch(t){case h.UNDERWEIGHT_SEVERE:return"High risk of malnutrition, weakened immune system, and more.";case h.UNDERWEIGHT_MODERATE:return"Risks include nutrient deficiencies and weakened immune response.";case h.UNDERWEIGHT_MILD:return"Moderate risk of malnutrition.";case h.NORMAL_WEIGHT:return"Lowest health risks with a balanced lifestyle.";case h.OVERWEIGHT_PRE_OBESE:return"Increased risk of cardiovascular diseases and type 2 diabetes.";case h.OBESE_CLASS_I:return"Significant risk of metabolic syndrome and heart disease.";case h.OBESE_CLASS_II:return"Increased risk for heart disease and stroke.";case h.OBESE_CLASS_III:return"Severe health risks including reduced life expectancy.";default:return"Unknown health risk."}}class de{constructor(e){l(this,"calculator");this.userModel=e,this.calculator=this.createCalculator()}createCalculator(){const e=this.userModel.getData();return ne.createHealthCalculator({unitSystem:e.unitSystem,weight:e.weight??70,height:e.height??1.75,age:e.age,gender:e.gender,waist:e.waist,hip:e.hip,neck:e.neck,activityLevel:e.activityLevel,dailyCalories:e.dailyCalories,weightGoal:e.weightGoal,weeksToWeightGoal:e.weeksToWeightGoal})}getBmi(){return this.calculator=this.createCalculator(),this.calculator.getBmi()}getBmiType(){this.calculator=this.createCalculator();const e=this.calculator.getBmiType();return ce.fromString(e)}getHealthRisk(){return he(this.getBmiType())}getBmiPrime(){return this.calculator=this.createCalculator(),this.calculator.getBmiPrime()}getIdealWeight(){return this.calculator=this.createCalculator(),this.calculator.getIdealWeight()}getBodyFatPercentage(){return this.calculator=this.createCalculator(),this.calculator.getBodyFatPercentage()}getWaistToHipRatio(){return this.calculator=this.createCalculator(),this.calculator.getWaistToHipRatio()}getWaistToHeightRatio(){return this.calculator=this.createCalculator(),this.calculator.getWaistToHeightRatio()}getLeanBodyMass(){return this.calculator=this.createCalculator(),this.calculator.getLeanBodyMass()}getBmrMifflinStJeor(){return this.calculator=this.createCalculator(),this.calculator.getBmrMifflinStJeor()}getBmrHarrisBenedict(){return this.calculator=this.createCalculator(),this.calculator.getBmrHarrisBenedict()}getTdeeMifflinStJeor(){return this.calculator=this.createCalculator(),this.calculator.getTdeeMifflinStJeor()}getTdeeHarrisBenedict(){return this.calculator=this.createCalculator(),this.calculator.getTdeeHarrisBenedict()}getCaloricSurplusOrDeficit(){return this.calculator=this.createCalculator(),this.calculator.getCaloricSurplusOrDeficit()}getEstimatedWeightChangeWeekly(){return this.calculator=this.createCalculator(),this.calculator.getEstimatedWeightChangeWeekly()}getEstimatedWeightChangeMonthly(){return this.calculator=this.createCalculator(),this.calculator.getEstimatedWeightChangeMonthly()}getEstimateTimeToWeightGoal(){return this.calculator=this.createCalculator(),this.calculator.getEstimateTimeToWeightGoal()}getCaloriesForWeightGoal(){return this.calculator=this.createCalculator(),this.calculator.getCaloriesForWeightGoal()}}class ue{constructor(e){l(this,"calculator");this.calculator=new de(e)}getBmi(){return this.calculator.getBmi()}getBmiType(){return this.calculator.getBmiType()}getHealthRisk(){return this.calculator.getHealthRisk()}getBmiPrime(){return this.calculator.getBmiPrime()}getIdealWeight(){return this.calculator.getIdealWeight()}getBodyFatPercentage(){return this.calculator.getBodyFatPercentage()}getWaistToHipRatio(){return this.calculator.getWaistToHipRatio()}getWaistToHeightRatio(){return this.calculator.getWaistToHeightRatio()}getLeanBodyMass(){return this.calculator.getLeanBodyMass()}getBmrMifflinStJeor(){return this.calculator.getBmrMifflinStJeor()}getBmrHarrisBenedict(){return this.calculator.getBmrHarrisBenedict()}getTdeeMifflinStJeor(){return this.calculator.getTdeeMifflinStJeor()}getTdeeHarrisBenedict(){return this.calculator.getTdeeHarrisBenedict()}getCaloricSurplusOrDeficit(){return this.calculator.getCaloricSurplusOrDeficit()}getEstimatedWeightChangeWeekly(){return this.calculator.getEstimatedWeightChangeWeekly()}getEstimatedWeightChangeMonthly(){return this.calculator.getEstimatedWeightChangeMonthly()}getCaloriesForWeightGoal(){return this.calculator.getCaloriesForWeightGoal()}getEstimateTimeToWeightGoal(){return this.calculator.getEstimateTimeToWeightGoal()}}class ge{constructor(){l(this,"router");l(this,"user");l(this,"calculator");this.user=C.getInstance(),this.calculator=new ue(this.user),this.router=new N(this.user,this.calculator)}start(){this.router.listen();const e=window.location.hash.slice(1)||"/";this.router.navigate(e)}}const me=new ge;me.start();
