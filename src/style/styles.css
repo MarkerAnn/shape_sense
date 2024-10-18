@@ -2,15 +2,21 @@ body {
   font-family: 'Arial', sans-serif;
   margin: 0;
   padding: 0;
-  background-color: #f5f5f5;
+  /* background-color: #f5f5f5; */
   /* background-color: #fff; */
-  /* background-color: #f9f6ec; */
+  background-color: #f9f6ec;
 }
 
 header {
   background-color: #fff;
   padding: 1rem;
   box-shadow: 0 4px 2px -2px gray;
+}
+
+footer {
+  color: #888;
+  border-top: 1px solid #ccc;
+  padding-top: 20px;
 }
 
 .header-content {
@@ -230,4 +236,10 @@ td {
 
 td {
   font-weight: bold;
+}
+
+.sources {
+  font-size: 0.8em;
+  color: #888;
+  margin: 20px;
 }

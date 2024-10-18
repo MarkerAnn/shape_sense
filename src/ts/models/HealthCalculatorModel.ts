@@ -1,7 +1,7 @@
 import { InterfaceHealthCalculator } from '../interfaces/InterfaceHealthCalculator'
 import { HealthCalculatorAdapter } from '../adapters/HealthCalculatorAdapter'
 import { UserModel } from './UserModel'
-import { getHealthRisk } from '../enums/HealthRisk'
+
 import { BmiCategory } from '../enums/BmiCategory'
 
 export class HealthCalculatorModel implements InterfaceHealthCalculator {
@@ -19,10 +19,10 @@ export class HealthCalculatorModel implements InterfaceHealthCalculator {
   getBmiType(): BmiCategory {
     return this.calculator.getBmiType()
   }
+  // TODO: Det är en string
 
   getHealthRisk(): string {
-    const healthRisk = getHealthRisk(this.getBmiType())
-    return healthRisk
+    return this.calculator.getHealthRisk()
   }
 
   getBmiPrime(): number {

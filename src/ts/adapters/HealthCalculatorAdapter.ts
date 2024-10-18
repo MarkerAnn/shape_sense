@@ -7,6 +7,7 @@ import { Gender } from '../enums/Gender'
 import { ActivityLevel } from '../enums/ActivityLevel'
 import { BmiCategory } from '../enums/BmiCategory'
 import { BmiCategoryConverter } from '../utils/BmiCategoryConverter'
+import { getHealthRisk } from '../enums/HealthRisk'
 
 export class HealthCalculatorAdapter implements InterfaceHealthCalculator {
   private calculator: ReturnType<
@@ -45,6 +46,11 @@ export class HealthCalculatorAdapter implements InterfaceHealthCalculator {
     const bmiTypeString = this.calculator.getBmiType()
 
     return BmiCategoryConverter.fromString(bmiTypeString)
+  }
+
+  getHealthRisk(): string {
+    const healthRisk = getHealthRisk(this.getBmiType())
+    return healthRisk
   }
 
   getBmiPrime(): number {

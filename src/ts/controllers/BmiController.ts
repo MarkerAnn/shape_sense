@@ -2,8 +2,9 @@ import { BmiView } from '../views/Bmiview'
 import { BmiFormData } from '../types/FormTypes'
 import { UserModel } from '../models/UserModel'
 import { HealthCalculatorModel } from '../models/HealthCalculatorModel'
+import { InterfaceController } from '../interfaces/InterfaceController'
 
-export class BmiController {
+export class BmiController implements InterfaceController {
   private view: BmiView
   private user: UserModel
   private calculator: HealthCalculatorModel
@@ -16,8 +17,16 @@ export class BmiController {
 
   init(container: HTMLElement): void {
     this.view.render(container)
+    this.fillFormWithUserData()
+    console.log(this.user.getData(), 'init')
     this.view.bindCalculateEvent(this.handleCalculate.bind(this))
     this.view.bindResetEvent(this.handleReset.bind(this))
+  }
+
+  private fillFormWithUserData(): void {
+    const userData = this.user.getData()
+    console.log(userData, 'construktor')
+    this.view.fillForm(userData)
   }
 
   private handleCalculate(formData: BmiFormData): void {
@@ -25,6 +34,7 @@ export class BmiController {
       this.validateFormData(formData)
       this.user.updateData(formData)
       this.updateView()
+      console.log(this.user.getData(), 'handleCalculate')
       this.view.hideError()
     } catch (error) {
       this.view.showError((error as Error).message)
@@ -44,7 +54,8 @@ export class BmiController {
     const bmi = this.calculator.getBmi()
     const bmiType = this.calculator.getBmiType()
     const healthRisk = this.calculator.getHealthRisk()
-    this.view.updateResults(bmi, bmiType, healthRisk)
+    const idealWeight = this.calculator.getIdealWeight()
+    this.view.updateResults(bmi, bmiType, healthRisk, idealWeight)
   }
 
   private handleReset(): void {

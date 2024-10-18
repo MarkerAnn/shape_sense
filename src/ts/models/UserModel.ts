@@ -49,3 +49,5 @@ export class UserModel {
     sessionStorage.setItem('userModel', JSON.stringify(this.data))
   }
 }
+
+// TODO: Static

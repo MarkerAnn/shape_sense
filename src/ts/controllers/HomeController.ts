@@ -1,6 +1,7 @@
 import { HomeView } from '../views/HomeView'
+import { InterfaceController } from '../interfaces/InterfaceController'
 
-export class HomeController {
+export class HomeController implements InterfaceController {
   private view: HomeView
 
   constructor() {

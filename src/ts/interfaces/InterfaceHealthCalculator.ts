@@ -2,6 +2,7 @@ import { BmiCategory } from '../enums/BmiCategory'
 export interface InterfaceHealthCalculator {
   getBmi(): number
   getBmiType(): BmiCategory
+  getHealthRisk(): string
   getBmiPrime(): number
   getIdealWeight(): [number, number]
   getWaistToHipRatio(): number
