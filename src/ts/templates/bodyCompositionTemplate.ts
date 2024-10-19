@@ -2,29 +2,68 @@ export const bodyCompositionTemplate = `
 <section class="container">
     <h2>Body Composition Calculator</h2>
     <div class="content">
-        <p class="description">Understand your body composition by calculating various metrics based on your body measurements. Get insights into your health status and risk factors.</p>
+        <p class="description">
+        Understand your body composition by calculating 
+        various metrics based on your body measurements.
+        Get insights into your health status and risk factors.</p>
 
         <div class="additional-info">
             <h2>What is Body Composition?</h2>
-            <p>Body composition refers to the proportion of fat and non-fat mass in your body. A balanced body composition indicates a healthier lifestyle and can help reduce the risk of various health issues. It provides a deeper understanding beyond simple weight measurements, giving a comprehensive view of your physical condition.</p>
+            <p>
+            Body composition refers to the proportion
+            of fat and non-fat mass in your body. 
+            A balanced body composition indicates a healthier
+            lifestyle and can help reduce the risk of various health issues.
+            It provides a deeper understanding beyond simple
+            weight measurements, giving a comprehensive view
+            of your physical condition.</p>
             <h3>Key Measurements</h3>
-            <p>This calculator provides results for Waist-to-Hip Ratio (WHR), Waist-to-Height Ratio (WHtR), Body Fat Percentage, and Lean Body Mass. These measurements offer insights into fat distribution, potential health risks, and overall fitness levels:</p>
+            <p>
+            This calculator provides results for 
+            Waist-to-Hip Ratio (WHR), Waist-to-Height Ratio (WHtR),
+            Body Fat Percentage, and Lean Body Mass. 
+            These measurements offer insights into fat distribution, 
+            potential health risks, and overall fitness levels:</p>
             <ul>
                 <li>
-                    <strong>Waist-to-Hip Ratio (WHR):</strong> A useful indicator of fat distribution and potential risk for cardiovascular disease. 
-                    <em>Note:</em> WHR does not account for overall body fat percentage and may not accurately reflect risk for all body types, such as those with more muscle mass.
+                    <strong>Waist-to-Hip Ratio (WHR):</strong> 
+                    A useful indicator of fat distribution 
+                    and potential risk for cardiovascular disease. 
+                    <em>Note:</em> 
+                    WHR does not account for overall body fat percentage 
+                    and may not accurately reflect risk for all body types, 
+                    such as those with more muscle mass.
                 </li>
                 <li>
-                    <strong>Waist-to-Height Ratio (WHtR):</strong> An important measure for determining abdominal fat levels, which can be linked to health risks like diabetes and heart disease. 
-                    <em>Note:</em> WHtR focuses solely on abdominal fat and does not consider fat distribution in other areas of the body.
+                    <strong>Waist-to-Height Ratio (WHtR):</strong> 
+                    An important measure for determining abdominal fat levels, 
+                    which can be linked to health risks like 
+                    diabetes and heart disease. 
+                    <em>Note:</em> 
+                    WHtR focuses solely on abdominal fat 
+                    and does not consider fat distribution 
+                    in other areas of the body.
                 </li>
                 <li>
-                    <strong>Body Fat Percentage:</strong> The proportion of fat to your total body weight, providing a clearer picture of your health and fitness compared to BMI alone. 
-                    <em>Note:</em> Estimating body fat percentage through basic measurements may not be as accurate as methods like DEXA scans or hydrostatic weighing.
+                    <strong>Body Fat Percentage:</strong> 
+                    The proportion of fat to your total body weight, 
+                    providing a clearer picture of your health and fitness 
+                    compared to BMI alone. 
+                    <em>Note:</em> 
+                    Estimating body fat percentage 
+                    through basic measurements may not be as 
+                    accurate as methods like DEXA scans or hydrostatic weighing.
                 </li>
                 <li>
-                    <strong>Lean Body Mass:</strong> The weight of your muscles, bones, and organs, excluding fat. Understanding your lean body mass helps in setting fitness goals and managing weight. 
-                    <em>Note:</em> Lean body mass calculations can be affected by inaccuracies in body fat estimation, leading to less precise results.
+                    <strong>Lean Body Mass:</strong> 
+                    The weight of your muscles, bones, and organs, 
+                    excluding fat. 
+                    Understanding your lean body mass helps in setting 
+                    fitness goals and managing weight. 
+                    <em>Note:</em> 
+                    Lean body mass calculations can be 
+                    affected by inaccuracies in body fat estimation, 
+                    leading to less precise results.
                 </li>
             </ul>
         </div>

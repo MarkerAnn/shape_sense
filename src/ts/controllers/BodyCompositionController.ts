@@ -28,7 +28,7 @@ export class BodyCompositionController implements InterfaceController {
       const data = this.extractFormData(formId, formData)
       this.user.setData(data)
 
-      let results: Record<string, number> = {}
+      const results: Record<string, number> = {}
       switch (formId) {
         case 'waistHipRatio':
           results.waistHipRatio = this.calculator.getWaistToHipRatio()

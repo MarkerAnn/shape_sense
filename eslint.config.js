@@ -36,6 +36,7 @@ export default [
           bracketSpacing: true,
           arrowParens: 'always',
           tabWidth: 2,
+          printWidth: 80,
         },
       ],
 
