@@ -88,6 +88,7 @@ export const bodyCompositionTemplate = `
           <input type="text" id="hip" name="hip" placeholder="cm">
         </div>
         <div class="button-group">
+          <button type="reset">Reset</button>
           <button type="submit">Calculate WHR</button>
         </div>
       </form>
@@ -111,6 +112,7 @@ export const bodyCompositionTemplate = `
           <input type="text" id="height" name="height" placeholder="m">
         </div>
         <div class="button-group">
+          <button type="reset">Reset</button>
           <button type="submit">Calculate WHtR</button>
         </div>
       </form>
@@ -151,6 +153,7 @@ export const bodyCompositionTemplate = `
           <input type="text" id="neck" name="neck" placeholder="cm">
         </div>
         <div class="button-group">
+          <button type="reset">Reset</button>
           <button type="submit">Calculate Body Fat Percentage</button>
         </div>
       </form>
@@ -183,6 +186,7 @@ export const bodyCompositionTemplate = `
           <input type="text" id="height" name="height" placeholder="cm">
         </div>
         <div class="button-group">
+          <button type="reset">Reset</button>
           <button type="submit">Calculate Lean Body Mass</button>
         </div>
       </form>
@@ -194,29 +198,31 @@ export const bodyCompositionTemplate = `
       <div class="results">
         <h2>Results</h2>
         <table>
-          <tr>
+          <tr data-result="waistHipRatio">
             <td>Waist-to-Hip Ratio</td>
             <td>-</td>
           </tr>
-          <tr>
+          <tr data-result="waistHeightRatio">
             <td>Waist-to-Height Ratio</td>
             <td>-</td>
           </tr>
-          <tr>
+          <tr data-result="bodyFatPercentage">
             <td>Body Fat Percentage</td>
             <td>-</td>
           </tr>
-          <tr>
+          <tr data-result="leanBodyMass">
             <td>Lean Body Mass</td>
             <td>-</td>
           </tr>
         </table>
+
       </div>
     </div>
     <div class="sources">
       Sources:
       <ul>
-        <li>Centers for Disease Control and Prevention (CDC) – Health Statistics</li>
+        <li>Centers for Disease Control and Prevention (CDC) – 
+        Health Statistics</li>
         <li>American Council on Exercise – Body Fat Percentage Guidelines</li>
         <li>Harvard Medical School – Lean Body Mass Calculations</li>
       </ul>

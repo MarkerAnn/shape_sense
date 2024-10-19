@@ -4,6 +4,7 @@ import { UserModel } from '../models/UserModel'
 import { HealthCalculatorModel } from '../models/HealthCalculatorModel'
 import { InterfaceController } from '../interfaces/InterfaceController'
 
+// Define my handlers
 type CalculateHandler = (data: BmiFormData) => void
 type ResetHandler = () => void
 

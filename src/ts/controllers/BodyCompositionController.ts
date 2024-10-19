@@ -6,6 +6,13 @@ import { InterfaceController } from '../interfaces/InterfaceController'
 import { UnitSystem } from '../enums/UnitSystem'
 import { Gender } from '../enums/Gender'
 
+// Define handler types for each form
+type WaistHipRatioHandler = (formData: FormData) => void
+type WaistHeightRatioHandler = (formData: FormData) => void
+type BodyFatPercentageHandler = (formData: FormData) => void
+type LeanBodyMassHandler = (formData: FormData) => void
+type ResetHandler = () => void
+
 export class BodyCompositionController implements InterfaceController {
   private view: BodyCompositionView
   private user: UserModel
@@ -19,66 +26,113 @@ export class BodyCompositionController implements InterfaceController {
 
   init(container: HTMLElement): void {
     this.view.render(container)
-    this.view.fillForm(this.user.getData())
-    this.view.bindCalculateEvents(this.handleCalculate.bind(this))
+    this.fillFormWithUserData()
+    this.bindFormHandlers()
   }
 
-  private handleCalculate(formId: string, formData: FormData): void {
+  private fillFormWithUserData(): void {
+    const userData = this.user.getData()
+    this.view.fillForm(userData)
+  }
+
+  private bindFormHandlers(): void {
+    this.view.bindWaistHipRatioEvent(this.handleWaistHipRatio.bind(this))
+    this.view.bindWaistHeightRatioEvent(this.handleWaistHeightRatio.bind(this))
+    this.view.bindBodyFatPercentageEvent(
+      this.handleBodyFatPercentage.bind(this)
+    )
+    this.view.bindLeanBodyMassEvent(this.handleLeanBodyMass.bind(this))
+    this.view.bindResetEvents(this.handleReset.bind(this))
+  }
+
+  private handleWaistHipRatio: WaistHipRatioHandler = (formData) => {
     try {
-      const data = this.extractFormData(formId, formData)
+      const data = this.extractWaistHipRatioData(formData)
       this.user.setData(data)
-
-      const results: Record<string, number> = {}
-      switch (formId) {
-        case 'waistHipRatio':
-          results.waistHipRatio = this.calculator.getWaistToHipRatio()
-          break
-        case 'waistHeightRatio':
-          results.waistHeightRatio = this.calculator.getWaistToHeightRatio()
-          break
-        case 'bodyFatPercentage':
-          results.bodyFatPercentage = this.calculator.getBodyFatPercentage()
-          break
-        case 'leanBodyMass':
-          data.gender = formData.get('gender') as Gender
-          data.weight = this.parseFloat(formData.get('weight') as string)
-          data.height = this.parseFloat(formData.get('height') as string)
-          break
-      }
-
-      this.view.updateResults(results)
+      const waistHipRatio = this.calculator.getWaistToHipRatio()
+      this.view.updateResults({ waistHipRatio })
       this.view.hideError()
     } catch (error) {
       this.view.showError((error as Error).message)
     }
   }
 
-  private extractFormData(formId: string, formData: FormData): Partial<User> {
-    const data: Partial<User> = {
+  private handleWaistHeightRatio: WaistHeightRatioHandler = (formData) => {
+    try {
+      const data = this.extractWaistHeightRatioData(formData)
+      this.user.setData(data)
+      const waistHeightRatio = this.calculator.getWaistToHeightRatio()
+      this.view.updateResults({ waistHeightRatio })
+      this.view.hideError()
+    } catch (error) {
+      this.view.showError((error as Error).message)
+    }
+  }
+
+  private handleBodyFatPercentage: BodyFatPercentageHandler = (formData) => {
+    try {
+      const data = this.extractBodyFatPercentageData(formData)
+      this.user.setData(data)
+      const bodyFatPercentage = this.calculator.getBodyFatPercentage()
+      this.view.updateResults({ bodyFatPercentage })
+      this.view.hideError()
+    } catch (error) {
+      this.view.showError((error as Error).message)
+    }
+  }
+
+  private handleLeanBodyMass: LeanBodyMassHandler = (formData) => {
+    try {
+      const data = this.extractLeanBodyMassData(formData)
+      this.user.setData(data)
+      const leanBodyMass = this.calculator.getLeanBodyMass()
+      this.view.updateResults({ leanBodyMass })
+      this.view.hideError()
+    } catch (error) {
+      this.view.showError((error as Error).message)
+    }
+  }
+
+  private handleReset: ResetHandler = () => {
+    this.user.resetData()
+    this.view.resetForms()
+    this.view.hideError()
+  }
+
+  private extractWaistHipRatioData(formData: FormData): Partial<User> {
+    return {
       unitSystem: formData.get('unitSystem') as UnitSystem,
+      waist: this.parseFloat(formData.get('waist') as string),
+      hip: this.parseFloat(formData.get('hip') as string),
     }
+  }
 
-    switch (formId) {
-      case 'waistHipRatio':
-      case 'waistHeightRatio':
-        data.waist = this.parseFloat(formData.get('waist') as string)
-        data.hip = this.parseFloat(formData.get('hip') as string)
-        data.height = this.parseFloat(formData.get('height') as string)
-        break
-      case 'bodyFatPercentage':
-        data.gender = formData.get('gender') as Gender
-        data.weight = this.parseFloat(formData.get('weight') as string)
-        data.waist = this.parseFloat(formData.get('waist') as string)
-        data.neck = this.parseFloat(formData.get('neck') as string)
-        data.hip = this.parseFloat(formData.get('hip') as string)
-        break
-      case 'leanBodyMass':
-        data.weight = this.parseFloat(formData.get('weight') as string)
-        data.waist = this.parseFloat(formData.get('waist') as string)
-        break
+  private extractWaistHeightRatioData(formData: FormData): Partial<User> {
+    return {
+      unitSystem: formData.get('unitSystem') as UnitSystem,
+      waist: this.parseFloat(formData.get('waist') as string),
+      height: this.parseFloat(formData.get('height') as string),
     }
+  }
 
-    return data
+  private extractBodyFatPercentageData(formData: FormData): Partial<User> {
+    return {
+      unitSystem: formData.get('unitSystem') as UnitSystem,
+      gender: formData.get('gender') as Gender,
+      weight: this.parseFloat(formData.get('weight') as string),
+      waist: this.parseFloat(formData.get('waist') as string),
+      neck: this.parseFloat(formData.get('neck') as string),
+      hip: this.parseFloat(formData.get('hip') as string),
+    }
+  }
+
+  private extractLeanBodyMassData(formData: FormData): Partial<User> {
+    return {
+      unitSystem: formData.get('unitSystem') as UnitSystem,
+      gender: formData.get('gender') as Gender,
+      weight: this.parseFloat(formData.get('weight') as string),
+      height: this.parseFloat(formData.get('height') as string),
+    }
   }
 
   private parseFloat(value: string): number {

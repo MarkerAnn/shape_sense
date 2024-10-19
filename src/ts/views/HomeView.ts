@@ -23,7 +23,8 @@ export class HomeView extends AbstractView {
             <a href="#/${type.toLowerCase()}" class="button">Calculate</a>
             </div>
           </div>
-          <img src="./assets/images/${type.toLowerCase()}.png" alt="${type} illustration">
+          <img src="./assets/images/${type.toLowerCase()}.png" 
+          alt="${type} illustration">
         </div>
       `
       )

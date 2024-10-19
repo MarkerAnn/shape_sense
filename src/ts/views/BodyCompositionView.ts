@@ -3,45 +3,39 @@ import { bodyCompositionTemplate } from '../templates/bodyCompositionTemplate'
 import { User } from '../types/User'
 
 export class BodyCompositionView extends AbstractView {
-  private forms: { [key: string]: HTMLFormElement } = {}
+  private container: HTMLElement | null = null
+  private forms: {
+    waistHipRatio: HTMLFormElement
+    waistHeightRatio: HTMLFormElement
+    bodyFatPercentage: HTMLFormElement
+    leanBodyMass: HTMLFormElement
+  } | null = null
   private errorMessage: HTMLElement | null = null
   private resultsTable: HTMLTableElement | null = null
-  private unitSystemSelects: NodeListOf<HTMLSelectElement> | null = null
 
   render(container: HTMLElement): void {
-    container.innerHTML = bodyCompositionTemplate
+    this.container = container
+    this.container.innerHTML = bodyCompositionTemplate
 
     this.forms = {
-      waistHipRatio: container.querySelector(
+      waistHipRatio: this.container.querySelector(
         '#waist-hip-ratio-form'
       ) as HTMLFormElement,
-      waistHeightRatio: container.querySelector(
+      waistHeightRatio: this.container.querySelector(
         '#waist-height-ratio-form'
       ) as HTMLFormElement,
-      bodyFatPercentage: container.querySelector(
+      bodyFatPercentage: this.container.querySelector(
         '#body-fat-percentage-form'
       ) as HTMLFormElement,
-      leanBodyMass: container.querySelector(
+      leanBodyMass: this.container.querySelector(
         '#lean-body-mass-form'
       ) as HTMLFormElement,
     }
 
-    // Check if all of the forms have been rendered
-    Object.entries(this.forms).forEach(([key, form]) => {
-      if (!form) {
-        console.error(`Form ${key} not found in the template`)
-      }
-    })
+    this.errorMessage = this.container.querySelector('.error-message')
+    this.resultsTable = this.container.querySelector('.results table')
 
-    this.errorMessage = container.querySelector('.error-message')
-    this.resultsTable = container.querySelector('.results table')
-    this.unitSystemSelects = container.querySelectorAll(
-      'select[name="unitSystem"]'
-    )
-
-    this.unitSystemSelects?.forEach((select) => {
-      select.addEventListener('change', () => this.updatePlaceholders())
-    })
+    this.initializeUnitSystemListeners()
   }
 
   fillForm(userData: Partial<User>): void {
@@ -53,8 +47,83 @@ export class BodyCompositionView extends AbstractView {
     this.updatePlaceholders()
   }
 
+  bindWaistHipRatioEvent(handler: (formData: FormData) => void): void {
+    this.forms?.waistHipRatio.addEventListener('submit', (event) => {
+      event.preventDefault()
+      console.log(FormData)
+      handler(new FormData(this.forms!.waistHipRatio))
+    })
+  }
+
+  bindWaistHeightRatioEvent(handler: (formData: FormData) => void): void {
+    this.forms?.waistHeightRatio.addEventListener('submit', (event) => {
+      event.preventDefault()
+      handler(new FormData(this.forms!.waistHeightRatio))
+    })
+  }
+
+  bindBodyFatPercentageEvent(handler: (formData: FormData) => void): void {
+    this.forms?.bodyFatPercentage.addEventListener('submit', (event) => {
+      event.preventDefault()
+      handler(new FormData(this.forms!.bodyFatPercentage))
+    })
+  }
+
+  bindLeanBodyMassEvent(handler: (formData: FormData) => void): void {
+    this.forms?.leanBodyMass.addEventListener('submit', (event) => {
+      event.preventDefault()
+      handler(new FormData(this.forms!.leanBodyMass))
+    })
+  }
+
+  bindResetEvents(handler: () => void): void {
+    Object.values(this.forms!).forEach((form) => {
+      const resetButton = form.querySelector('button[type="reset"]')
+      if (resetButton) {
+        resetButton.addEventListener('click', (event) => {
+          event.preventDefault()
+          handler()
+        })
+      }
+    })
+  }
+
+  showError(message: string): void {
+    if (this.errorMessage) {
+      this.errorMessage.textContent = message
+      this.errorMessage.style.display = 'block'
+    }
+  }
+
+  hideError(): void {
+    if (this.errorMessage) {
+      this.errorMessage.textContent = ''
+      this.errorMessage.style.display = 'none'
+    }
+  }
+
+  updateResults(results: Record<string, number>): void {
+    if (this.resultsTable) {
+      Object.entries(results).forEach(([key, value]) => {
+        const row = this.resultsTable!.querySelector(`tr[data-result="${key}"]`)
+        if (row) {
+          row.querySelector('td:last-child')!.textContent = value.toFixed(2)
+        }
+      })
+    }
+  }
+
+  resetForms(): void {
+    Object.values(this.forms!).forEach((form) => form.reset())
+    this.updatePlaceholders()
+    if (this.resultsTable) {
+      const resultCells = this.resultsTable.querySelectorAll('td:last-child')
+      resultCells.forEach((cell) => (cell.textContent = '-'))
+    }
+  }
+
   private setFormValue(name: string, value: string): void {
-    Object.values(this.forms).forEach((form) => {
+    Object.values(this.forms!).forEach((form) => {
       const input = form.querySelector<HTMLInputElement | HTMLSelectElement>(
         `[name="${name}"]`
       )
@@ -75,6 +144,16 @@ export class BodyCompositionView extends AbstractView {
     })
   }
 
+  private initializeUnitSystemListeners(): void {
+    const unitSystemSelects =
+      this.container!.querySelectorAll<HTMLSelectElement>(
+        'select[name="unitSystem"]'
+      )
+    unitSystemSelects.forEach((select) => {
+      select.addEventListener('change', () => this.updatePlaceholders())
+    })
+  }
+
   private updatePlaceholders(): void {
     const placeholders = {
       imperial: {
@@ -87,59 +166,17 @@ export class BodyCompositionView extends AbstractView {
       metric: { waist: 'cm', hip: 'cm', height: 'm', weight: 'kg', neck: 'cm' },
     }
 
-    this.unitSystemSelects?.forEach((select) => {
-      const system = select.value as keyof typeof placeholders
-      const form = select.closest('form')
-      if (form) {
-        Object.entries(placeholders[system]).forEach(([name, unit]) => {
-          const input = form.querySelector<HTMLInputElement>(`[name="${name}"]`)
-          if (input) {
-            input.placeholder = unit
-          }
-        })
-      }
-    })
-  }
-
-  bindCalculateEvents(
-    handler: (formId: string, formData: FormData) => void
-  ): void {
-    Object.entries(this.forms).forEach(([formId, form]) => {
-      form.addEventListener('submit', (event) => {
-        event.preventDefault()
-        const formData = new FormData(form)
-        handler(formId, formData)
-      })
-    })
-  }
-
-  showError(message: string): void {
-    if (this.errorMessage) {
-      this.errorMessage.textContent = message
-      this.errorMessage.style.display = 'block'
-    }
-  }
-
-  hideError(): void {
-    if (this.errorMessage) {
-      this.errorMessage.textContent = ''
-      this.errorMessage.style.display = 'none'
-    }
-  }
-
-  updateResults(results: Record<string, number>): void {
-    if (this.resultsTable) {
-      Object.values(results).forEach((value, index) => {
-        const row = this.resultsTable!.rows[index]
-        if (row) {
-          row.cells[1].textContent = value.toFixed(2)
+    Object.values(this.forms!).forEach((form) => {
+      const unitSystem = (
+        form.querySelector('select[name="unitSystem"]') as HTMLSelectElement
+      ).value
+      const system = unitSystem as keyof typeof placeholders
+      Object.entries(placeholders[system]).forEach(([name, unit]) => {
+        const input = form.querySelector<HTMLInputElement>(`[name="${name}"]`)
+        if (input) {
+          input.placeholder = unit
         }
       })
-    }
-  }
-
-  resetForms(): void {
-    Object.values(this.forms).forEach((form) => form.reset())
-    this.updatePlaceholders()
+    })
   }
 }

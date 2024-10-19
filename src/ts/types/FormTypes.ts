@@ -1,4 +1,6 @@
 import { User } from './User'
+import { Gender } from '../enums/Gender'
+import { UnitSystem } from '../enums/UnitSystem'
 
 export type BmiFormData = Pick<User, 'unitSystem' | 'height' | 'weight'>
 
@@ -20,3 +22,14 @@ export type BodyFatPercentageFormData = Pick<
 >
 
 export type LeanBodyMassFormData = Pick<User, 'unitSystem' | 'weight' | 'waist'>
+
+export type BodyCompositionFormData = {
+  formId: string
+  unitSystem: UnitSystem
+  waist?: number
+  hip?: number
+  height?: number
+  weight?: number
+  gender?: Gender
+  neck?: number
+}
