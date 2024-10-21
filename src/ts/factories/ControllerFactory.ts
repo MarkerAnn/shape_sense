@@ -4,6 +4,7 @@ import { HealthCalculatorModel } from '../models/HealthCalculatorModel'
 import { HomeController } from '../controllers/HomeController'
 import { BmiController } from '../controllers/BmiController'
 import { WaistToHipRatioController } from '../controllers/BodyCompositionControllers/WaistToHipRatioController'
+import { WaistToHeightRatioController } from '../controllers/BodyCompositionControllers/WaistToHeightRatioController'
 //import { BodyCompositionController } from '../controllers/BodyCompositionController'
 import { RouteEnum } from '../enums/Routes'
 
@@ -21,6 +22,8 @@ export class ControllerFactory {
         return new BmiController(this.user, this.calculator)
       case RouteEnum.WAIST_TO_HIP:
         return new WaistToHipRatioController(this.user, this.calculator)
+      case RouteEnum.WAIST_TO_HEIGHT:
+        return new WaistToHeightRatioController(this.user, this.calculator)
       // case RouteEnum.BODY_COMPOSITION:
       //return new BodyCompositionController(this.user, this.calculator)
       // Add more cases here as I implement more controllers

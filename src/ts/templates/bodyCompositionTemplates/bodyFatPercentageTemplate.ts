@@ -56,12 +56,17 @@ export const bodyFatPercentageTemplate = `
             </div>
         </form>
 
-        <div class="results" data-result="bodyFatPercentage">
-            <h3>Result:</h3>
-            <p>Body Fat Percentage: <span>-</span></p>
-        </div>
-
         <div class="error-message"></div>
+                div class="results">
+            <h2>Results</h2>
+            <table>
+                <tr>
+                    <td>Body Fat Percentage</td>
+                    <td>-</td>
+                </tr>
+            </table>
+            
+    </div>
     </div>
     <div class="sources">
         Sources:

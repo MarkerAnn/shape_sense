@@ -51,12 +51,16 @@ export const leanBodyMassTemplate = `
             </div>
         </form>
 
-        <div class="results" data-result="leanBodyMass">
-            <h3>Result:</h3>
-            <p>Lean Body Mass: <span>-</span></p>
-        </div>
-
         <div class="error-message"></div>
+                <div class="results">
+            <h2>Results</h2>
+            <table>
+                <tr>
+                    <td>Lean Body Mass</td>
+                    <td>-</td>
+                </tr>
+            </table>
+    </div>
     </div>
     <div class="sources">
         Sources:
