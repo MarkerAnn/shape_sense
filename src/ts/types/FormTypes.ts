@@ -63,6 +63,6 @@ export interface BodyFatPercentageFormData {
   gender: Gender
   waist: number
   neck: number
-  hip: number
+  hip?: number
   weight: number
 }

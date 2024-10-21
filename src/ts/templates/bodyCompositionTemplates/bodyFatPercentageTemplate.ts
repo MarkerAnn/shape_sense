@@ -57,7 +57,7 @@ export const bodyFatPercentageTemplate = `
         </form>
 
         <div class="error-message"></div>
-                div class="results">
+                <div class="results">
             <h2>Results</h2>
             <table>
                 <tr>
