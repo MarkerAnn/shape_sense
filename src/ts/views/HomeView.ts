@@ -1,7 +1,6 @@
-import { AbstractView } from './AbstractView'
 import { CalculatorType } from '../enums/CalculatorTypes'
 
-export class HomeView extends AbstractView {
+export class HomeView {
   render(container: HTMLElement): void {
     container.innerHTML = `
         <section class="container">

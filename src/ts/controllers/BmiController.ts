@@ -2,65 +2,47 @@ import { BmiView } from '../views/Bmiview'
 import { BmiFormData } from '../types/FormTypes'
 import { UserModel } from '../models/UserModel'
 import { HealthCalculatorModel } from '../models/HealthCalculatorModel'
-import { InterfaceController } from '../interfaces/InterfaceController'
+import { BaseController } from './AbstractBaseController'
+import { FormValidator } from '../utils/FormValidator'
 
-// Define my handlers
-type CalculateHandler = (data: BmiFormData) => void
-type ResetHandler = () => void
-
-export class BmiController implements InterfaceController {
-  private view: BmiView
-  private user: UserModel
-  private calculator: HealthCalculatorModel
+export class BmiController extends BaseController {
+  protected view: BmiView
+  private formValidator: FormValidator
 
   constructor(user: UserModel, calculator: HealthCalculatorModel) {
-    this.user = user
-    this.calculator = calculator
+    super(user, calculator)
     this.view = new BmiView()
+    this.formValidator = new FormValidator()
   }
 
   init(container: HTMLElement): void {
     this.view.render(container)
     this.fillFormWithUserData()
-    console.log(this.user.getData(), 'init')
     this.view.bindCalculateEvent(this.handleCalculate.bind(this))
     this.view.bindResetEvent(this.handleReset.bind(this))
   }
 
-  private fillFormWithUserData(): void {
+  protected fillFormWithUserData(): void {
     const userData = this.user.getData()
-    console.log(userData, 'construktor')
     this.view.fillForm(userData)
   }
 
-  private handleCalculate: CalculateHandler = (formData) => {
+  private handleCalculate(formData: BmiFormData): void {
     try {
-      this.validateFormData(formData)
+      this.formValidator.validateBmiFormData(formData)
       this.user.setData(formData)
       this.updateView()
-      console.log(this.user.getData(), 'handleCalculate')
       this.view.hideError()
     } catch (error) {
-      this.view.showError((error as Error).message)
+      this.handleErrors(error as Error)
     }
   }
 
-  private validateFormData(formData: BmiFormData): void {
-    if (
-      formData.height === undefined ||
-      isNaN(formData.height) ||
-      formData.height <= 0
-    ) {
-      throw new Error('Invalid height value')
-    }
-    if (
-      formData.weight === undefined ||
-      isNaN(formData.weight) ||
-      formData.weight <= 0
-    ) {
-      throw new Error('Invalid weight value')
-    }
-  }
+  // TODO: Delete this if using the FormValidator class
+  // private validateFormData(formData: BmiFormData): void {
+  //   this.validateNumericInput(formData.height, 'height')
+  //   this.validateNumericInput(formData.weight, 'weight')
+  // }
 
   private updateView(): void {
     const bmi = this.calculator.getBmi()
@@ -70,7 +52,7 @@ export class BmiController implements InterfaceController {
     this.view.updateResults(bmi, bmiType, healthRisk, idealWeight)
   }
 
-  private handleReset: ResetHandler = () => {
+  private handleReset(): void {
     this.user.resetData()
     this.view.resetForm()
     this.view.hideError()

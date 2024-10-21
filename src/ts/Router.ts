@@ -44,3 +44,5 @@ export class Router {
     }
   }
 }
+
+// TODO: Change console.error to a more user-friendly error message

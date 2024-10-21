@@ -229,3 +229,5 @@ export const bodyCompositionTemplate = `
     </div>
   </section>
 `
+
+// TODO: Delete this one, I have separate templates for each calculation

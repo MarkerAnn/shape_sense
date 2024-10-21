@@ -6,7 +6,7 @@ import { bmiTemplate } from '../templates/bmiTemplate'
 
 export class BmiView extends AbstractView {
   private form: HTMLFormElement | null = null
-  private errorMessage: HTMLElement | null = null
+  // private errorMessage: HTMLElement | null = null
   private resultsTable: HTMLTableElement | null = null
   private heightInput: HTMLInputElement | null = null
   private weightInput: HTMLInputElement | null = null
@@ -15,48 +15,39 @@ export class BmiView extends AbstractView {
   render(container: HTMLElement): void {
     container.innerHTML = bmiTemplate
 
-    this.form = container.querySelector('#bmi-form')
-    this.errorMessage = container.querySelector('.error-message')
-    this.resultsTable = container.querySelector('.results table')
-    this.weightInput = container.querySelector('#weight')
-    this.heightInput = container.querySelector('#height')
-    this.unitSystemSelect = container.querySelector('select[name="unitSystem"]')
+    this.form = this.getElement('#bmi-form') as HTMLFormElement
+    // this.errorMessage = this.getElement('.error-message')
+    this.resultsTable = this.getElement('.results table') as HTMLTableElement
+    this.weightInput = this.getElement('#weight') as HTMLInputElement
+    this.heightInput = this.getElement('#height') as HTMLInputElement
+    this.unitSystemSelect = this.getElement(
+      'select[name="unitSystem"]'
+    ) as HTMLSelectElement
 
-    this.unitSystemSelect?.addEventListener('change', () =>
-      this.updatePlaceholders()
+    this.unitSystemSelect?.addEventListener(
+      'change',
+      this.updatePlaceholders.bind(this)
     )
   }
 
-  fillForm(userData: Partial<User>): void {
-    if (userData.unitSystem && this.unitSystemSelect) {
-      this.unitSystemSelect.value = userData.unitSystem
-    }
-    if (userData.height && this.heightInput) {
-      this.heightInput.value = userData.height.toString()
-    }
-    if (userData.weight && this.weightInput) {
-      this.weightInput.value = userData.weight.toString()
-    }
-    console.log(userData)
+  fillForm(data: Partial<User>): void {
+    if (this.unitSystemSelect && data.unitSystem)
+      this.unitSystemSelect.value = data.unitSystem
+    if (this.heightInput && data.height)
+      this.heightInput.value = data.height.toString()
+    if (this.weightInput && data.weight)
+      this.weightInput.value = data.weight.toString()
     this.updatePlaceholders()
   }
 
   private updatePlaceholders(): void {
-    // Check in the user has selected the imperial unit system
-    const isImperial = this.unitSystemSelect?.value === 'imperial'
-
-    // Define the placeholders for the height and weight fields
+    const isImperial = this.unitSystemSelect?.value === UnitSystem.IMPERIAL
     const placeholders = isImperial
       ? { height: 'ft', weight: 'lbs' }
       : { height: 'm', weight: 'kg' }
 
-    // Update the placeholders for the height and weight fields
-    if (this.heightInput) {
-      this.heightInput.setAttribute('placeholder', placeholders.height)
-    }
-    if (this.weightInput) {
-      this.weightInput.setAttribute('placeholder', placeholders.weight)
-    }
+    this.heightInput?.setAttribute('placeholder', placeholders.height)
+    this.weightInput?.setAttribute('placeholder', placeholders.weight)
   }
 
   bindCalculateEvent(handler: (data: BmiFormData) => void): void {
@@ -70,20 +61,6 @@ export class BmiView extends AbstractView {
       }
       handler(data)
     })
-  }
-
-  showError(message: string): void {
-    if (this.errorMessage) {
-      this.errorMessage.textContent = message
-      this.errorMessage.style.display = 'block'
-    }
-  }
-
-  hideError(): void {
-    if (this.errorMessage) {
-      this.errorMessage.textContent = ''
-      this.errorMessage.style.display = 'none'
-    }
   }
 
   updateResults(
@@ -100,29 +77,27 @@ export class BmiView extends AbstractView {
       rows[3].cells[1].textContent = `${idealWeight[0].toFixed(0)} - ${idealWeight[1].toFixed(0)} kg`
     }
   }
+
   bindResetEvent(handler: () => void): void {
-    this.form
-      ?.querySelector('button[type="reset"]')
-      ?.addEventListener('click', (event) => {
-        event.preventDefault()
-        handler()
-      })
+    const resetButton = this.form?.querySelector('button[type="reset"]')
+    resetButton?.addEventListener('click', (event) => {
+      event.preventDefault()
+      handler()
+    })
   }
 
   resetForm(): void {
-    if (this.form) {
-      this.form.reset()
-      this.updatePlaceholders()
-    }
+    this.form?.reset()
     this.clearResults()
+    this.updatePlaceholders()
   }
 
-  clearResults(): void {
+  private clearResults(): void {
     if (this.resultsTable) {
       const rows = this.resultsTable.rows
-      rows[0].cells[1].textContent = '-'
-      rows[1].cells[1].textContent = '-'
-      rows[2].cells[1].textContent = '-'
+      for (let i = 0; i < rows.length; i++) {
+        rows[i].cells[1].textContent = '-'
+      }
     }
   }
 }

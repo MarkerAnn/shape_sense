@@ -1,6 +1,7 @@
 import { Router } from './Router'
 import { UserModel } from './models/UserModel'
 import { HealthCalculatorModel } from './models/HealthCalculatorModel'
+import { HeaderManager } from './utils/HeaderManager'
 
 export class App {
   private router: Router
@@ -11,6 +12,7 @@ export class App {
     this.user = UserModel.getInstance()
     this.calculator = new HealthCalculatorModel(this.user)
     this.router = new Router(this.user, this.calculator)
+    new HeaderManager()
   }
 
   start(): void {

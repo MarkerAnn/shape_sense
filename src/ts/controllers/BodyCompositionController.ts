@@ -1,145 +1,145 @@
-import { BodyCompositionView } from '../views/BodyCompositionView'
-import { UserModel } from '../models/UserModel'
-import { User } from '../types/User'
-import { HealthCalculatorModel } from '../models/HealthCalculatorModel'
-import { InterfaceController } from '../interfaces/InterfaceController'
-import { UnitSystem } from '../enums/UnitSystem'
-import { Gender } from '../enums/Gender'
+// import { BodyCompositionView } from '../views/BodyCompositionView'
+// import { UserModel } from '../models/UserModel'
+// import { User } from '../types/User'
+// import { HealthCalculatorModel } from '../models/HealthCalculatorModel'
+// import { UnitSystem } from '../enums/UnitSystem'
+// import { Gender } from '../enums/Gender'
+// import { BaseController } from './AbstractBaseController'
+// import { FormValidator } from '../utils/FormValidator'
 
-// Define handler types for each form
-type WaistHipRatioHandler = (formData: FormData) => void
-type WaistHeightRatioHandler = (formData: FormData) => void
-type BodyFatPercentageHandler = (formData: FormData) => void
-type LeanBodyMassHandler = (formData: FormData) => void
-type ResetHandler = () => void
+// export class BodyCompositionController extends BaseController {
+//   protected view: BodyCompositionView
+//   private formValidator: FormValidator
 
-export class BodyCompositionController implements InterfaceController {
-  private view: BodyCompositionView
-  private user: UserModel
-  private calculator: HealthCalculatorModel
+//   constructor(user: UserModel, calculator: HealthCalculatorModel) {
+//     super(user, calculator)
+//     this.view = new BodyCompositionView()
+//     this.formValidator = new FormValidator()
+//   }
 
-  constructor(user: UserModel, calculator: HealthCalculatorModel) {
-    this.user = user
-    this.calculator = calculator
-    this.view = new BodyCompositionView()
-  }
+//   init(container: HTMLElement): void {
+//     this.view.render(container)
+//     this.fillFormWithUserData()
+//     this.bindFormHandlers()
+//   }
 
-  init(container: HTMLElement): void {
-    this.view.render(container)
-    this.fillFormWithUserData()
-    this.bindFormHandlers()
-  }
+//   protected fillFormWithUserData(): void {
+//     const userData = this.user.getData()
+//     this.view.fillForm(userData)
+//   }
 
-  private fillFormWithUserData(): void {
-    const userData = this.user.getData()
-    this.view.fillForm(userData)
-  }
+//   private bindFormHandlers(): void {
+//     this.view.bindCalculateEvent(
+//       'waistHipRatio',
+//       this.handleCalculate.bind(
+//         this,
+//         this.extractWaistHipRatioData,
+//         this.calculator.getWaistToHipRatio.bind(this.calculator)
+//       )
+//     )
+//     this.view.bindCalculateEvent(
+//       'waistHeightRatio',
+//       this.handleCalculate.bind(
+//         this,
+//         this.extractWaistHeightRatioData,
+//         this.calculator.getWaistToHeightRatio.bind(this.calculator)
+//       )
+//     )
+//     this.view.bindCalculateEvent(
+//       'bodyFatPercentage',
+//       this.handleCalculate.bind(
+//         this,
+//         this.extractBodyFatPercentageData,
+//         this.calculator.getBodyFatPercentage.bind(this.calculator)
+//       )
+//     )
+//     this.view.bindCalculateEvent(
+//       'leanBodyMass',
+//       this.handleCalculate.bind(
+//         this,
+//         this.extractLeanBodyMassData,
+//         this.calculator.getLeanBodyMass.bind(this.calculator)
+//       )
+//     )
+//     this.view.bindResetEvents(this.handleReset.bind(this))
+//   }
 
-  private bindFormHandlers(): void {
-    this.view.bindWaistHipRatioEvent(this.handleWaistHipRatio.bind(this))
-    this.view.bindWaistHeightRatioEvent(this.handleWaistHeightRatio.bind(this))
-    this.view.bindBodyFatPercentageEvent(
-      this.handleBodyFatPercentage.bind(this)
-    )
-    this.view.bindLeanBodyMassEvent(this.handleLeanBodyMass.bind(this))
-    this.view.bindResetEvents(this.handleReset.bind(this))
-  }
+//   private handleCalculate(
+//     extractData: (formData: FormData) => Partial<User>,
+//     calculateResult: () => number,
+//     formData: FormData
+//   ): void {
+//     try {
+//       const data = extractData(formData)
+//       this.user.setData(data)
+//       const result = calculateResult()
+//       this.view.updateResults({ [extractData.name]: result })
+//       this.view.hideError()
+//     } catch (error) {
+//       this.handleErrors(error as Error)
+//     }
+//   }
 
-  private handleWaistHipRatio: WaistHipRatioHandler = (formData) => {
-    try {
-      const data = this.extractWaistHipRatioData(formData)
-      this.user.setData(data)
-      const waistHipRatio = this.calculator.getWaistToHipRatio()
-      this.view.updateResults({ waistHipRatio })
-      this.view.hideError()
-    } catch (error) {
-      this.view.showError((error as Error).message)
-    }
-  }
+//   private handleReset(): void {
+//     this.user.resetData()
+//     this.view.resetForm()
+//     this.view.hideError()
+//   }
 
-  private handleWaistHeightRatio: WaistHeightRatioHandler = (formData) => {
-    try {
-      const data = this.extractWaistHeightRatioData(formData)
-      this.user.setData(data)
-      const waistHeightRatio = this.calculator.getWaistToHeightRatio()
-      this.view.updateResults({ waistHeightRatio })
-      this.view.hideError()
-    } catch (error) {
-      this.view.showError((error as Error).message)
-    }
-  }
+//   private extractWaistHipRatioData(formData: FormData): Partial<User> {
+//     return {
+//       unitSystem: formData.get('unitSystem') as UnitSystem,
+//       waist: this.validateNumericInput(
+//         formData.get('waist') as string,
+//         'waist'
+//       ),
+//       hip: this.validateNumericInput(formData.get('hip') as string, 'hip'),
+//     }
+//   }
 
-  private handleBodyFatPercentage: BodyFatPercentageHandler = (formData) => {
-    try {
-      const data = this.extractBodyFatPercentageData(formData)
-      this.user.setData(data)
-      const bodyFatPercentage = this.calculator.getBodyFatPercentage()
-      this.view.updateResults({ bodyFatPercentage })
-      this.view.hideError()
-    } catch (error) {
-      this.view.showError((error as Error).message)
-    }
-  }
+//   private extractWaistHeightRatioData(formData: FormData): Partial<User> {
+//     return {
+//       unitSystem: formData.get('unitSystem') as UnitSystem,
+//       waist: this.validateNumericInput(
+//         formData.get('waist') as string,
+//         'waist'
+//       ),
+//       height: this.validateNumericInput(
+//         formData.get('height') as string,
+//         'height'
+//       ),
+//     }
+//   }
 
-  private handleLeanBodyMass: LeanBodyMassHandler = (formData) => {
-    try {
-      const data = this.extractLeanBodyMassData(formData)
-      this.user.setData(data)
-      const leanBodyMass = this.calculator.getLeanBodyMass()
-      this.view.updateResults({ leanBodyMass })
-      this.view.hideError()
-    } catch (error) {
-      this.view.showError((error as Error).message)
-    }
-  }
+//   private extractBodyFatPercentageData(formData: FormData): Partial<User> {
+//     return {
+//       unitSystem: formData.get('unitSystem') as UnitSystem,
+//       gender: formData.get('gender') as Gender,
+//       weight: this.validateNumericInput(
+//         formData.get('weight') as string,
+//         'weight'
+//       ),
+//       waist: this.validateNumericInput(
+//         formData.get('waist') as string,
+//         'waist'
+//       ),
+//       neck: this.validateNumericInput(formData.get('neck') as string, 'neck'),
+//       hip: this.validateNumericInput(formData.get('hip') as string, 'hip'),
+//     }
+//   }
 
-  private handleReset: ResetHandler = () => {
-    this.user.resetData()
-    this.view.resetForms()
-    this.view.hideError()
-  }
-
-  private extractWaistHipRatioData(formData: FormData): Partial<User> {
-    return {
-      unitSystem: formData.get('unitSystem') as UnitSystem,
-      waist: this.parseFloat(formData.get('waist') as string),
-      hip: this.parseFloat(formData.get('hip') as string),
-    }
-  }
-
-  private extractWaistHeightRatioData(formData: FormData): Partial<User> {
-    return {
-      unitSystem: formData.get('unitSystem') as UnitSystem,
-      waist: this.parseFloat(formData.get('waist') as string),
-      height: this.parseFloat(formData.get('height') as string),
-    }
-  }
-
-  private extractBodyFatPercentageData(formData: FormData): Partial<User> {
-    return {
-      unitSystem: formData.get('unitSystem') as UnitSystem,
-      gender: formData.get('gender') as Gender,
-      weight: this.parseFloat(formData.get('weight') as string),
-      waist: this.parseFloat(formData.get('waist') as string),
-      neck: this.parseFloat(formData.get('neck') as string),
-      hip: this.parseFloat(formData.get('hip') as string),
-    }
-  }
-
-  private extractLeanBodyMassData(formData: FormData): Partial<User> {
-    return {
-      unitSystem: formData.get('unitSystem') as UnitSystem,
-      gender: formData.get('gender') as Gender,
-      weight: this.parseFloat(formData.get('weight') as string),
-      height: this.parseFloat(formData.get('height') as string),
-    }
-  }
-
-  private parseFloat(value: string): number {
-    const parsed = parseFloat(value)
-    if (isNaN(parsed)) {
-      throw new Error('Invalid number input')
-    }
-    return parsed
-  }
-}
+//   private extractLeanBodyMassData(formData: FormData): Partial<User> {
+//     return {
+//       unitSystem: formData.get('unitSystem') as UnitSystem,
+//       gender: formData.get('gender') as Gender,
+//       weight: this.validateNumericInput(
+//         formData.get('weight') as string,
+//         'weight'
+//       ),
+//       height: this.validateNumericInput(
+//         formData.get('height') as string,
+//         'height'
+//       ),
+//     }
+//   }
+// }
