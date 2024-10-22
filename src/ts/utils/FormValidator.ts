@@ -1,7 +1,13 @@
 import { UnitSystem } from '../enums/UnitSystem'
 import { Gender } from '../enums/Gender'
 // import { ActivityLevel } from '../enums/ActivityLevel'
-import { BmiFormData } from '../types/FormTypes'
+import {
+  BmiFormData,
+  WaistHeightRatioFormData,
+  WaistHipRatioFormData,
+  BodyFatPercentageFormData,
+  BasalMetabolicRateFormData,
+} from '../types/FormTypes'
 
 export class FormValidator {
   validateBmiFormData(formData: BmiFormData): void {
@@ -19,34 +25,19 @@ export class FormValidator {
   //   this.validateActivityLevel(formData.activityLevel)
   // }
 
-  validateWaistToHipRatioFormData(data: {
-    unitSystem: UnitSystem
-    waist: number
-    hip: number
-  }): void {
+  validateWaistToHipRatioFormData(data: WaistHipRatioFormData): void {
     this.validateUnitSystem(data.unitSystem)
     this.validateNumericInput(data.waist, 'waist')
     this.validateNumericInput(data.hip, 'hip')
   }
 
-  validateWaistHeightRatioFormData(data: {
-    unitSystem: UnitSystem
-    waist: number
-    height: number
-  }): void {
+  validateWaistHeightRatioFormData(data: WaistHeightRatioFormData): void {
     this.validateUnitSystem(data.unitSystem)
     this.validateNumericInput(data.waist, 'waist')
     this.validateNumericInput(data.height, 'height')
   }
 
-  validateBodyFatPercentageFormData(data: {
-    unitSystem: UnitSystem
-    gender: Gender
-    weight: number
-    waist: number
-    neck: number
-    hip?: number
-  }): void {
+  validateBodyFatPercentageFormData(data: BodyFatPercentageFormData): void {
     this.validateUnitSystem(data.unitSystem)
     this.validateGender(data.gender)
     this.validateNumericInput(data.weight, 'weight')
@@ -57,16 +48,12 @@ export class FormValidator {
     }
   }
 
-  validateLeanBodyMassFormData(data: {
-    unitSystem: UnitSystem
-    gender: Gender
-    weight: number
-    height: number
-  }): void {
+  validateBasalMetabolicRateFormData(data: BasalMetabolicRateFormData): void {
     this.validateUnitSystem(data.unitSystem)
     this.validateGender(data.gender)
     this.validateNumericInput(data.weight, 'weight')
     this.validateNumericInput(data.height, 'height')
+    this.validateNumericInput(data.age, 'age')
   }
 
   private validateUnitSystem(unitSystem: UnitSystem): void {

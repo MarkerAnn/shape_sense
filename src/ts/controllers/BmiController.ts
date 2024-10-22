@@ -4,6 +4,7 @@ import { UserModel } from '../models/UserModel'
 import { HealthCalculatorModel } from '../models/HealthCalculatorModel'
 import { BaseController } from './AbstractBaseController'
 import { FormValidator } from '../utils/FormValidator'
+import { UnitSystem } from '../enums/UnitSystem'
 
 export class BmiController extends BaseController {
   protected view: BmiView
@@ -27,10 +28,11 @@ export class BmiController extends BaseController {
     this.view.fillForm(userData)
   }
 
-  private handleCalculate(formData: BmiFormData): void {
+  private handleCalculate(formData: FormData): void {
     try {
-      this.formValidator.validateBmiFormData(formData)
-      this.user.setData(formData)
+      const data = this.parseFormData(formData)
+      this.formValidator.validateBmiFormData(data)
+      this.user.setData(data)
       this.updateView()
       this.view.hideError()
     } catch (error) {
@@ -38,18 +40,26 @@ export class BmiController extends BaseController {
     }
   }
 
-  // TODO: Delete this if using the FormValidator class
-  // private validateFormData(formData: BmiFormData): void {
-  //   this.validateNumericInput(formData.height, 'height')
-  //   this.validateNumericInput(formData.weight, 'weight')
-  // }
+  private parseFormData(formData: FormData): BmiFormData {
+    return {
+      unitSystem: formData.get('unitSystem') as UnitSystem,
+      weight: parseFloat(formData.get('weight') as string),
+      height: parseFloat(formData.get('height') as string),
+    }
+  }
 
   private updateView(): void {
     const bmi = this.calculator.getBmi()
     const bmiType = this.calculator.getBmiType()
     const healthRisk = this.calculator.getHealthRisk()
     const idealWeight = this.calculator.getIdealWeight()
-    this.view.updateResults(bmi, bmiType, healthRisk, idealWeight)
+
+    this.view.updateResults({
+      bmi,
+      category: bmiType,
+      healthRisk,
+      idealWeight,
+    })
   }
 
   private handleReset(): void {

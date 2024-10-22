@@ -1,10 +1,12 @@
 export const bodyFatPercentageTemplate = `
 <section class="container">
-    <h2>Body Fat Percentage Calculator</h2>
+     <h2>Body Fat Percentage and Lean Body Mass Calculator</h2>
     <div class="content">
         <p class="description">
-            Calculate your Body Fat Percentage for a deeper 
-            understanding of your health and fitness.
+            Calculate your Body Fat Percentage and Lean Body Mass for a deeper 
+            understanding of your health and fitness. 
+            These metrics can help you track progress, set realistic goals, 
+            and optimize your health.
         </p>
 
         <p class="info">
@@ -13,7 +15,10 @@ export const bodyFatPercentageTemplate = `
             <strong>21-31%</strong> for women is often considered optimal. 
             Values outside these ranges may indicate either too low or too high 
             fat levels, both of which carry health risks like 
-            hormonal imbalances or cardiovascular disease.
+            hormonal imbalances, metabolic issues, or cardiovascular disease. 
+            Lean Body Mass (LBM), 
+            which includes muscle, bone, and organs, is crucial for strength, 
+            metabolism, and overall health.
         </p>
 
         <form id="body-fat-percentage-form">
@@ -62,6 +67,10 @@ export const bodyFatPercentageTemplate = `
             <table>
                 <tr>
                     <td>Body Fat Percentage</td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td>Lean Body Mass</td>
                     <td>-</td>
                 </tr>
             </table>

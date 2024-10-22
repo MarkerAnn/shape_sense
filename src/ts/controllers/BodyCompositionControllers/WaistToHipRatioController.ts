@@ -4,6 +4,7 @@ import { UserModel } from '../../models/UserModel'
 import { HealthCalculatorModel } from '../../models/HealthCalculatorModel'
 import { FormValidator } from '../../utils/FormValidator'
 import { WaistHipRatioFormData } from '../../types/FormTypes'
+import { UnitSystem } from '../../enums/UnitSystem'
 
 export class WaistToHipRatioController extends BaseController {
   protected view: WaistToHipRatioView
@@ -27,11 +28,12 @@ export class WaistToHipRatioController extends BaseController {
     this.view.fillForm(userData)
   }
 
-  private handleCalculate(formData: WaistHipRatioFormData): void {
+  private handleCalculate(formData: FormData): void {
     try {
       console.log('handleCalculate called with:', formData)
-      this.formValidator.validateWaistToHipRatioFormData(formData)
-      this.user.setData(formData)
+      const data = this.parseFormData(formData)
+      this.formValidator.validateWaistToHipRatioFormData(data)
+      this.user.setData(data)
       this.updateView()
       this.view.hideError()
     } catch (error) {
@@ -39,10 +41,19 @@ export class WaistToHipRatioController extends BaseController {
     }
   }
 
+  private parseFormData(formData: FormData): WaistHipRatioFormData {
+    const data: WaistHipRatioFormData = {
+      unitSystem: formData.get('unitSystem') as UnitSystem,
+      waist: parseFloat(formData.get('waist') as string),
+      hip: parseFloat(formData.get('hip') as string),
+    }
+    return data
+  }
+
   private updateView(): void {
-    const ratio = this.calculator.getWaistToHipRatio()
-    console.log('Ratio:', ratio)
-    this.view.updateResults(ratio)
+    const waistToHipRatio = this.calculator.getWaistToHipRatio()
+    console.log('Ratio:', waistToHipRatio)
+    this.view.updateResults(waistToHipRatio)
   }
 
   private handleReset(): void {

@@ -7,6 +7,8 @@ import { WaistToHipRatioController } from '../controllers/BodyCompositionControl
 import { WaistToHeightRatioController } from '../controllers/BodyCompositionControllers/WaistToHeightRatioController'
 import { BodyFatPercentageController } from '../controllers/BodyCompositionControllers/BodyFatPercentageController'
 //import { BodyCompositionController } from '../controllers/BodyCompositionController'
+import { BasalMetabolicRateController } from '../controllers/BasalMetabolicRate/BasalMetabolicRateController'
+
 import { RouteEnum } from '../enums/Routes'
 
 export class ControllerFactory {
@@ -27,6 +29,8 @@ export class ControllerFactory {
         return new WaistToHeightRatioController(this.user, this.calculator)
       case RouteEnum.BODY_FAT_PERCENTAGE:
         return new BodyFatPercentageController(this.user, this.calculator)
+      case RouteEnum.BASAL_METABOLIC_RATE:
+        return new BasalMetabolicRateController(this.user, this.calculator)
       // case RouteEnum.BODY_COMPOSITION:
       //return new BodyCompositionController(this.user, this.calculator)
       // Add more cases here as I implement more controllers

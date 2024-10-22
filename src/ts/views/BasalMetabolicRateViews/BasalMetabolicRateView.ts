@@ -1,34 +1,32 @@
-import { bodyFatPercentageTemplate } from '../../templates/bodyCompositionTemplates/bodyFatPercentageTemplate'
+import { basalMetabolicRateTemplate } from '../../templates/BasalMetabolicRateTemplates/basalMetabolicRateTemplate'
 import { AbstractView } from '../AbstractView'
 import { UnitSystem } from '../../enums/UnitSystem'
 import { User } from '../../types/User'
 import { Gender } from '../../enums/Gender'
 import { HtmlSelectors } from '../../enums/HtmlSelectors'
 import { InputFields } from '../../enums/InputFields'
+// import { unitPlaceholders } from '../../constants/UnitPlaceholders'
 
-export class BodyFatPercentageView extends AbstractView {
+export class BasalMetabolicRateView extends AbstractView {
   private weightInput: HTMLInputElement | null = null
-  private waistInput: HTMLInputElement | null = null
-  private hipInput: HTMLInputElement | null = null
-  private neckInput: HTMLInputElement | null = null
+  private heightInput: HTMLInputElement | null = null
+  private ageInput: HTMLInputElement | null = null
   private unitSystemSelect: HTMLSelectElement | null = null
   private genderInputs: HTMLInputElement[] = []
 
   render(container: HTMLElement): void {
-    container.innerHTML = bodyFatPercentageTemplate
+    container.innerHTML = basalMetabolicRateTemplate
 
     this.initializeCommonElements()
     this.initializeInputs([
       InputFields.WEIGHT,
-      InputFields.WAIST,
-      InputFields.HIP,
-      InputFields.NECK,
+      InputFields.HEIGHT,
+      InputFields.AGE,
     ])
 
     this.weightInput = this.getElement(HtmlSelectors.WEIGHT) as HTMLInputElement
-    this.waistInput = this.getElement(HtmlSelectors.WAIST) as HTMLInputElement
-    this.hipInput = this.getElement(HtmlSelectors.HIP) as HTMLInputElement
-    this.neckInput = this.getElement(HtmlSelectors.NECK) as HTMLInputElement
+    this.heightInput = this.getElement(HtmlSelectors.HEIGHT) as HTMLInputElement
+    this.ageInput = this.getElement(HtmlSelectors.AGE) as HTMLInputElement
     this.unitSystemSelect = this.getElement(
       HtmlSelectors.UNIT_SYSTEM
     ) as HTMLSelectElement
@@ -39,11 +37,6 @@ export class BodyFatPercentageView extends AbstractView {
       'change',
       this.updatePlaceholders.bind(this)
     )
-    this.genderInputs.forEach((input) => {
-      input.addEventListener('change', this.updateHipInputVisibility.bind(this))
-    })
-
-    this.updateHipInputVisibility()
   }
 
   fillForm(data: Partial<User>): void {
@@ -52,16 +45,14 @@ export class BodyFatPercentageView extends AbstractView {
     }
 
     this.setInputValue(this.weightInput, data.weight)
-    this.setInputValue(this.waistInput, data.waist)
-    this.setInputValue(this.neckInput, data.neck)
+    this.setInputValue(this.heightInput, data.height)
+    this.setInputValue(this.ageInput, data.age)
 
     if (data.gender) {
       this.setGender(data.gender)
-      this.handleHipInput(data)
     }
 
     this.updatePlaceholders()
-    this.updateHipInputVisibility()
   }
 
   private setInputValue(
@@ -82,17 +73,11 @@ export class BodyFatPercentageView extends AbstractView {
     }
   }
 
-  private handleHipInput(data: Partial<User>): void {
-    if (this.hipInput && data.hip && data.gender === Gender.FEMALE) {
-      this.hipInput.value = data.hip.toString()
-    }
-  }
-
   protected updatePlaceholders(): void {
     const isImperial = this.unitSystemSelect?.value === UnitSystem.IMPERIAL
     const placeholders = isImperial
-      ? { weight: 'lbs', waist: 'in', hip: 'in', neck: 'in' }
-      : { weight: 'kg', waist: 'cm', hip: 'cm', neck: 'cm' }
+      ? { weight: 'lb', height: 'in', age: 'years' }
+      : { weight: 'kg', height: 'cm', age: 'years' }
 
     Object.keys(this.inputs).forEach((key) => {
       this.inputs[key].setAttribute(
@@ -100,19 +85,6 @@ export class BodyFatPercentageView extends AbstractView {
         placeholders[key as keyof typeof placeholders]
       )
     })
-  }
-
-  private updateHipInputVisibility(): void {
-    const hipInputGroup = this.getElement(
-      '.input-group:has(#hip)'
-    ) as HTMLElement
-    const isFemale = (
-      this.getElement('input[value="female"]') as HTMLInputElement
-    )?.checked
-
-    if (hipInputGroup) {
-      hipInputGroup.style.display = isFemale ? 'block' : 'none'
-    }
   }
 
   bindCalculateEvent(handler: (data: FormData) => void): void {
@@ -124,17 +96,18 @@ export class BodyFatPercentageView extends AbstractView {
   }
 
   updateResults(data: {
-    bodyFatPercentage: number
-    leanBodyMass: number
+    basalMetabolicRateHarrisBenedict: number
+    basalMetabolicRateMifflinStJeor: number
   }): void {
     if (!this.resultsTable) {
       return
     }
 
     const rows = this.resultsTable.rows
-    rows[0].cells[1].textContent = data.bodyFatPercentage.toFixed(2) + '%'
-    rows[1].cells[1].textContent = data.leanBodyMass.toFixed(2) + ' kg'
+    rows[0].cells[1].textContent =
+      data.basalMetabolicRateHarrisBenedict.toFixed(0) + ' kcal/day'
+    rows[1].cells[1].textContent =
+      data.basalMetabolicRateMifflinStJeor.toFixed(0) + ' kcal/day'
   }
 }
-
-// TODO: Fortsätt fylla i de andra vyerna med enums och typer
+// TODO: Implement a constant for magic strings in updatePlaceholders
