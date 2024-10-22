@@ -1,4 +1,5 @@
 import { User } from '../types/User'
+import { HtmlSelectors } from '../enums/HtmlSelectors'
 
 export abstract class AbstractView {
   protected form: HTMLFormElement | null = null
@@ -12,9 +13,13 @@ export abstract class AbstractView {
   abstract updateResults(data: unknown): void
 
   protected initializeCommonElements(): void {
-    this.form = this.getElement('form') as HTMLFormElement
-    this.resultsTable = this.getElement('.results table') as HTMLTableElement
-    this.errorMessage = this.getElement('.error-message') as HTMLElement
+    this.form = this.getElement(HtmlSelectors.FORM) as HTMLFormElement
+    this.resultsTable = this.getElement(
+      HtmlSelectors.RESULT_TABLE
+    ) as HTMLTableElement
+    this.errorMessage = this.getElement(
+      HtmlSelectors.ERROR_MESSAGE
+    ) as HTMLElement
   }
 
   protected initializeInputs(inputIds: string[]): void {

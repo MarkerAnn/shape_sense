@@ -1,7 +1,10 @@
+// eslint-disable-next-line max-len
+import { waistHeightRatioTemplate } from '../../templates/bodyCompositionTemplates/waistToHeightTemplate'
 import { User } from '../../types/User'
 import { AbstractView } from '../AbstractView'
-import { waistHeightRatioTemplate } from '../../templates/bodyCompositionTemplates/waistToHeightTemplate'
 import { UnitSystem } from '../../enums/UnitSystem'
+import { HtmlSelectors } from '../../enums/HtmlSelectors'
+import { InputFields } from '../../enums/InputFields'
 
 export class WaistToHeightRatioView extends AbstractView {
   private waistInput: HTMLInputElement | null = null
@@ -12,10 +15,10 @@ export class WaistToHeightRatioView extends AbstractView {
     container.innerHTML = waistHeightRatioTemplate
 
     this.initializeCommonElements()
-    this.initializeInputs(['waist', 'height'])
+    this.initializeInputs([InputFields.WAIST, InputFields.HEIGHT])
 
-    this.waistInput = this.getElement('#waist') as HTMLInputElement
-    this.heightInput = this.getElement('#height') as HTMLInputElement
+    this.waistInput = this.getElement(HtmlSelectors.WAIST) as HTMLInputElement
+    this.heightInput = this.getElement(HtmlSelectors.HEIGHT) as HTMLInputElement
     this.unitSystemSelect = this.getElement('#unitSystem') as HTMLSelectElement
 
     this.unitSystemSelect?.addEventListener(
@@ -25,13 +28,23 @@ export class WaistToHeightRatioView extends AbstractView {
   }
 
   fillForm(data: Partial<User>): void {
-    if (this.unitSystemSelect && data.unitSystem)
+    if (this.unitSystemSelect && data.unitSystem) {
       this.unitSystemSelect.value = data.unitSystem
-    if (this.waistInput && data.waist)
-      this.waistInput.value = data.waist.toString()
-    if (this.heightInput && data.height)
-      this.heightInput.value = data.height.toString()
+    }
+
+    this.setInputValue(this.waistInput, data.waist)
+    this.setInputValue(this.heightInput, data.height)
+
     this.updatePlaceholders()
+  }
+
+  private setInputValue(
+    input: HTMLInputElement | null,
+    value: number | undefined
+  ): void {
+    if (input && value) {
+      input.value = value.toString()
+    }
   }
 
   updatePlaceholders(): void {

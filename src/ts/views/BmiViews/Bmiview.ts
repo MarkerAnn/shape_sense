@@ -1,9 +1,9 @@
-import { AbstractView } from './AbstractView'
-import { UnitSystem } from '../enums/UnitSystem'
-import { User } from '../types/User'
-import { bmiTemplate } from '../templates/bmiTemplate'
-import { HtmlSelectors } from '../enums/HtmlSelectors'
-import { InputFields } from '../enums/InputFields'
+import { AbstractView } from '../AbstractView'
+import { UnitSystem } from '../../enums/UnitSystem'
+import { User } from '../../types/User'
+import { bmiTemplate } from '../../templates/bmiTemplate'
+import { HtmlSelectors } from '../../enums/HtmlSelectors'
+import { InputFields } from '../../enums/InputFields'
 
 export class BmiView extends AbstractView {
   private heightInput: HTMLInputElement | null = null
@@ -84,8 +84,11 @@ export class BmiView extends AbstractView {
     rows[0].cells[1].textContent = data.bmi.toFixed(2)
     rows[1].cells[1].textContent = data.category
     rows[2].cells[1].textContent = data.healthRisk
-    rows[3].cells[1].textContent = `${data.idealWeight[0].toFixed(0)} - ${data.idealWeight[1].toFixed(0)} kg`
+
+    const minWeight = data.idealWeight[0].toFixed(0)
+    const maxWeight = data.idealWeight[1].toFixed(0)
+    rows[3].cells[1].textContent = `${minWeight} - ${maxWeight} kg`
   }
 }
 
-// TODO: Fixa radern ovan
+// TODO: MAgic numbers

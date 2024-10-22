@@ -1,3 +1,4 @@
+// eslint-disable-next-line max-len
 import { bodyFatPercentageTemplate } from '../../templates/bodyCompositionTemplates/bodyFatPercentageTemplate'
 import { AbstractView } from '../AbstractView'
 import { UnitSystem } from '../../enums/UnitSystem'

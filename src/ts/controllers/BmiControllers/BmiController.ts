@@ -1,4 +1,4 @@
-import { BmiView } from '../../views/Bmiview'
+import { BmiView } from '../../views/BmiViews/Bmiview'
 import { BmiFormData } from '../../types/FormTypes'
 import { UserModel } from '../../models/UserModel'
 import { HealthCalculatorModel } from '../../models/HealthCalculatorModel'
