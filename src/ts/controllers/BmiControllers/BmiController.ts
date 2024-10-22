@@ -1,10 +1,10 @@
-import { BmiView } from '../views/Bmiview'
-import { BmiFormData } from '../types/FormTypes'
-import { UserModel } from '../models/UserModel'
-import { HealthCalculatorModel } from '../models/HealthCalculatorModel'
-import { BaseController } from './AbstractBaseController'
-import { FormValidator } from '../utils/FormValidator'
-import { UnitSystem } from '../enums/UnitSystem'
+import { BmiView } from '../../views/Bmiview'
+import { BmiFormData } from '../../types/FormTypes'
+import { UserModel } from '../../models/UserModel'
+import { HealthCalculatorModel } from '../../models/HealthCalculatorModel'
+import { BaseController } from '../AbstractBaseController'
+import { FormValidator } from '../../utils/FormValidator'
+import { UnitSystem } from '../../enums/UnitSystem'
 
 export class BmiController extends BaseController {
   protected view: BmiView

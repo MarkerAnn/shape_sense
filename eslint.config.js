@@ -98,11 +98,53 @@ export default [
       ],
 
       // New rules from Clean Code principles
-      'max-len': ['error', { code: 80 }],
+      'max-len': [
+        'error',
+        {
+          code: 80,
+          tabWidth: 2,
+          ignorePattern: '^import\\s.+\\sfrom\\s.+;$', // Ignore imports
+          ignoreImports: true, // Ignorerar all import
+          ignoreUrls: true, // Ignore URLs
+          ignoreStrings: true, // Ignore strings literals
+          ignoreTemplateLiterals: true, // Ignore template literals
+          ignoreRegExpLiterals: true, // Ignore regex literals
+          comments: 100, // Allows comments to be longer
+        },
+      ],
       'no-console': 'warn',
       'no-magic-numbers': ['warn', { ignore: [-1, 0, 1, 2] }],
       'prefer-arrow-callback': 'error',
       'no-var': 'error',
+      'import/order': [
+        'error',
+        {
+          groups: [
+            'builtin', // Node.js built in modules
+            'external', // npm-packages
+            'internal', // Intern import
+            ['parent', 'sibling'], // Relative imports
+            'index', // ./index.ts
+            'object', // Objectimports
+            'type', // Typeimports
+          ],
+          'newlines-between': 'always',
+          alphabetize: {
+            order: 'asc',
+            caseInsensitive: true,
+          },
+        },
+      ],
+
+      'sort-imports': [
+        'error',
+        {
+          ignoreCase: true,
+          ignoreDeclarationSort: true, // Låt import/order hantera sorteringen
+          ignoreMemberSort: false,
+          memberSyntaxSortOrder: ['none', 'all', 'multiple', 'single'],
+        },
+      ],
     },
   },
   {
