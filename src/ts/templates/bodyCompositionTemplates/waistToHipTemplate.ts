@@ -1,9 +1,13 @@
-export const waistHipRatioTemplate = `
+import { FORM_FIELDS } from '../../constants/FormConstants'
+import { UnitSystem } from '../../enums/UnitSystem'
+
+export const waistToHipRatioTemplate = `
 <section class="container">
-    <h2>Waist-to-Hip Ratio Calculator</h2>
+    <h2>"${FORM_FIELDS.WAIST}"-to-"${FORM_FIELDS.HIP}" Ratio Calculator</h2>
     <div class="content">
         <p class="description">
-            Calculate your Waist-to-Hip Ratio (WHR) to understand your fat 
+            Calculate your "${FORM_FIELDS.WAIST}"-to-"${FORM_FIELDS.HIP}" 
+            Ratio (WHR) to understand your fat 
             distribution and potential health risks.
         </p>
 
@@ -19,21 +23,26 @@ export const waistHipRatioTemplate = `
             <strong>1.0 for men</strong> and <strong>0.85 for women</strong>.
         </p>
 
-        <form id="waist-hip-ratio-form">
+        <form id="${FORM_FIELDS.WAIST}"-"${FORM_FIELDS.HIP}"-ratio-form">
             <div class="input-group">
-                <label for="unitSystem">Unit System</label>
-                <select id="unitSystem" name="unitSystem">
-                    <option value="metric">Metric</option>
-                    <option value="imperial">Imperial</option>
+                <label for="${FORM_FIELDS.UNIT_SYSTEM}">Unit System</label>
+                <select id="${FORM_FIELDS.UNIT_SYSTEM}" 
+                name="${FORM_FIELDS.UNIT_SYSTEM}">
+                    <option value="${UnitSystem.METRIC}">Metric</option>
+                    <option value="${UnitSystem.IMPERIAL}">Imperial</option>
                 </select>
             </div>
             <div class="input-group">
-                <label for="waist">Waist Circumference</label>
-                <input type="text" id="waist" name="waist" placeholder="cm">
+                <label for="${FORM_FIELDS.WAIST}">"${FORM_FIELDS.WAIST}" 
+                Circumference</label>
+                <input type="text" id="${FORM_FIELDS.WAIST}" 
+                name="${FORM_FIELDS.WAIST}" placeholder="cm">
             </div>
             <div class="input-group">
-                <label for="hip">Hip Circumference</label>
-                <input type="text" id="hip" name="hip" placeholder="cm">
+                <label for="${FORM_FIELDS.HIP}">"${FORM_FIELDS.HIP}" 
+                Circumference</label>
+                <input type="text" id="${FORM_FIELDS.HIP}" 
+                name="${FORM_FIELDS.HIP}" placeholder="cm">
             </div>
             <div class="button-group">
                 <button type="reset">Reset</button>
@@ -41,12 +50,13 @@ export const waistHipRatioTemplate = `
             </div>
         </form>
 
-        <div class="error-message"></div>
+        <div class="errorMessage"></div>
                 <div class="results">
             <h2>Results</h2>
-            <table>
+            <table class="resultTable">
                 <tr>
-                    <td>Waist-to-Hip Ratio</td>
+                    <td>"${FORM_FIELDS.WAIST}"-to-"${FORM_FIELDS.HIP}" 
+                    Ratio</td>
                     <td>-</td>
                 </tr>
             </table>
@@ -55,7 +65,7 @@ export const waistHipRatioTemplate = `
         Sources:
         <ul>
             <li>World Health Organization (WHO) – 
-            Waist-to-Hip Ratio</li>
+            "${FORM_FIELDS.WAIST}"-to-"${FORM_FIELDS.HIP}" Ratio</li>
             <li>Centers for Disease Control and Prevention (CDC) – 
             Health Guidelines</li>
         </ul>

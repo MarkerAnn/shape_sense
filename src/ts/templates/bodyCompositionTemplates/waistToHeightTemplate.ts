@@ -1,9 +1,13 @@
-export const waistHeightRatioTemplate = `
+import { FORM_FIELDS } from '../../constants/FormConstants'
+import { UnitSystem } from '../../enums/UnitSystem'
+
+export const waitToHeightRatioTemplate = `
 <section class="container">
-    <h2>Waist-to-Height Ratio Calculator</h2>
+    <h2>"${FORM_FIELDS.WAIST}"-to-Height Ratio Calculator</h2>
     <div class="content">
         <p class="description">
-            Calculate your Waist-to-Height Ratio (WHtR) to determine abdominal 
+            Calculate your "${FORM_FIELDS.WAIST}"-to-Height Ratio 
+            (WHtR) to determine abdominal 
             fat levels and associated health risks.
         </p>
 
@@ -13,25 +17,30 @@ export const waistHeightRatioTemplate = `
             healthy for both men and women. 
             Values above 0.5 may indicate an increased risk of cardiovascular d
             isease, type 2 diabetes, and other health conditions. 
-            Keeping your waist circumference below half of your height is a 
+            Keeping your "${FORM_FIELDS.WAIST}" 
+            circumference below half of your height is a 
             guideline for maintaining a healthier profile.
         </p>
 
-        <form id="waist-height-ratio-form">
+        <form id="${FORM_FIELDS.WAIST}"-height-ratio-form">
             <div class="input-group">
-                <label for="unitSystem">Unit System</label>
-                <select id="unitSystem" name="unitSystem">
-                    <option value="metric">Metric</option>
-                    <option value="imperial">Imperial</option>
+                <label for="${FORM_FIELDS.UNIT_SYSTEM}">Unit System</label>
+                <select id="${FORM_FIELDS.UNIT_SYSTEM}" 
+                name="${FORM_FIELDS.UNIT_SYSTEM}">
+                    <option value="${UnitSystem.METRIC}">Metric</option>
+                    <option value="${UnitSystem.IMPERIAL}">Imperial</option>
                 </select>
             </div>
             <div class="input-group">
-                <label for="waist">Waist Circumference</label>
-                <input type="text" id="waist" name="waist" placeholder="cm">
+                <label for="${FORM_FIELDS.WAIST}">"${FORM_FIELDS.WAIST}" 
+                Circumference</label>
+                <input type="text" id="${FORM_FIELDS.WAIST}" 
+                name="${FORM_FIELDS.WAIST}" placeholder="cm">
             </div>
             <div class="input-group">
-                <label for="height">Height</label>
-                <input type="text" id="height" name="height" placeholder="m">
+                <label for="${FORM_FIELDS.HEIGHT}">Height</label>
+                <input type="text" id="${FORM_FIELDS.HEIGHT}" 
+                name="${FORM_FIELDS.HEIGHT}" placeholder="m">
             </div>
             <div class="button-group">
                 <button type="reset">Reset</button>
@@ -39,12 +48,12 @@ export const waistHeightRatioTemplate = `
             </div>
         </form>
 
-        <div class="error-message"></div>
+        <div class="errorMessage"></div>
                         <div class="results">
             <h2>Results</h2>
-            <table>
+            <table class="resultTable">
                 <tr>
-                    <td>Waist-to-Height Ratio</td>
+                    <td>"${FORM_FIELDS.WAIST}"-to-Height Ratio</td>
                     <td>-</td>
                 </tr>
             </table>
@@ -54,7 +63,7 @@ export const waistHeightRatioTemplate = `
         Sources:
         <ul>
             <li>Journal of Clinical Endocrinology & Metabolism – 
-            Waist-to-Height Ratio Research</li>
+            "${FORM_FIELDS.WAIST}"-to-Height Ratio Research</li>
             <li>American Heart Association – Cardiovascular Health</li>
         </ul>
     </div>

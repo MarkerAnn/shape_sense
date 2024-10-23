@@ -1,4 +1,6 @@
 import { FORM_FIELDS } from '../../constants/FormConstants'
+import { ActivityLevel } from '../../enums/ActivityLevel'
+import { UnitSystem } from '../../enums/UnitSystem'
 
 export const totalDailyEnergyExpenditureTemplate = `
   <section class="container">
@@ -43,8 +45,8 @@ export const totalDailyEnergyExpenditureTemplate = `
           <label for="${FORM_FIELDS.UNIT_SYSTEM}">Unit System</label>
           <select id="${FORM_FIELDS.UNIT_SYSTEM}" 
           name="${FORM_FIELDS.UNIT_SYSTEM}">
-            <option value="metric">Metric</option>
-            <option value="imperial">Imperial</option>
+            <option value="${UnitSystem.METRIC}">Metric</option>
+            <option value="${UnitSystem.IMPERIAL}">Imperial</option>
           </select>
         </div>
         <div class="input-group">
@@ -55,25 +57,33 @@ export const totalDailyEnergyExpenditureTemplate = `
           </select>
         </div>
         <div class="input-group">
-          <label for="height">Height</label>
-          <input type="text" id="height" name="height" placeholder="cm">
+          <label for="${FORM_FIELDS.HEIGHT}">Height</label>
+          <input type="text" id="${FORM_FIELDS.HEIGHT}" 
+          name="${FORM_FIELDS.HEIGHT}" placeholder="cm">
         </div>
         <div class="input-group">
-          <label for="weight">Weight</label>
-          <input type="text" id="weight" name="weight" placeholder="kg">
+          <label for="${FORM_FIELDS.WEIGHT}">Weight</label>
+          <input type="text" id="${FORM_FIELDS.WEIGHT}" 
+          name="${FORM_FIELDS.WEIGHT}" placeholder="kg">
         </div>
         <div class="input-group">
-          <label for="age">Age</label>
-          <input type="number" id="age" name="age" placeholder="years">
+          <label for="${FORM_FIELDS.AGE}">Age</label>
+          <input type="number" id="${FORM_FIELDS.AGE}" 
+          name="${FORM_FIELDS.AGE}" placeholder="years">
         </div>
         <div class="input-group">
-          <label for="activityLevel">Activity Level</label>
-          <select id="activityLevel" name="activityLevel">
-            <option value="sedentary">Sedentary</option>
-            <option value="lightly">Lightly Active</option>
-            <option value="moderately">Moderately Active</option>
-            <option value="very">Very Active</option>
-            <option value="extremely">Extremely Active</option>
+          <label for="${FORM_FIELDS.ACTIVITY_LEVEL}">Activity Level</label>
+          <select id="${FORM_FIELDS.ACTIVITY_LEVEL}" 
+          name="${FORM_FIELDS.ACTIVITY_LEVEL}">
+            <option value="${ActivityLevel.SEDENTARY}">Sedentary
+            </option>
+            <option value="${ActivityLevel.LIGHTLY}">Lightly Active
+            </option>
+            <option value="${ActivityLevel.MODERATELY}">Moderately Active
+            </option>
+            <option value="${ActivityLevel.VERY}">Very Active</option>
+            <option value="${ActivityLevel.EXTREMELY}">Extremely Active
+            </option>
           </select>
         </div>
         <div class="button-group">
@@ -82,7 +92,7 @@ export const totalDailyEnergyExpenditureTemplate = `
         </div>
       </form>
 
-      <div class="error-message"></div>
+      <div class="errorMessage"></div>
       <div class="results">
         <h2>Results</h2>
         <table class="resultTable">

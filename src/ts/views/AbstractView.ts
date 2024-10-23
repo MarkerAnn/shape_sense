@@ -1,10 +1,6 @@
 import { User } from '../types/User'
 import { UnitSystem } from '../enums/UnitSystem'
-import { HtmlSelectors } from '../enums/HtmlSelectors'
-import {
-  UNIT_PLACEHOLDERS,
-  MeasurementField,
-} from '../constants/UnitPlaceholders'
+import { FORM_FIELDS, FORM_SELECTORS } from '../constants/FormConstants'
 
 export abstract class AbstractView {
   protected form: HTMLFormElement | null = null

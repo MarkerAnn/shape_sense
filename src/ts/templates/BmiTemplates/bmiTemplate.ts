@@ -1,3 +1,6 @@
+import { FORM_FIELDS } from '../../constants/FormConstants'
+import { UnitSystem } from '../../enums/UnitSystem'
+
 export const bmiTemplate = `
       <section class="container">
         <h2>BMI Calculator</h2>
@@ -34,25 +37,29 @@ export const bmiTemplate = `
         <p>
         For a more comprehensive assessment of health, 
         BMI should be used alongside other measurements, 
-        such as waist-to-hip ratio or body fat percentage.
+        such as "${FORM_FIELDS.WAIST}"-to-"${FORM_FIELDS.HIP}" 
+        ratio or body fat percentage.
         </p>
         </div>
 
         <form id="bmi-form">
           <div class="input-group">
-            <label for="unitSystem">Unit System</label>
-            <select id="unitSystem" name="unitSystem">
-              <option value="metric">Metric</option>
-              <option value="imperial">Imperial</option>
+            <label for="${FORM_FIELDS.UNIT_SYSTEM}">Unit System</label>
+            <select id="${FORM_FIELDS.UNIT_SYSTEM}" 
+            name="${FORM_FIELDS.UNIT_SYSTEM}">
+              <option value="${UnitSystem.METRIC}">Metric</option>
+              <option value="${UnitSystem.IMPERIAL}">Imperial</option>
             </select>
           </div>
           <div class="input-group">
-            <label for="height">Height</label>
-            <input type="text" id="height" name="height" placeholder="m">
+            <label for="${FORM_FIELDS.HEIGHT}">Height</label>
+            <input type="text" id="${FORM_FIELDS.HEIGHT}" 
+            name="${FORM_FIELDS.HEIGHT}" placeholder="m">
           </div>
           <div class="input-group">
-            <label for="weight">Weight</label>
-            <input type="text" id="weight" name="weight" placeholder="kg">
+            <label for="${FORM_FIELDS.WEIGHT}">Weight</label>
+            <input type="text" id="${FORM_FIELDS.WEIGHT}" 
+            name="${FORM_FIELDS.WEIGHT}" placeholder="kg">
           </div>
           <div class="button-group">
             <button type="reset">Reset</button>
@@ -60,10 +67,10 @@ export const bmiTemplate = `
           </div>
         </form>
 
-        <div class="error-message"></div>
+        <div class="errorMessage"></div>
         <div class="results">
           <h2>Results</h2>
-          <table>
+          <table class="resultTable">
             <tr>
               <td>BMI</td>
               <td>-</td>

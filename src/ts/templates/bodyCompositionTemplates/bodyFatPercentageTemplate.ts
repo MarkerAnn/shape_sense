@@ -1,3 +1,6 @@
+import { FORM_FIELDS } from '../../constants/FormConstants'
+import { UnitSystem } from '../../enums/UnitSystem'
+
 export const bodyFatPercentageTemplate = `
 <section class="container">
      <h2>Body Fat Percentage and Lean Body Mass Calculator</h2>
@@ -23,37 +26,47 @@ export const bodyFatPercentageTemplate = `
 
         <form id="body-fat-percentage-form">
             <div class="input-group">
-                <label for="unitSystem">Unit System</label>
-                <select id="unitSystem" name="unitSystem">
-                    <option value="metric">Metric</option>
-                    <option value="imperial">Imperial</option>
+                <label for="${FORM_FIELDS.UNIT_SYSTEM}">Unit System</label>
+                <select id="${FORM_FIELDS.UNIT_SYSTEM}" 
+                name="${FORM_FIELDS.UNIT_SYSTEM}">
+                    <option value="${UnitSystem.METRIC}">Metric</option>
+                    <option value="${UnitSystem.IMPERIAL}">Imperial</option>
                 </select>
             </div>
             <div class="input-group">
-                <label for="gender">Gender</label>
+                <label for="${FORM_FIELDS.GENDER}">Gender</label>
                 <div>
-                    <input type="radio" id="male" name="gender" value="male">
+                    <input type="radio" id="male" 
+                    name="${FORM_FIELDS.GENDER}" value="male">
                     <label for="male">Male</label>
-                    <input type="radio" id="female" name="gender" 
+                    <input type="radio" id="female" 
+                    name="${FORM_FIELDS.GENDER}" 
                     value="female">
                     <label for="female">Female</label>
                 </div>
             </div>
             <div class="input-group">
-                <label for="weight">Weight</label>
-                <input type="text" id="weight" name="weight" placeholder="kg">
+                <label for="${FORM_FIELDS.WEIGHT}">Weight</label>
+                <input type="text" id="${FORM_FIELDS.WEIGHT}" 
+                name="${FORM_FIELDS.WEIGHT}" placeholder="kg">
             </div>
             <div class="input-group">
-                <label for="waist">Waist Circumference</label>
-                <input type="text" id="waist" name="waist" placeholder="cm">
+                <label for="${FORM_FIELDS.WAIST}">"${FORM_FIELDS.WAIST}" 
+                Circumference</label>
+                <input type="text" id="${FORM_FIELDS.WAIST}" 
+                name="${FORM_FIELDS.WAIST}" placeholder="cm">
             </div>
             <div class="input-group">
-                <label for="hip">Hip Circumference (for females only)</label>
-                <input type="text" id="hip" name="hip" placeholder="cm">
+                <label for="${FORM_FIELDS.HIP}">"${FORM_FIELDS.HIP}" 
+                Circumference (for females only)</label>
+                <input type="text" id="${FORM_FIELDS.HIP}" 
+                name="${FORM_FIELDS.HIP}" placeholder="cm">
             </div>
             <div class="input-group">
-                <label for="neck">Neck Circumference</label>
-                <input type="text" id="neck" name="neck" placeholder="cm">
+                <label for="${FORM_FIELDS.NECK}">"${FORM_FIELDS.NECK}" 
+                Circumference</label>
+                <input type="text" id="${FORM_FIELDS.NECK}" 
+                name="${FORM_FIELDS.NECK}" placeholder="cm">
             </div>
             <div class="button-group">
                 <button type="reset">Reset</button>
@@ -61,10 +74,10 @@ export const bodyFatPercentageTemplate = `
             </div>
         </form>
 
-        <div class="error-message"></div>
+        <div class="errorMessage"></div>
                 <div class="results">
             <h2>Results</h2>
-            <table>
+            <table class="resultTable">
                 <tr>
                     <td>Body Fat Percentage</td>
                     <td>-</td>

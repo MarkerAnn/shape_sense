@@ -1,3 +1,6 @@
+import { FORM_FIELDS } from '../../constants/FormConstants'
+import { UnitSystem } from '../../enums/UnitSystem'
+
 export const basalMetabolicRateTemplate = `
   <section class="container">
     <h2>BMR Calculator (Harris-Benedict & Mifflin-St Jeor)</h2>
@@ -33,30 +36,34 @@ export const basalMetabolicRateTemplate = `
 
       <form id="bmr-form">
         <div class="input-group">
-          <label for="unitSystem">Unit System</label>
-          <select id="unitSystem" name="unitSystem">
-            <option value="metric">Metric</option>
-            <option value="imperial">Imperial</option>
+          <label for="${FORM_FIELDS.UNIT_SYSTEM}">Unit System</label>
+          <select id="${FORM_FIELDS.UNIT_SYSTEM}" 
+          name="${FORM_FIELDS.UNIT_SYSTEM}">
+            <option value="${UnitSystem.METRIC}">Metric</option>
+            <option value="${UnitSystem.IMPERIAL}">Imperial</option>
           </select>
         </div>
         <div class="input-group">
-          <label for="gender">Gender</label>
-          <select id="gender" name="gender">
+          <label for="${FORM_FIELDS.GENDER}">Gender</label>
+          <select id="${FORM_FIELDS.GENDER}" name="${FORM_FIELDS.GENDER}">
             <option value="male">Male</option>
             <option value="female">Female</option>
           </select>
         </div>
         <div class="input-group">
-          <label for="height">Height</label>
-          <input type="text" id="height" name="height" placeholder="cm">
+          <label for="${FORM_FIELDS.HEIGHT}">Height</label>
+          <input type="text" id="${FORM_FIELDS.HEIGHT}" 
+          name="${FORM_FIELDS.HEIGHT}" placeholder="cm">
         </div>
         <div class="input-group">
-          <label for="weight">Weight</label>
-          <input type="text" id="weight" name="weight" placeholder="kg">
+          <label for="${FORM_FIELDS.WEIGHT}">Weight</label>
+          <input type="text" id="${FORM_FIELDS.WEIGHT}" 
+          name="${FORM_FIELDS.WEIGHT}" placeholder="kg">
         </div>
         <div class="input-group">
-          <label for="age">Age</label>
-          <input type="number" id="age" name="age" placeholder="years">
+          <label for="${FORM_FIELDS.AGE}">Age</label>
+          <input type="number" id="${FORM_FIELDS.AGE}" 
+          name="${FORM_FIELDS.AGE}" placeholder="years">
         </div>
         <div class="button-group">
           <button type="reset">Reset</button>
@@ -64,10 +71,10 @@ export const basalMetabolicRateTemplate = `
         </div>
       </form>
 
-      <div class="error-message"></div>
+      <div class="errorMessage"></div>
       <div class="results">
         <h2>Results</h2>
-        <table>
+        <table class="resultTable">
           <tr>
             <td>BMR (Harris-Benedict)</td>
             <td>-</td>
