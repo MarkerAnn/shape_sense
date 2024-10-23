@@ -8,8 +8,8 @@ import {
   BodyFatPercentageFormData,
   BasalMetabolicRateFormData,
   TotalDailyEnergyExpenditureFormData,
-  caloriesForWeightGoalFormData,
-  estimateTimeToWeightGoalFormData,
+  CaloriesForWeightGoalFormData,
+  EstimateTimeToWeightGoalFormData,
 } from '../types/FormTypes'
 
 export class FormValidator {
@@ -62,7 +62,7 @@ export class FormValidator {
   }
 
   validateCaloriesForWeightGoalFormData(
-    data: caloriesForWeightGoalFormData
+    data: CaloriesForWeightGoalFormData
   ): void {
     this.validateUnitSystem(data.unitSystem)
     this.validateGender(data.gender)
@@ -75,7 +75,7 @@ export class FormValidator {
   }
 
   validateEstimateTimeToWeightGoalFormData(
-    data: estimateTimeToWeightGoalFormData
+    data: EstimateTimeToWeightGoalFormData
   ): void {
     this.validateUnitSystem(data.unitSystem)
     this.validateGender(data.gender)

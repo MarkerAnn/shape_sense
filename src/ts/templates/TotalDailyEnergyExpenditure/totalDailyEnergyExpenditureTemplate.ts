@@ -1,3 +1,5 @@
+import { FORM_FIELDS } from '../../constants/FormConstants'
+
 export const totalDailyEnergyExpenditureTemplate = `
   <section class="container">
     <h2>TDEE Calculator (Harris-Benedict & Mifflin-St Jeor)</h2>
@@ -38,15 +40,16 @@ export const totalDailyEnergyExpenditureTemplate = `
 
       <form id="tdee-form">
         <div class="input-group">
-          <label for="unitSystem">Unit System</label>
-          <select id="unitSystem" name="unitSystem">
+          <label for="${FORM_FIELDS.UNIT_SYSTEM}">Unit System</label>
+          <select id="${FORM_FIELDS.UNIT_SYSTEM}" 
+          name="${FORM_FIELDS.UNIT_SYSTEM}">
             <option value="metric">Metric</option>
             <option value="imperial">Imperial</option>
           </select>
         </div>
         <div class="input-group">
-          <label for="gender">Gender</label>
-          <select id="gender" name="gender">
+          <label for="${FORM_FIELDS.GENDER}">Gender</label>
+          <select id="${FORM_FIELDS.GENDER}" name="${FORM_FIELDS.GENDER}">
             <option value="male">Male</option>
             <option value="female">Female</option>
           </select>

@@ -1,32 +1,16 @@
-export enum RouteEnum {
-  HOME,
-  BMI,
-  BASAL_METABOLIC_RATE,
-  TDEE,
-  BODY_COMPOSITION,
-  CALORIE_CALCULATION,
-  WAIST_TO_HIP,
-  WAIST_TO_HEIGHT,
-  BODY_FAT_PERCENTAGE,
-  CALORIE_GOAL,
-  WEIGHT_GOAL,
-}
+// src/ts/enums/Routes.ts
+import { CALCULATOR_ROUTES } from '../constants/FormConstants'
 
-export const ROUTES: Record<RouteEnum, string> = {
-  [RouteEnum.HOME]: '/',
-  [RouteEnum.BMI]: '/bmi',
-  [RouteEnum.BASAL_METABOLIC_RATE]: '/bmr',
-  [RouteEnum.TDEE]: '/tdee',
-  [RouteEnum.BODY_COMPOSITION]: '/body-composition',
-  [RouteEnum.CALORIE_CALCULATION]: '/calorie-calculation',
-  [RouteEnum.WAIST_TO_HIP]: '/waist-to-hip',
-  [RouteEnum.WAIST_TO_HEIGHT]: '/waist-to-height',
-  [RouteEnum.BODY_FAT_PERCENTAGE]: '/body-fat-percentage',
-  [RouteEnum.CALORIE_GOAL]: '/calorie-goal',
-  [RouteEnum.WEIGHT_GOAL]: '/weight-goal',
-}
+export type RouteType = keyof typeof CALCULATOR_ROUTES
+export type RoutePath = (typeof CALCULATOR_ROUTES)[RouteType]
 
-export function getRouteFromPath(path: string): RouteEnum | undefined {
-  const entry = Object.entries(ROUTES).find(([_, value]) => value === path)
-  return entry ? (Number(entry[0]) as RouteEnum) : undefined
+export const ROUTES = {
+  HOME: '/',
+  ...CALCULATOR_ROUTES,
+} as const
+
+export function getRouteFromPath(path: string): RouteType | undefined {
+  const routes = Object.entries(ROUTES)
+  const route = routes.find(([_, value]) => value === path)
+  return route ? (route[0] as RouteType) : undefined
 }

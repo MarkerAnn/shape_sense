@@ -4,7 +4,7 @@ import { BaseController } from '../AbstractBaseController'
 import { UserModel } from '../../models/UserModel'
 import { HealthCalculatorModel } from '../../models/HealthCalculatorModel'
 import { FormValidator } from '../../utils/FormValidator'
-import { estimateTimeToWeightGoalFormData } from '../../types/FormTypes'
+import { EstimateTimeToWeightGoalFormData } from '../../types/FormTypes'
 import { UnitSystem } from '../../enums/UnitSystem'
 import { Gender } from '../../enums/Gender'
 import { ActivityLevel } from '../../enums/ActivityLevel'
@@ -43,8 +43,8 @@ export class EstimateTimeToWeightGoalController extends BaseController {
     }
   }
 
-  private parseFormData(formData: FormData): estimateTimeToWeightGoalFormData {
-    const data: estimateTimeToWeightGoalFormData = {
+  private parseFormData(formData: FormData): EstimateTimeToWeightGoalFormData {
+    const data: EstimateTimeToWeightGoalFormData = {
       unitSystem: formData.get('unitSystem') as UnitSystem,
       gender: formData.get('gender') as Gender,
       weight: parseFloat(formData.get('weight') as string),

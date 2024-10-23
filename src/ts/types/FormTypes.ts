@@ -2,14 +2,16 @@ import { ActivityLevel } from '../enums/ActivityLevel'
 import { Gender } from '../enums/Gender'
 import { UnitSystem } from '../enums/UnitSystem'
 
-export interface BmiFormData {
+interface BaseFormData {
   unitSystem: UnitSystem
+}
+
+export interface BmiFormData extends BaseFormData {
   height: number
   weight: number
 }
 
-export interface TotalDailyEnergyExpenditureFormData {
-  unitSystem: UnitSystem
+export interface TotalDailyEnergyExpenditureFormData extends BaseFormData {
   gender: Gender
   activityLevel: ActivityLevel
   weight: number
@@ -17,20 +19,17 @@ export interface TotalDailyEnergyExpenditureFormData {
   age: number
 }
 
-export interface WaistHipRatioFormData {
-  unitSystem: UnitSystem
+export interface WaistHipRatioFormData extends BaseFormData {
   waist: number
   hip: number
 }
 
-export interface WaistHeightRatioFormData {
-  unitSystem: UnitSystem
+export interface WaistHeightRatioFormData extends BaseFormData {
   waist: number
   height: number
 }
 
-export interface BodyFatPercentageFormData {
-  unitSystem: UnitSystem
+export interface BodyFatPercentageFormData extends BaseFormData {
   gender: Gender
   waist: number
   neck: number
@@ -38,32 +37,29 @@ export interface BodyFatPercentageFormData {
   weight: number
 }
 
-export interface BasalMetabolicRateFormData {
-  unitSystem: UnitSystem
+export interface BasalMetabolicRateFormData extends BaseFormData {
   gender: Gender
   weight: number
   height: number
   age: number
 }
 
-export interface caloriesForWeightGoalFormData {
-  unitSystem: UnitSystem
+export interface CaloriesForWeightGoalFormData extends BaseFormData {
   weight: number
   height: number
-  age: number
-  gender: Gender
-  activityLevel: ActivityLevel
   weightGoal: number
   weeksToWeightGoal: number
-}
-
-export interface estimateTimeToWeightGoalFormData {
-  unitSystem: UnitSystem
-  weight: number
-  height: number
   age: number
   gender: Gender
   activityLevel: ActivityLevel
+}
+
+export interface EstimateTimeToWeightGoalFormData extends BaseFormData {
+  weight: number
+  height: number
   dailyCalories: number
   weightGoal: number
+  age: number
+  gender: Gender
+  activityLevel: ActivityLevel
 }

@@ -4,7 +4,7 @@ import { BaseController } from '../AbstractBaseController'
 import { UserModel } from '../../models/UserModel'
 import { HealthCalculatorModel } from '../../models/HealthCalculatorModel'
 import { FormValidator } from '../../utils/FormValidator'
-import { caloriesForWeightGoalFormData } from '../../types/FormTypes'
+import { CaloriesForWeightGoalFormData } from '../../types/FormTypes'
 import { UnitSystem } from '../../enums/UnitSystem'
 import { Gender } from '../../enums/Gender'
 import { ActivityLevel } from '../../enums/ActivityLevel'
@@ -47,8 +47,8 @@ export class CaloriesForWeightGoalController extends BaseController {
     }
   }
 
-  private parseFormData(formData: FormData): caloriesForWeightGoalFormData {
-    const data: caloriesForWeightGoalFormData = {
+  private parseFormData(formData: FormData): CaloriesForWeightGoalFormData {
+    const data: CaloriesForWeightGoalFormData = {
       unitSystem: formData.get('unitSystem') as UnitSystem,
       gender: formData.get('gender') as Gender,
       weight: parseFloat(formData.get('weight') as string),

@@ -11,3 +11,5 @@ export class BmiCategoryConverter {
     throw new Error(`Invalid BMI category: ${bmiType}`)
   }
 }
+
+// TODO: Gör om denna, ingen static
