@@ -1,34 +1,48 @@
 export class HeaderManager {
-  private dropdownToggle: Element | null
-  private dropdownMenu: Element | null
+  private dropdownToggles: Element[]
+  private dropdownMenus: Element[]
 
   constructor() {
-    this.dropdownToggle = document.querySelector('.dropdown-toggle')
-    this.dropdownMenu = document.querySelector('.dropdown-menu')
-    this.initializeDropdown()
+    this.dropdownToggles = Array.from(
+      document.querySelectorAll('.dropdown-toggle')
+    )
+    this.dropdownMenus = Array.from(document.querySelectorAll('.dropdown-menu'))
+    this.initializeDropdowns()
   }
 
-  private initializeDropdown(): void {
-    if (this.dropdownToggle && this.dropdownMenu) {
-      this.dropdownToggle.addEventListener(
-        'click',
-        this.toggleDropdown.bind(this)
-      )
-      document.addEventListener('click', this.handleOutsideClick.bind(this))
-    }
+  private initializeDropdowns(): void {
+    this.dropdownToggles.forEach((toggle) => {
+      toggle.addEventListener('click', this.toggleDropdown.bind(this))
+    })
+    document.addEventListener('click', this.handleOutsideClick.bind(this))
   }
 
   private toggleDropdown(event: Event): void {
     event.preventDefault()
-    this.dropdownMenu?.classList.toggle('show')
+
+    this.dropdownMenus.forEach((menu) => {
+      menu.parentElement?.classList.remove('show')
+    })
+
+    const toggle = event.currentTarget as HTMLElement
+    const menu = toggle.nextElementSibling
+
+    if (menu && menu.classList.contains('dropdown-menu')) {
+      toggle.parentElement?.classList.toggle('show')
+    }
   }
 
   private handleOutsideClick(event: Event): void {
-    if (
-      this.dropdownToggle &&
-      !this.dropdownToggle.contains(event.target as Node)
-    ) {
-      this.dropdownMenu?.classList.remove('show')
+    const target = event.target as Node
+
+    const isClickInsideDropdown = this.dropdownToggles.some((toggle) =>
+      toggle.contains(target)
+    )
+
+    if (!isClickInsideDropdown) {
+      this.dropdownMenus.forEach((menu) => {
+        menu.parentElement?.classList.remove('show')
+      })
     }
   }
 }

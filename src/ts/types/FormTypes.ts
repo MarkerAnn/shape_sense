@@ -1,3 +1,4 @@
+import { ActivityLevel } from '../enums/ActivityLevel'
 import { Gender } from '../enums/Gender'
 import { UnitSystem } from '../enums/UnitSystem'
 
@@ -7,12 +8,14 @@ export interface BmiFormData {
   weight: number
 }
 
-// export interface TdeeFormData {
-//   unitSystem: UnitSystem
-//   weight: number
-//   height: number
-//   age: number
-// }
+export interface TotalDailyEnergyExpenditureFormData {
+  unitSystem: UnitSystem
+  gender: Gender
+  activityLevel: ActivityLevel
+  weight: number
+  height: number
+  age: number
+}
 
 export interface WaistHipRatioFormData {
   unitSystem: UnitSystem
@@ -41,4 +44,26 @@ export interface BasalMetabolicRateFormData {
   weight: number
   height: number
   age: number
+}
+
+export interface caloriesForWeightGoalFormData {
+  unitSystem: UnitSystem
+  weight: number
+  height: number
+  age: number
+  gender: Gender
+  activityLevel: ActivityLevel
+  weightGoal: number
+  weeksToWeightGoal: number
+}
+
+export interface estimateTimeToWeightGoalFormData {
+  unitSystem: UnitSystem
+  weight: number
+  height: number
+  age: number
+  gender: Gender
+  activityLevel: ActivityLevel
+  dailyCalories: number
+  weightGoal: number
 }

@@ -1,20 +1,21 @@
 // eslint-disable-next-line max-len
-import { BodyFatPercentageView } from '../../views/BodyCompositionViews/BodyFatPercentageView'
+import { CaloriesForWeightGoalView } from '../../views/GoalCalculatorViews/CaloriesForWeightGoalView'
 import { BaseController } from '../AbstractBaseController'
 import { UserModel } from '../../models/UserModel'
 import { HealthCalculatorModel } from '../../models/HealthCalculatorModel'
 import { FormValidator } from '../../utils/FormValidator'
-import { BodyFatPercentageFormData } from '../../types/FormTypes'
+import { caloriesForWeightGoalFormData } from '../../types/FormTypes'
 import { UnitSystem } from '../../enums/UnitSystem'
 import { Gender } from '../../enums/Gender'
+import { ActivityLevel } from '../../enums/ActivityLevel'
 
-export class BodyFatPercentageController extends BaseController {
-  protected view: BodyFatPercentageView
+export class CaloriesForWeightGoalController extends BaseController {
+  protected view: CaloriesForWeightGoalView
   private formValidator: FormValidator
 
   constructor(user: UserModel, calculator: HealthCalculatorModel) {
     super(user, calculator)
-    this.view = new BodyFatPercentageView()
+    this.view = new CaloriesForWeightGoalView()
     this.formValidator = new FormValidator()
   }
 
@@ -33,41 +34,39 @@ export class BodyFatPercentageController extends BaseController {
   private handleCalculate(formData: FormData): void {
     try {
       const data = this.parseFormData(formData)
-      this.formValidator.validateBodyFatPercentageFormData(data)
+      console.log('data', data)
+      this.formValidator.validateCaloriesForWeightGoalFormData(data)
       this.user.setData(data)
+      console.log('user', this.user)
       this.updateView()
+      console.log('view', this.view)
       this.view.hideError()
     } catch (error) {
+      console.error('error', error)
       this.handleErrors(error as Error)
     }
   }
 
-  private parseFormData(formData: FormData): BodyFatPercentageFormData {
-    const data: BodyFatPercentageFormData = {
+  private parseFormData(formData: FormData): caloriesForWeightGoalFormData {
+    const data: caloriesForWeightGoalFormData = {
       unitSystem: formData.get('unitSystem') as UnitSystem,
       gender: formData.get('gender') as Gender,
       weight: parseFloat(formData.get('weight') as string),
-      waist: parseFloat(formData.get('waist') as string),
-      neck: parseFloat(formData.get('neck') as string),
+      height: parseFloat(formData.get('height') as string),
+      age: parseFloat(formData.get('age') as string),
+      activityLevel: formData.get('activityLevel') as ActivityLevel,
+      weightGoal: parseFloat(formData.get('weightGoal') as string),
+      weeksToWeightGoal: parseFloat(
+        formData.get('weeksToWeightGoal') as string
+      ),
     }
-    // TODO: ovan, strängar
-
-    if (data.gender === Gender.FEMALE) {
-      const hipValue = formData.get('hip')
-      if (hipValue) {
-        data.hip = parseFloat(hipValue as string)
-      } else {
-        throw new Error('Hip measurement is required for females.')
-      }
-    }
-
     return data
   }
 
   private updateView(): void {
-    const bodyFatPercentage = this.calculator.getBodyFatPercentage()
-    const leanBodyMass = this.calculator.getLeanBodyMass()
-    this.view.updateResults({ bodyFatPercentage, leanBodyMass })
+    const dailyCalories = this.calculator.getCaloriesForWeightGoal()
+    console.log('dailyCalories', dailyCalories)
+    this.view.updateResults(dailyCalories)
   }
 
   private handleReset(): void {

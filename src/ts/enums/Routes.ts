@@ -8,6 +8,8 @@ export enum RouteEnum {
   WAIST_TO_HIP,
   WAIST_TO_HEIGHT,
   BODY_FAT_PERCENTAGE,
+  CALORIE_GOAL,
+  WEIGHT_GOAL,
 }
 
 export const ROUTES: Record<RouteEnum, string> = {
@@ -20,6 +22,8 @@ export const ROUTES: Record<RouteEnum, string> = {
   [RouteEnum.WAIST_TO_HIP]: '/waist-to-hip',
   [RouteEnum.WAIST_TO_HEIGHT]: '/waist-to-height',
   [RouteEnum.BODY_FAT_PERCENTAGE]: '/body-fat-percentage',
+  [RouteEnum.CALORIE_GOAL]: '/calorie-goal',
+  [RouteEnum.WEIGHT_GOAL]: '/weight-goal',
 }
 
 export function getRouteFromPath(path: string): RouteEnum | undefined {

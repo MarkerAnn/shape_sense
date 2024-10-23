@@ -2,6 +2,9 @@ export enum CalculatorType {
   BMI = 'bmi',
   BMR = 'bmr',
   TDEE = 'tdee',
-  BODY_COMPOSITION = 'body-composition',
-  CALORIE_CALCULATION = 'calorie-calculation',
+  WAIST_TO_HIP_RATIO = 'waist-to-hip',
+  WAIST_TO_HEIGHT_RATIO = 'waist-to-height',
+  BODY_FAT_PERCENTAGE = 'body-fat-percentage',
+  CALORIE_GOAL = 'calorie-goal',
+  WEIGHT_GOAL = 'weight-goal',
 }

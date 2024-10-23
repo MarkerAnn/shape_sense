@@ -1,11 +1,21 @@
 import { User } from '../types/User'
+import { UnitSystem } from '../enums/UnitSystem'
 import { HtmlSelectors } from '../enums/HtmlSelectors'
+import {
+  UNIT_PLACEHOLDERS,
+  MeasurementField,
+} from '../constants/UnitPlaceholders'
 
 export abstract class AbstractView {
   protected form: HTMLFormElement | null = null
   protected resultsTable: HTMLTableElement | null = null
   protected errorMessage: HTMLElement | null = null
   protected inputs: { [key: string]: HTMLInputElement } = {}
+  protected getSelectedUnitSystem: () => UnitSystem
+
+  constructor(getSelectedUnitSystem: () => UnitSystem) {
+    this.getSelectedUnitSystem = getSelectedUnitSystem
+  }
 
   abstract render(container: HTMLElement): void
   abstract fillForm(data: Partial<User>): void
@@ -44,8 +54,19 @@ export abstract class AbstractView {
     }
   }
 
-  protected updatePlaceholders(): void {
-    // Placeholder update logic
+  updatePlaceholders(): void {
+    const selectedUnitSystem = this.getSelectedUnitSystem()
+    const placeholders =
+      UNIT_PLACEHOLDERS[selectedUnitSystem as keyof typeof UNIT_PLACEHOLDERS]
+
+    Object.keys(this.inputs).forEach((key) => {
+      if (key in placeholders) {
+        this.inputs[key as MeasurementField].setAttribute(
+          'placeholder',
+          placeholders[key as MeasurementField]
+        )
+      }
+    })
   }
 
   showError(message: string): void {

@@ -14,10 +14,14 @@ import { UnitSystem } from '../enums/UnitSystem'
  * @property {number} [waist] - The waist measurement of the user (optional).
  * @property {number} [hip] - The hip measurement of the user (optional).
  * @property {number} [neck] - The neck measurement of the user (optional).
- * @property {ActivityLevel} [activityLevel] - The activity level of the user (optional).
- * @property {number} [dailyCalories] - The daily calorie intake of the user (optional).
- * @property {number} [weightGoal] - The weight goal of the user (optional).
- * @property {number} [weeksToWeightGoal] - The number of weeks to achieve the weight goal (optional).
+ * @property {ActivityLevel} [activityLevel] -
+ * The activity level of the user (optional).
+ * @property {number} [dailyCalories] -
+ * The daily calorie intake of the user (optional).
+ * @property {number} [weightGoal] -
+ * The weight goal of the user (optional).
+ * @property {number} [weeksToWeightGoal] -
+ * The number of weeks to achieve the weight goal (optional).
  */
 export type User = {
   weight?: number

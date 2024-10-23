@@ -1,5 +1,5 @@
 // eslint-disable-next-line max-len
-import { waistHipRatioTemplate } from '../../templates/bodyCompositionTemplates/waistToHipTemplate'
+import { waistHipRatioTemplate } from '../../templates/BodyCompositionTemplates/waistToHipTemplate'
 import { AbstractView } from '../AbstractView'
 import { UnitSystem } from '../../enums/UnitSystem'
 import { User } from '../../types/User'
@@ -10,6 +10,10 @@ export class WaistToHipRatioView extends AbstractView {
   private waistInput: HTMLInputElement | null = null
   private hipInput: HTMLInputElement | null = null
   private unitSystemSelect: HTMLSelectElement | null = null
+
+  constructor() {
+    super(() => this.unitSystemSelect?.value as UnitSystem)
+  }
 
   render(container: HTMLElement): void {
     container.innerHTML = waistHipRatioTemplate
@@ -47,19 +51,19 @@ export class WaistToHipRatioView extends AbstractView {
     }
   }
 
-  updatePlaceholders(): void {
-    const isImperial = this.unitSystemSelect?.value === UnitSystem.IMPERIAL
-    const placeholders = isImperial
-      ? { waist: 'in', hip: 'in' }
-      : { waist: 'cm', hip: 'cm' }
+  // updatePlaceholders(): void {
+  //   const isImperial = this.unitSystemSelect?.value === UnitSystem.IMPERIAL
+  //   const placeholders = isImperial
+  //     ? { waist: 'in', hip: 'in' }
+  //     : { waist: 'cm', hip: 'cm' }
 
-    Object.keys(this.inputs).forEach((key) => {
-      this.inputs[key].setAttribute(
-        'placeholder',
-        placeholders[key as keyof typeof placeholders]
-      )
-    })
-  }
+  //   Object.keys(this.inputs).forEach((key) => {
+  //     this.inputs[key].setAttribute(
+  //       'placeholder',
+  //       placeholders[key as keyof typeof placeholders]
+  //     )
+  //   })
+  // }
 
   bindCalculateEvent(handler: (data: FormData) => void): void {
     this.form?.addEventListener('submit', (event) => {

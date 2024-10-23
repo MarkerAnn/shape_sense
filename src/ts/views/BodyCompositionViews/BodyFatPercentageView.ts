@@ -1,5 +1,5 @@
 // eslint-disable-next-line max-len
-import { bodyFatPercentageTemplate } from '../../templates/bodyCompositionTemplates/bodyFatPercentageTemplate'
+import { bodyFatPercentageTemplate } from '../../templates/BodyCompositionTemplates/bodyFatPercentageTemplate'
 import { AbstractView } from '../AbstractView'
 import { UnitSystem } from '../../enums/UnitSystem'
 import { User } from '../../types/User'
@@ -14,6 +14,10 @@ export class BodyFatPercentageView extends AbstractView {
   private neckInput: HTMLInputElement | null = null
   private unitSystemSelect: HTMLSelectElement | null = null
   private genderInputs: HTMLInputElement[] = []
+
+  constructor() {
+    super(() => this.unitSystemSelect?.value as UnitSystem)
+  }
 
   render(container: HTMLElement): void {
     container.innerHTML = bodyFatPercentageTemplate
@@ -87,20 +91,6 @@ export class BodyFatPercentageView extends AbstractView {
     if (this.hipInput && data.hip && data.gender === Gender.FEMALE) {
       this.hipInput.value = data.hip.toString()
     }
-  }
-
-  protected updatePlaceholders(): void {
-    const isImperial = this.unitSystemSelect?.value === UnitSystem.IMPERIAL
-    const placeholders = isImperial
-      ? { weight: 'lbs', waist: 'in', hip: 'in', neck: 'in' }
-      : { weight: 'kg', waist: 'cm', hip: 'cm', neck: 'cm' }
-
-    Object.keys(this.inputs).forEach((key) => {
-      this.inputs[key].setAttribute(
-        'placeholder',
-        placeholders[key as keyof typeof placeholders]
-      )
-    })
   }
 
   private updateHipInputVisibility(): void {

@@ -7,6 +7,10 @@ export const UNIT_PLACEHOLDERS = {
     waist: 'cm',
     hip: 'cm',
     neck: 'cm',
+    age: 'years',
+    dailyCalories: 'kcal',
+    weighGoal: 'kg',
+    weeksToWeightGoal: 'weeks',
   },
   [UnitSystem.IMPERIAL]: {
     height: 'ft',
@@ -14,6 +18,10 @@ export const UNIT_PLACEHOLDERS = {
     waist: 'in',
     hip: 'in',
     neck: 'in',
+    age: 'years',
+    dailyCalories: 'kcal',
+    weighGoal: 'lbs',
+    weeksToWeightGoal: 'weeks',
   },
 } as const
 

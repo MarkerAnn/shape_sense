@@ -1,46 +1,58 @@
 // eslint-disable-next-line max-len
-import { basalMetabolicRateTemplate } from '../../templates/BasalMetabolicRateTemplates/basalMetabolicRateTemplate'
+import { estimateTimeToWeightGoalTemplate } from '../../templates/GoalCalculationTemplates/estimateTimeToWeightGoalTemplate'
 import { AbstractView } from '../AbstractView'
-import { UnitSystem } from '../../enums/UnitSystem'
 import { User } from '../../types/User'
-import { Gender } from '../../enums/Gender'
 import { HtmlSelectors } from '../../enums/HtmlSelectors'
 import { InputFields } from '../../enums/InputFields'
-// import { unitPlaceholders } from '../../constants/UnitPlaceholders'
+import { UnitSystem } from '../../enums/UnitSystem'
 
-export class BasalMetabolicRateView extends AbstractView {
+export class EstimateTimeToWeightGoalView extends AbstractView {
   private weightInput: HTMLInputElement | null = null
   private heightInput: HTMLInputElement | null = null
   private ageInput: HTMLInputElement | null = null
   private unitSystemSelect: HTMLSelectElement | null = null
-  private genderInputs: HTMLInputElement[] = []
+  private genderSelect: HTMLSelectElement | null = null
+  private activityLevelSelect: HTMLSelectElement | null = null
+  private weightGoalInput: HTMLInputElement | null = null
+  private dailyCaloriesInput: HTMLInputElement | null = null
 
   constructor() {
     super(() => this.unitSystemSelect?.value as UnitSystem)
   }
 
   render(container: HTMLElement): void {
-    container.innerHTML = basalMetabolicRateTemplate
+    container.innerHTML = estimateTimeToWeightGoalTemplate
 
     this.initializeCommonElements()
     this.initializeInputs([
       InputFields.WEIGHT,
       InputFields.HEIGHT,
       InputFields.AGE,
+      InputFields.WEIGHT_GOAL,
+      InputFields.DAILY_CALORIES,
     ])
 
     this.weightInput = this.getElement(HtmlSelectors.WEIGHT) as HTMLInputElement
     this.heightInput = this.getElement(HtmlSelectors.HEIGHT) as HTMLInputElement
     this.ageInput = this.getElement(HtmlSelectors.AGE) as HTMLInputElement
+    this.weightGoalInput = this.getElement(
+      HtmlSelectors.WEIGHT_GOAL
+    ) as HTMLInputElement
+    this.dailyCaloriesInput = this.getElement(
+      HtmlSelectors.DAILY_CALORIES
+    ) as HTMLInputElement
     this.unitSystemSelect = this.getElement(
       HtmlSelectors.UNIT_SYSTEM
     ) as HTMLSelectElement
-    const inputs = this.form?.querySelectorAll('input[name="gender"]')
-    this.genderInputs = Array.from(inputs || []) as HTMLInputElement[]
+    this.genderSelect = this.getElement(
+      HtmlSelectors.GENDER
+    ) as HTMLSelectElement
+    this.activityLevelSelect = this.getElement(
+      HtmlSelectors.ACTIVITY_LEVEL
+    ) as HTMLSelectElement
 
-    this.unitSystemSelect?.addEventListener(
-      'change',
-      this.updatePlaceholders.bind(this)
+    this.unitSystemSelect?.addEventListener('change', () =>
+      this.updatePlaceholders()
     )
   }
 
@@ -48,33 +60,26 @@ export class BasalMetabolicRateView extends AbstractView {
     if (this.unitSystemSelect && data.unitSystem) {
       this.unitSystemSelect.value = data.unitSystem
     }
+    if (this.genderSelect && data.gender) {
+      this.genderSelect.value = data.gender
+    }
+    if (this.activityLevelSelect && data.activityLevel) {
+      this.activityLevelSelect.value = data.activityLevel
+    }
 
     this.setInputValue(this.weightInput, data.weight)
     this.setInputValue(this.heightInput, data.height)
     this.setInputValue(this.ageInput, data.age)
-
-    if (data.gender) {
-      this.setGender(data.gender)
-    }
-
-    this.updatePlaceholders()
+    this.setInputValue(this.weightGoalInput, data.weightGoal)
+    this.setInputValue(this.dailyCaloriesInput, data.dailyCalories)
   }
 
   private setInputValue(
     input: HTMLInputElement | null,
     value: number | undefined
   ): void {
-    if (input && value !== undefined) {
+    if (input && value) {
       input.value = value.toString()
-    }
-  }
-
-  private setGender(gender: Gender): void {
-    const genderInput = this.genderInputs.find(
-      (input) => input.value === gender
-    )
-    if (genderInput) {
-      genderInput.checked = true
     }
   }
 
@@ -82,23 +87,23 @@ export class BasalMetabolicRateView extends AbstractView {
     this.form?.addEventListener('submit', (event) => {
       event.preventDefault()
       const formData = new FormData(this.form as HTMLFormElement)
+
+      if (this.genderSelect) {
+        formData.set('gender', this.genderSelect.value)
+      }
+      if (this.activityLevelSelect) {
+        formData.set('activityLevel', this.activityLevelSelect.value)
+      }
       handler(formData)
     })
   }
 
-  updateResults(data: {
-    basalMetabolicRateHarrisBenedict: number
-    basalMetabolicRateMifflinStJeor: number
-  }): void {
+  updateResults(timeToGoal: number): void {
     if (!this.resultsTable) {
       return
     }
 
     const rows = this.resultsTable.rows
-    rows[0].cells[1].textContent =
-      data.basalMetabolicRateHarrisBenedict.toFixed(0) + ' kcal/day'
-    rows[1].cells[1].textContent =
-      data.basalMetabolicRateMifflinStJeor.toFixed(0) + ' kcal/day'
+    rows[0].cells[1].textContent = timeToGoal.toString() + ' weeks'
   }
 }
-// TODO: Implement a constant for magic strings in updatePlaceholders

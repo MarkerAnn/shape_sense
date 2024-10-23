@@ -1,7 +1,7 @@
 import { AbstractView } from '../AbstractView'
 import { UnitSystem } from '../../enums/UnitSystem'
 import { User } from '../../types/User'
-import { bmiTemplate } from '../../templates/bmiTemplate'
+import { bmiTemplate } from '../../templates/BmiTemplates/bmiTemplate'
 import { HtmlSelectors } from '../../enums/HtmlSelectors'
 import { InputFields } from '../../enums/InputFields'
 
@@ -9,6 +9,10 @@ export class BmiView extends AbstractView {
   private heightInput: HTMLInputElement | null = null
   private weightInput: HTMLInputElement | null = null
   private unitSystemSelect: HTMLSelectElement | null = null
+
+  constructor() {
+    super(() => this.unitSystemSelect?.value as UnitSystem)
+  }
 
   render(container: HTMLElement): void {
     container.innerHTML = bmiTemplate
@@ -48,20 +52,6 @@ export class BmiView extends AbstractView {
     }
   }
 
-  updatePlaceholders(): void {
-    const isImperial = this.unitSystemSelect?.value === UnitSystem.IMPERIAL
-    const placeholders = isImperial
-      ? { height: 'ft', weight: 'lbs' }
-      : { height: 'm', weight: 'kg' }
-
-    Object.keys(this.inputs).forEach((key) => {
-      this.inputs[key].setAttribute(
-        'placeholder',
-        placeholders[key as keyof typeof placeholders]
-      )
-    })
-  }
-
   bindCalculateEvent(handler: (data: FormData) => void): void {
     this.form?.addEventListener('submit', (event) => {
       event.preventDefault()
@@ -91,4 +81,4 @@ export class BmiView extends AbstractView {
   }
 }
 
-// TODO: MAgic numbers
+// TODO: Magic numbers

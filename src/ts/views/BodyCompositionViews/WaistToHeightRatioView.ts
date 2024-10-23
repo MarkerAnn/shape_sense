@@ -1,5 +1,5 @@
 // eslint-disable-next-line max-len
-import { waistHeightRatioTemplate } from '../../templates/bodyCompositionTemplates/waistToHeightTemplate'
+import { waistHeightRatioTemplate } from '../../templates/BodyCompositionTemplates/waistToHeightTemplate'
 import { User } from '../../types/User'
 import { AbstractView } from '../AbstractView'
 import { UnitSystem } from '../../enums/UnitSystem'
@@ -10,6 +10,10 @@ export class WaistToHeightRatioView extends AbstractView {
   private waistInput: HTMLInputElement | null = null
   private heightInput: HTMLInputElement | null = null
   private unitSystemSelect: HTMLSelectElement | null = null
+
+  constructor() {
+    super(() => this.unitSystemSelect?.value as UnitSystem)
+  }
 
   render(container: HTMLElement): void {
     container.innerHTML = waistHeightRatioTemplate
@@ -45,20 +49,6 @@ export class WaistToHeightRatioView extends AbstractView {
     if (input && value) {
       input.value = value.toString()
     }
-  }
-
-  updatePlaceholders(): void {
-    const isImperial = this.unitSystemSelect?.value === UnitSystem.IMPERIAL
-    const placeholders = isImperial
-      ? { waist: 'in', hip: 'in' }
-      : { waist: 'cm', hip: 'cm' }
-
-    Object.keys(this.inputs).forEach((key) => {
-      this.inputs[key].setAttribute(
-        'placeholder',
-        placeholders[key as keyof typeof placeholders]
-      )
-    })
   }
 
   bindCalculateEvent(handler: (data: FormData) => void): void {

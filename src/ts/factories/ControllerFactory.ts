@@ -6,8 +6,10 @@ import { BmiController } from '../controllers/BmiControllers/BmiController'
 import { WaistToHipRatioController } from '../controllers/BodyCompositionControllers/WaistToHipRatioController'
 import { WaistToHeightRatioController } from '../controllers/BodyCompositionControllers/WaistToHeightRatioController'
 import { BodyFatPercentageController } from '../controllers/BodyCompositionControllers/BodyFatPercentageController'
-//import { BodyCompositionController } from '../controllers/BodyCompositionController'
+import { TotalDailyEnergyExpenditureController } from '../controllers/TotalDailyEnergyExpenditureControllers/TotalDailyEnergyExpenditureController'
 import { BasalMetabolicRateController } from '../controllers/BasalMetabolicRate/BasalMetabolicRateController'
+import { EstimateTimeToWeightGoalController } from '../controllers/GoalCalculatorControllers/EstimateTimeToWeightGoalController'
+import { CaloriesForWeightGoalController } from '../controllers/GoalCalculatorControllers/CaloriesForWeightGoalController'
 
 import { RouteEnum } from '../enums/Routes'
 
@@ -31,6 +33,18 @@ export class ControllerFactory {
         return new BodyFatPercentageController(this.user, this.calculator)
       case RouteEnum.BASAL_METABOLIC_RATE:
         return new BasalMetabolicRateController(this.user, this.calculator)
+      case RouteEnum.TDEE:
+        return new TotalDailyEnergyExpenditureController(
+          this.user,
+          this.calculator
+        )
+      case RouteEnum.WEIGHT_GOAL:
+        return new EstimateTimeToWeightGoalController(
+          this.user,
+          this.calculator
+        )
+      case RouteEnum.CALORIE_GOAL:
+        return new CaloriesForWeightGoalController(this.user, this.calculator)
       // case RouteEnum.BODY_COMPOSITION:
       //return new BodyCompositionController(this.user, this.calculator)
       // Add more cases here as I implement more controllers
