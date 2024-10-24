@@ -9,7 +9,7 @@ export class App {
   private calculator: HealthCalculatorModel
 
   constructor() {
-    this.user = UserModel.getInstance()
+    this.user = new UserModel()
     this.calculator = new HealthCalculatorModel(this.user)
     this.router = new Router(this.user, this.calculator)
     new HeaderManager()

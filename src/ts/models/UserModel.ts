@@ -1,21 +1,12 @@
 import { User } from '../types/User'
 import { UnitSystem } from '../enums/UnitSystem'
 
-let userModelInstance: UserModel | null = null
-
 export class UserModel {
   private data: User
 
-  private constructor() {
+  constructor() {
     const savedData = sessionStorage.getItem('userModel')
     this.data = savedData ? JSON.parse(savedData) : { unitSystem: 'metric' }
-  }
-
-  public static getInstance(): UserModel {
-    if (!userModelInstance) {
-      userModelInstance = new UserModel()
-    }
-    return userModelInstance
   }
 
   public setData(newData: Partial<User>): void {
@@ -45,9 +36,11 @@ export class UserModel {
     this.saveToSession()
   }
 
+  public clearSession(): void {
+    sessionStorage.removeItem('userModel')
+  }
+
   private saveToSession(): void {
     sessionStorage.setItem('userModel', JSON.stringify(this.data))
   }
 }
-
-// TODO: Static

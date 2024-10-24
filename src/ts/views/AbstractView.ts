@@ -51,18 +51,24 @@ export abstract class AbstractView {
   }
 
   public bindFormEvents(calculateHandler: (data: FormData) => void): void {
-    this.form?.addEventListener('submit', (event) => {
+    this.form?.addEventListener('submit', (event: Event) => {
       event.preventDefault()
       const formData = new FormData(this.form as HTMLFormElement)
       calculateHandler(formData)
     })
 
-    this.bindResetEvent()
-
     const unitSelect = this.selects.get('unitSystem')
     if (unitSelect) {
       unitSelect.addEventListener('change', () => this.updatePlaceholders())
     }
+  }
+
+  public bindResetEvent(resetHandler: () => void): void {
+    const resetButton = this.form?.querySelector('button[type="reset"]')
+    resetButton?.addEventListener('click', (event: Event) => {
+      event.preventDefault()
+      resetHandler()
+    })
   }
 
   public setSelectValue(key: SelectFieldName, value?: string): void {
@@ -93,17 +99,6 @@ export abstract class AbstractView {
     })
 
     this.updatePlaceholders()
-  }
-
-  protected bindResetEvent(): void {
-    const resetButton = this.form?.querySelector('button[type="reset"]')
-    resetButton?.addEventListener('click', (event) => {
-      event.preventDefault()
-      this.clearForm()
-      this.clearResults()
-      this.hideError()
-      this.updatePlaceholders()
-    })
   }
 
   public clearForm(): void {

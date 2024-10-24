@@ -29,7 +29,15 @@ export abstract class BaseController implements InterfaceController {
   protected abstract handleCalculate(formData: FormData): void
 
   protected bindFormEvents(calculateHandler: (data: FormData) => void): void {
-    this.view.bindFormEvents(calculateHandler)
+    // Delegera form event binding till view
+    this.view.bindFormEvents((formData: FormData) => {
+      calculateHandler(formData)
+    })
+
+    // Lägg till reset handler
+    this.view.bindResetEvent(() => {
+      this.handleReset()
+    })
   }
 
   protected handleErrors(error: Error): void {
@@ -39,7 +47,9 @@ export abstract class BaseController implements InterfaceController {
   protected resetForm(): void {
     this.user.resetData()
     this.view.clearForm()
+    this.view.clearResults()
     this.view.hideError()
+    this.view.updatePlaceholders()
   }
 
   protected fillFormData(data: Partial<User>): void {
@@ -69,10 +79,6 @@ export abstract class BaseController implements InterfaceController {
   }
 
   protected handleReset(): void {
-    this.user.resetData()
-    this.view.clearForm()
-    this.view.clearResults()
-    this.view.hideError()
-    this.updatePlaceholders()
+    this.resetForm()
   }
 }

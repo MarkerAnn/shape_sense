@@ -1,12 +1,11 @@
-// src/adapters/HealthCalculatorAdapter.ts
-import { HealthCalculatorFactory } from 'body-measurements'
+
 import { InterfaceHealthCalculator } from '../interfaces/InterfaceHealthCalculator'
+import { HealthCalculatorFactory } from 'body-measurements'
 import { UserModel } from '../models/UserModel'
 import { UnitSystem } from '../enums/UnitSystem'
 import { Gender } from '../enums/Gender'
 import { ActivityLevel } from '../enums/ActivityLevel'
 import { BmiCategory } from '../enums/BmiCategory'
-import { BmiCategoryConverter } from '../utils/BmiCategoryConverter'
 import { getHealthRisk } from '../enums/HealthRisk'
 
 export class HealthCalculatorAdapter implements InterfaceHealthCalculator {
@@ -22,8 +21,8 @@ export class HealthCalculatorAdapter implements InterfaceHealthCalculator {
     const userData = this.userModel.getData()
     return HealthCalculatorFactory.createHealthCalculator({
       unitSystem: userData.unitSystem as UnitSystem,
-      weight: userData.weight ?? 70,
-      height: userData.height ?? 1.75,
+      weight: userData.weight,
+      height: userData.height,
       age: userData.age,
       gender: userData.gender as Gender,
       waist: userData.waist,
@@ -45,7 +44,17 @@ export class HealthCalculatorAdapter implements InterfaceHealthCalculator {
     this.calculator = this.createCalculator()
     const bmiTypeString = this.calculator.getBmiType()
 
-    return BmiCategoryConverter.fromString(bmiTypeString)
+    return this.convertBmiCategoryFromString(bmiTypeString)
+  }
+
+  private convertBmiCategoryFromString(bmiType: string): BmiCategory {
+    const normalizedType = bmiType.toLowerCase().trim()
+    for (const [key, value] of Object.entries(BmiCategory)) {
+      if (value.toLowerCase() === normalizedType) {
+        return BmiCategory[key as keyof typeof BmiCategory]
+      }
+    }
+    throw new Error(`Invalid BMI category: ${bmiType}`)
   }
 
   getHealthRisk(): string {
