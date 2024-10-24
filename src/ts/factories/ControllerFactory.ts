@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 import { InterfaceController } from '../interfaces/InterfaceController'
 import { UserModel } from '../models/UserModel'
 import { HealthCalculatorModel } from '../models/HealthCalculatorModel'
@@ -12,8 +13,8 @@ import { EstimateTimeToWeightGoalController } from '../controllers/GoalCalculato
 import { CaloriesForWeightGoalController } from '../controllers/GoalCalculatorControllers/CaloriesForWeightGoalController'
 import { FormValidatorService } from '../services/FormValidatorService'
 import { IFormValidator } from '../interfaces/InterfaceFormValidator'
-
 import { AllRouteType } from '../constants/RoutesConstants'
+/* eslint-enable max-len */
 
 export class ControllerFactory {
   private readonly formValidator: IFormValidator
@@ -26,28 +27,26 @@ export class ControllerFactory {
   }
 
   createController(route: AllRouteType): InterfaceController {
-    switch (route) {
-      case 'HOME':
-        return this.createHomeController()
-      case 'BMI':
-        return this.createBmiController()
-      case 'WAIST_TO_HIP':
-        return this.createWaistToHipController()
-      case 'WAIST_TO_HEIGHT':
-        return this.createWaistToHeightController()
-      case 'BODY_FAT':
-        return this.createBodyFatController()
-      case 'BMR':
-        return this.createBmrController()
-      case 'TDEE':
-        return this.createTdeeController()
-      case 'WEIGHT_GOAL':
-        return this.createWeightGoalController()
-      case 'CALORIE_GOAL':
-        return this.createCalorieGoalController()
-      default:
-        throw new Error(`No controller found for route: ${route}`)
+    const controllerMap: { [key in AllRouteType]: () => InterfaceController } =
+      {
+        HOME: () => this.createHomeController(),
+        BMI: () => this.createBmiController(),
+        WAIST_TO_HIP: () => this.createWaistToHipController(),
+        WAIST_TO_HEIGHT: () => this.createWaistToHeightController(),
+        BODY_FAT: () => this.createBodyFatController(),
+        BMR: () => this.createBmrController(),
+        TDEE: () => this.createTdeeController(),
+        WEIGHT_GOAL: () => this.createWeightGoalController(),
+        CALORIE_GOAL: () => this.createCalorieGoalController(),
+      }
+
+    const controllerCreator = controllerMap[route]
+
+    if (!controllerCreator) {
+      throw new Error(`No controller found for route: ${route}`)
     }
+
+    return controllerCreator()
   }
 
   private createHomeController(): InterfaceController {
