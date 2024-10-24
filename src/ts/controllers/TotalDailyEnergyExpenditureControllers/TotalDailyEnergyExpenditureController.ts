@@ -3,23 +3,25 @@ import { TotalDailyEnergyExpenditureView } from '../../views/TotalDailyEnergyExp
 import { BaseController } from '../AbstractBaseController'
 import { UserModel } from '../../models/UserModel'
 import { HealthCalculatorModel } from '../../models/HealthCalculatorModel'
-import { FormValidator } from '../../utils/FormValidator'
 import { TotalDailyEnergyExpenditureFormData } from '../../types/FormTypes'
 import { UnitSystem } from '../../enums/UnitSystem'
 import { Gender } from '../../enums/Gender'
 import { ActivityLevel } from '../../enums/ActivityLevel'
 import { IFormattedTdeeResults } from '../../interfaces/FormattedResults'
+import { IFormValidator } from '../../interfaces/InterfaceFormValidator'
 
 export class TotalDailyEnergyExpenditureController extends BaseController {
   protected view: TotalDailyEnergyExpenditureView
-  private formValidator: FormValidator
 
-  constructor(user: UserModel, calculator: HealthCalculatorModel) {
-    super(user, calculator)
+  constructor(
+    user: UserModel,
+    calculator: HealthCalculatorModel,
+    formValidator: IFormValidator
+  ) {
+    super(user, calculator, formValidator)
     this.view = new TotalDailyEnergyExpenditureView(
       this.getUnitSystemValue.bind(this)
     )
-    this.formValidator = new FormValidator()
   }
 
   init(container: HTMLElement): void {

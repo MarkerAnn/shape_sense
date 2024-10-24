@@ -3,7 +3,7 @@ import { BodyFatPercentageView } from '../../views/BodyCompositionViews/BodyFatP
 import { BaseController } from '../AbstractBaseController'
 import { UserModel } from '../../models/UserModel'
 import { HealthCalculatorModel } from '../../models/HealthCalculatorModel'
-import { FormValidator } from '../../utils/FormValidator'
+import { IFormValidator } from '../../interfaces/InterfaceFormValidator'
 import { BodyFatPercentageFormData } from '../../types/FormTypes'
 import { UnitSystem } from '../../enums/UnitSystem'
 import { Gender } from '../../enums/Gender'
@@ -12,12 +12,14 @@ import { IFormattedBodyFatPercentageResults } from '../../interfaces/FormattedRe
 
 export class BodyFatPercentageController extends BaseController {
   protected view: BodyFatPercentageView
-  private formValidator: FormValidator
 
-  constructor(user: UserModel, calculator: HealthCalculatorModel) {
-    super(user, calculator)
+  constructor(
+    user: UserModel,
+    calculator: HealthCalculatorModel,
+    formValidator: IFormValidator
+  ) {
+    super(user, calculator, formValidator)
     this.view = new BodyFatPercentageView(this.getUnitSystemValue.bind(this))
-    this.formValidator = new FormValidator()
   }
 
   init(container: HTMLElement): void {

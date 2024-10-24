@@ -6,15 +6,22 @@ HealthCalculatorModel
 import { User } from '../types/User'
 import { AbstractView } from '../views/AbstractView'
 import { InterfaceController } from '../interfaces/InterfaceController'
+import { IFormValidator } from '../interfaces/InterfaceFormValidator'
 
 export abstract class BaseController implements InterfaceController {
   protected user: UserModel
   protected calculator: HealthCalculatorModel
   protected abstract view: AbstractView
+  protected formValidator: IFormValidator
 
-  constructor(user: UserModel, calculator: HealthCalculatorModel) {
+  constructor(
+    user: UserModel,
+    calculator: HealthCalculatorModel,
+    formValidator: IFormValidator
+  ) {
     this.user = user
     this.calculator = calculator
+    this.formValidator = formValidator
   }
 
   abstract init(container: HTMLElement): void

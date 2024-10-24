@@ -2,7 +2,7 @@ import { BaseController } from '../AbstractBaseController'
 import { UserModel } from '../../models/UserModel'
 import { HealthCalculatorModel } from '../../models/HealthCalculatorModel'
 import { BasalMetabolicRateView } from '../../views/BasalMetabolicRateViews/BasalMetabolicRateView'
-import { FormValidator } from '../../utils/FormValidator'
+import { IFormValidator } from '../../interfaces/InterfaceFormValidator'
 import { BasalMetabolicRateFormData } from '../../types/FormTypes'
 import { UnitSystem } from '../../enums/UnitSystem'
 import { Gender } from '../../enums/Gender'
@@ -10,12 +10,14 @@ import { IFormatBasaMetabolicRateResults } from '../../interfaces/FormattedResul
 
 export class BasalMetabolicRateController extends BaseController {
   protected view: BasalMetabolicRateView
-  private formValidator: FormValidator
 
-  constructor(user: UserModel, calculator: HealthCalculatorModel) {
-    super(user, calculator)
+  constructor(
+    user: UserModel,
+    calculator: HealthCalculatorModel,
+    formValidator: IFormValidator
+  ) {
+    super(user, calculator, formValidator)
     this.view = new BasalMetabolicRateView(this.getUnitSystemValue.bind(this))
-    this.formValidator = new FormValidator()
   }
 
   init(container: HTMLElement): void {

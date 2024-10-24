@@ -3,23 +3,25 @@ import { EstimateTimeToWeightGoalView } from '../../views/GoalCalculatorViews/Es
 import { BaseController } from '../AbstractBaseController'
 import { UserModel } from '../../models/UserModel'
 import { HealthCalculatorModel } from '../../models/HealthCalculatorModel'
-import { FormValidator } from '../../utils/FormValidator'
 import { EstimateTimeToWeightGoalFormData } from '../../types/FormTypes'
 import { UnitSystem } from '../../enums/UnitSystem'
 import { Gender } from '../../enums/Gender'
 import { ActivityLevel } from '../../enums/ActivityLevel'
 import { IFormattedTimeToWeightGoalResults } from '../../interfaces/FormattedResults'
+import { IFormValidator } from '../../interfaces/InterfaceFormValidator'
 
 export class EstimateTimeToWeightGoalController extends BaseController {
   protected view: EstimateTimeToWeightGoalView
-  private formValidator: FormValidator
 
-  constructor(user: UserModel, calculator: HealthCalculatorModel) {
-    super(user, calculator)
+  constructor(
+    user: UserModel,
+    calculator: HealthCalculatorModel,
+    formValidator: IFormValidator
+  ) {
+    super(user, calculator, formValidator)
     this.view = new EstimateTimeToWeightGoalView(
       this.getUnitSystemValue.bind(this)
     )
-    this.formValidator = new FormValidator()
   }
 
   init(container: HTMLElement): void {

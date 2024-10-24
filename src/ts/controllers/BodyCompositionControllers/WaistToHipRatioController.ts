@@ -2,19 +2,21 @@ import { BaseController } from '../AbstractBaseController'
 import { WaistToHipRatioView } from '../../views/BodyCompositionViews/WaistToHipRatioView'
 import { UserModel } from '../../models/UserModel'
 import { HealthCalculatorModel } from '../../models/HealthCalculatorModel'
-import { FormValidator } from '../../utils/FormValidator'
+import { IFormValidator } from '../../interfaces/InterfaceFormValidator'
 import { WaistHipRatioFormData } from '../../types/FormTypes'
 import { UnitSystem } from '../../enums/UnitSystem'
 import { IFormattedWaistToHipRationResults } from '../../interfaces/FormattedResults'
 
 export class WaistToHipRatioController extends BaseController {
   protected view: WaistToHipRatioView
-  private formValidator: FormValidator
 
-  constructor(user: UserModel, calculator: HealthCalculatorModel) {
-    super(user, calculator)
+  constructor(
+    user: UserModel,
+    calculator: HealthCalculatorModel,
+    formValidator: IFormValidator
+  ) {
+    super(user, calculator, formValidator)
     this.view = new WaistToHipRatioView(this.getUnitSystemValue.bind(this))
-    this.formValidator = new FormValidator()
   }
 
   init(container: HTMLElement): void {

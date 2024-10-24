@@ -10,14 +10,20 @@ import { TotalDailyEnergyExpenditureController } from '../controllers/TotalDaily
 import { BasalMetabolicRateController } from '../controllers/BasalMetabolicRate/BasalMetabolicRateController'
 import { EstimateTimeToWeightGoalController } from '../controllers/GoalCalculatorControllers/EstimateTimeToWeightGoalController'
 import { CaloriesForWeightGoalController } from '../controllers/GoalCalculatorControllers/CaloriesForWeightGoalController'
+import { FormValidatorService } from '../services/FormValidatorService'
+import { IFormValidator } from '../interfaces/InterfaceFormValidator'
 
 import { AllRouteType } from '../constants/RoutesConstants'
 
 export class ControllerFactory {
+  private readonly formValidator: IFormValidator
+
   constructor(
     private readonly user: UserModel,
     private readonly calculator: HealthCalculatorModel
-  ) {}
+  ) {
+    this.formValidator = new FormValidatorService()
+  }
 
   createController(route: AllRouteType): InterfaceController {
     switch (route) {
@@ -49,34 +55,62 @@ export class ControllerFactory {
   }
 
   private createBmiController(): InterfaceController {
-    return new BmiController(this.user, this.calculator)
+    return new BmiController(this.user, this.calculator, this.formValidator)
   }
 
   private createWaistToHipController(): InterfaceController {
-    return new WaistToHipRatioController(this.user, this.calculator)
+    return new WaistToHipRatioController(
+      this.user,
+      this.calculator,
+      this.formValidator
+    )
   }
 
   private createWaistToHeightController(): InterfaceController {
-    return new WaistToHeightRatioController(this.user, this.calculator)
+    return new WaistToHeightRatioController(
+      this.user,
+      this.calculator,
+      this.formValidator
+    )
   }
 
   private createBodyFatController(): InterfaceController {
-    return new BodyFatPercentageController(this.user, this.calculator)
+    return new BodyFatPercentageController(
+      this.user,
+      this.calculator,
+      this.formValidator
+    )
   }
 
   private createBmrController(): InterfaceController {
-    return new BasalMetabolicRateController(this.user, this.calculator)
+    return new BasalMetabolicRateController(
+      this.user,
+      this.calculator,
+      this.formValidator
+    )
   }
 
   private createTdeeController(): InterfaceController {
-    return new TotalDailyEnergyExpenditureController(this.user, this.calculator)
+    return new TotalDailyEnergyExpenditureController(
+      this.user,
+      this.calculator,
+      this.formValidator
+    )
   }
 
   private createWeightGoalController(): InterfaceController {
-    return new EstimateTimeToWeightGoalController(this.user, this.calculator)
+    return new EstimateTimeToWeightGoalController(
+      this.user,
+      this.calculator,
+      this.formValidator
+    )
   }
 
   private createCalorieGoalController(): InterfaceController {
-    return new CaloriesForWeightGoalController(this.user, this.calculator)
+    return new CaloriesForWeightGoalController(
+      this.user,
+      this.calculator,
+      this.formValidator
+    )
   }
 }

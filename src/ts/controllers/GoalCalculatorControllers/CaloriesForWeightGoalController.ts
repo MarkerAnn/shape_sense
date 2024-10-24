@@ -3,7 +3,7 @@ import { CaloriesForWeightGoalView } from '../../views/GoalCalculatorViews/Calor
 import { BaseController } from '../AbstractBaseController'
 import { UserModel } from '../../models/UserModel'
 import { HealthCalculatorModel } from '../../models/HealthCalculatorModel'
-import { FormValidator } from '../../utils/FormValidator'
+import { IFormValidator } from '../../interfaces/InterfaceFormValidator'
 import { CaloriesForWeightGoalFormData } from '../../types/FormTypes'
 import { UnitSystem } from '../../enums/UnitSystem'
 import { Gender } from '../../enums/Gender'
@@ -12,14 +12,16 @@ import { IFormattedCaloriesForWeightGoalResults } from '../../interfaces/Formatt
 
 export class CaloriesForWeightGoalController extends BaseController {
   protected view: CaloriesForWeightGoalView
-  private formValidator: FormValidator
 
-  constructor(user: UserModel, calculator: HealthCalculatorModel) {
-    super(user, calculator)
+  constructor(
+    user: UserModel,
+    calculator: HealthCalculatorModel,
+    formValidator: IFormValidator
+  ) {
+    super(user, calculator, formValidator)
     this.view = new CaloriesForWeightGoalView(
       this.getUnitSystemValue.bind(this)
     )
-    this.formValidator = new FormValidator()
   }
 
   init(container: HTMLElement): void {

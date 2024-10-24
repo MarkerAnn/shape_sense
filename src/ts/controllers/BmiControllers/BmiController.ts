@@ -3,18 +3,20 @@ import { BmiFormData } from '../../types/FormTypes'
 import { UserModel } from '../../models/UserModel'
 import { HealthCalculatorModel } from '../../models/HealthCalculatorModel'
 import { BaseController } from '../AbstractBaseController'
-import { FormValidator } from '../../utils/FormValidator'
+import { IFormValidator } from '../../interfaces/InterfaceFormValidator'
 import { UnitSystem } from '../../enums/UnitSystem'
 import { FormattedBmiResults } from '../../interfaces/FormattedResults'
 
 export class BmiController extends BaseController {
   protected view: BmiView
-  private formValidator: FormValidator
 
-  constructor(user: UserModel, calculator: HealthCalculatorModel) {
-    super(user, calculator)
+  constructor(
+    user: UserModel,
+    calculator: HealthCalculatorModel,
+    formValidator: IFormValidator
+  ) {
+    super(user, calculator, formValidator)
     this.view = new BmiView(this.getUnitSystemValue.bind(this))
-    this.formValidator = new FormValidator()
   }
 
   init(container: HTMLElement): void {
