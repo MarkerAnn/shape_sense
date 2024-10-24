@@ -1,4 +1,4 @@
-import { BmiView } from '../../views/BmiViews/Bmiview'
+import { BmiView, FormattedBmiResults } from '../../views/BmiViews/Bmiview'
 import { BmiFormData } from '../../types/FormTypes'
 import { UserModel } from '../../models/UserModel'
 import { HealthCalculatorModel } from '../../models/HealthCalculatorModel'
@@ -12,23 +12,17 @@ export class BmiController extends BaseController {
 
   constructor(user: UserModel, calculator: HealthCalculatorModel) {
     super(user, calculator)
-    this.view = new BmiView()
+    this.view = new BmiView(this.getUnitSystemValue.bind(this))
     this.formValidator = new FormValidator()
   }
 
   init(container: HTMLElement): void {
     this.view.render(container)
-    this.fillFormWithUserData()
-    this.view.bindCalculateEvent(this.handleCalculate.bind(this))
-    this.view.bindResetEvent(this.handleReset.bind(this))
+    this.fillFormData(this.user.getData())
+    this.bindFormEvents(this.handleCalculate.bind(this))
   }
 
-  protected fillFormWithUserData(): void {
-    const userData = this.user.getData()
-    this.view.fillForm(userData)
-  }
-
-  private handleCalculate(formData: FormData): void {
+  protected handleCalculate(formData: FormData): void {
     try {
       const data = this.parseFormData(formData)
       this.formValidator.validateBmiFormData(data)
@@ -38,6 +32,11 @@ export class BmiController extends BaseController {
     } catch (error) {
       this.handleErrors(error as Error)
     }
+  }
+
+  protected getUniSystemValue(): UnitSystem {
+    const userData = this.user.getData()
+    return userData.unitSystem ?? UnitSystem.METRIC
   }
 
   private parseFormData(formData: FormData): BmiFormData {
@@ -54,17 +53,25 @@ export class BmiController extends BaseController {
     const healthRisk = this.calculator.getHealthRisk()
     const idealWeight = this.calculator.getIdealWeight()
 
-    this.view.updateResults({
-      bmi,
+    const formattedResults: FormattedBmiResults = {
+      bmi: this.formatValue(bmi),
       category: bmiType,
-      healthRisk,
-      idealWeight,
-    })
+      healthRisk: healthRisk,
+      idealWeight: this.formatIdealWeight(idealWeight),
+    }
+    this.view.updateResults(formattedResults)
   }
 
-  private handleReset(): void {
-    this.user.resetData()
-    this.view.resetForm()
-    this.view.hideError()
+  private formatValue(value: number): string {
+    return value.toFixed(1)
+  }
+
+  private formatIdealWeight([min, max]: [number, number]): string {
+    return `${this.formatValue(min)} - ${this.formatValue(max)} kg`
+  }
+
+  protected getUnitSystemValue(): UnitSystem {
+    const userData = this.user.getData()
+    return userData.unitSystem ?? UnitSystem.METRIC
   }
 }

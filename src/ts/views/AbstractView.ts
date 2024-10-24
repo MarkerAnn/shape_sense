@@ -50,7 +50,7 @@ export abstract class AbstractView {
     }
   }
 
-  protected bindFormEvents(calculateHandler: (data: FormData) => void): void {
+  public bindFormEvents(calculateHandler: (data: FormData) => void): void {
     this.form?.addEventListener('submit', (event) => {
       event.preventDefault()
       const formData = new FormData(this.form as HTMLFormElement)
@@ -58,40 +58,37 @@ export abstract class AbstractView {
     })
 
     this.bindResetEvent()
+
+    const unitSelect = this.selects.get('unitSystem')
+    if (unitSelect) {
+      unitSelect.addEventListener('change', () => this.updatePlaceholders())
+    }
   }
 
-  protected setSelectValue(key: SelectFieldName, value?: string): void {
+  public setSelectValue(key: SelectFieldName, value?: string): void {
     const select = this.selects.get(key)
     if (select && value) {
       select.value = value
     }
   }
 
-  protected setInputValue(key: InputFieldName, value?: number): void {
+  public setInputValue(key: InputFieldName, value?: number): void {
     const input = this.inputs.get(key)
     if (input && value !== undefined) {
       input.value = value.toString()
     }
   }
 
-  protected fillFormData(data: Partial<User>): void {
+  public fillFormData(data: Partial<User>): void {
     if (data.unitSystem) {
       this.setSelectValue('unitSystem', data.unitSystem)
     }
 
-    // Iterera över alla inputs i mappen
-    this.inputs.forEach((_, key) => {
-      const value = data[key as keyof User]
+    Object.entries(data).forEach(([key, value]) => {
       if (typeof value === 'number') {
-        this.setInputValue(key, value)
-      }
-    })
-
-    // Iterera över alla selects i mappen
-    this.selects.forEach((_, key) => {
-      const value = data[key as keyof User]
-      if (typeof value === 'string') {
-        this.setSelectValue(key, value)
+        this.setInputValue(key as InputFieldName, value)
+      } else if (typeof value === 'string' && key !== 'unitSystem') {
+        this.setSelectValue(key as SelectFieldName, value)
       }
     })
 
@@ -102,27 +99,30 @@ export abstract class AbstractView {
     const resetButton = this.form?.querySelector('button[type="reset"]')
     resetButton?.addEventListener('click', (event) => {
       event.preventDefault()
-      this.resetForm()
+      this.clearForm()
+      this.clearResults()
+      this.hideError()
+      this.updatePlaceholders()
     })
   }
 
-  protected resetForm(): void {
+  public clearForm(): void {
     this.form?.reset()
-    this.clearResults()
-    this.hideError()
-    this.updatePlaceholders()
   }
 
-  protected clearResults(): void {
+  public clearResults(): void {
     if (this.resultsTable) {
       const rows = this.resultsTable.rows
       for (let i = 0; i < rows.length; i++) {
-        rows[i].cells[1].textContent = '-'
+        const cell = rows[i].cells[1]
+        if (cell) {
+          cell.textContent = '-'
+        }
       }
     }
   }
 
-  protected updatePlaceholders(): void {
+  public updatePlaceholders(): void {
     const unitSystem = this.getSelectedUnitSystem()
     this.inputs.forEach((input, fieldName) => {
       const placeholder = UNIT_PLACEHOLDERS[unitSystem][fieldName]
@@ -142,14 +142,14 @@ export abstract class AbstractView {
     return element
   }
 
-  protected showError(message: string): void {
+  public showError(message: string): void {
     if (this.errorMessage) {
       this.errorMessage.textContent = message
       this.errorMessage.style.display = 'block'
     }
   }
 
-  protected hideError(): void {
+  public hideError(): void {
     if (this.errorMessage) {
       this.errorMessage.textContent = ''
       this.errorMessage.style.display = 'none'
