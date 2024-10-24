@@ -1,8 +1,8 @@
-// src/ts/enums/Routes.ts
 import { ALL_ROUTES, AllRouteType } from '../constants/RoutesConstants'
 
 export function getRouteFromPath(path: string): AllRouteType | undefined {
   const routes = Object.entries(ALL_ROUTES)
-  const route = routes.find(([_, value]) => value === path)
+  // _key because we don't need it (satifies the linter)
+  const route = routes.find(([_key, value]) => value === path)
   return route ? (route[0] as AllRouteType) : undefined
 }

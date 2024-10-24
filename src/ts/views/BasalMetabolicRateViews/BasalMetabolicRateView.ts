@@ -1,8 +1,10 @@
+/* eslint-disable max-len */
 import { basalMetabolicRateTemplate } from '../../templates/BasalMetabolicRateTemplates/basalMetabolicRateTemplate'
 import { AbstractView } from '../AbstractView'
 import { UnitSystem } from '../../enums/UnitSystem'
 import { IFormatBasaMetabolicRateResults } from '../../interfaces/FormattedResults'
 import { SelectFieldName } from '../../types/FormFieldTypes'
+/* eslint-enable max-len */
 
 export class BasalMetabolicRateView extends AbstractView {
   constructor(getSelectedUnitSystem: () => UnitSystem) {

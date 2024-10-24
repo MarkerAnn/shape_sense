@@ -2,15 +2,15 @@ import { MeasurementValidator } from '../validators/MeasurementValidator'
 import { PersonalInfoValidator } from '../validators/PersonalInfoValidator'
 import { GoalValidator } from '../validators/GoalValidator'
 import {
-  BmiFormData,
-  WaistHeightRatioFormData,
-  WaistHipRatioFormData,
-  BodyFatPercentageFormData,
-  BasalMetabolicRateFormData,
-  TotalDailyEnergyExpenditureFormData,
-  CaloriesForWeightGoalFormData,
-  EstimateTimeToWeightGoalFormData,
-} from '../types/FormTypes'
+  IBmiFormData,
+  IWaistHeightRatioFormData,
+  IWaistHipRatioFormData,
+  IBodyFatPercentageFormData,
+  IBasalMetabolicRateFormData,
+  ITotalDailyEnergyExpenditureFormData,
+  ICaloriesForWeightGoalFormData,
+  IEstimateTimeToWeightGoalFormData,
+} from '../interfaces/InterfaceForms'
 import { Gender } from '../enums/Gender'
 import { IFormValidator } from '../interfaces/InterfaceFormValidator'
 
@@ -25,7 +25,7 @@ export class FormValidatorService implements IFormValidator {
     this.goalValidator = new GoalValidator()
   }
 
-  validateBmiFormData(formData: BmiFormData): void {
+  validateIBmiFormData(formData: IBmiFormData): void {
     this.personalInfoValidator.validateUnitSystem(formData.unitSystem)
     this.measurementValidator.validateWeight(
       formData.weight,
@@ -37,8 +37,8 @@ export class FormValidatorService implements IFormValidator {
     )
   }
 
-  validateTotalDailyEnergyExpenditureFormData(
-    formData: TotalDailyEnergyExpenditureFormData
+  validateITotalDailyEnergyExpenditureFormData(
+    formData: ITotalDailyEnergyExpenditureFormData
   ): void {
     this.personalInfoValidator.validateUnitSystem(formData.unitSystem)
     this.personalInfoValidator.validateGender(formData.gender)
@@ -54,7 +54,7 @@ export class FormValidatorService implements IFormValidator {
     this.personalInfoValidator.validateActivityLevel(formData.activityLevel)
   }
 
-  validateWaistToHipRatioFormData(formData: WaistHipRatioFormData): void {
+  validateWaistToHipRatioFormData(formData: IWaistHipRatioFormData): void {
     this.personalInfoValidator.validateUnitSystem(formData.unitSystem)
     this.measurementValidator.validateBodyMeasurement(
       formData.waist,
@@ -68,7 +68,7 @@ export class FormValidatorService implements IFormValidator {
     )
   }
 
-  validateWaistHeightRatioFormData(formData: WaistHeightRatioFormData): void {
+  validateIWaistHeightRatioFormData(formData: IWaistHeightRatioFormData): void {
     this.personalInfoValidator.validateUnitSystem(formData.unitSystem)
     this.measurementValidator.validateBodyMeasurement(
       formData.waist,
@@ -81,7 +81,9 @@ export class FormValidatorService implements IFormValidator {
     )
   }
 
-  validateBodyFatPercentageFormData(formData: BodyFatPercentageFormData): void {
+  validateIBodyFatPercentageFormData(
+    formData: IBodyFatPercentageFormData
+  ): void {
     this.personalInfoValidator.validateUnitSystem(formData.unitSystem)
     this.personalInfoValidator.validateGender(formData.gender)
     this.measurementValidator.validateWeight(
@@ -107,8 +109,8 @@ export class FormValidatorService implements IFormValidator {
     }
   }
 
-  validateBasalMetabolicRateFormData(
-    formData: BasalMetabolicRateFormData
+  validateIBasalMetabolicRateFormData(
+    formData: IBasalMetabolicRateFormData
   ): void {
     this.personalInfoValidator.validateUnitSystem(formData.unitSystem)
     this.personalInfoValidator.validateGender(formData.gender)
@@ -123,8 +125,8 @@ export class FormValidatorService implements IFormValidator {
     this.personalInfoValidator.validateAge(formData.age)
   }
 
-  validateCaloriesForWeightGoalFormData(
-    formData: CaloriesForWeightGoalFormData
+  validateICaloriesForWeightGoalFormData(
+    formData: ICaloriesForWeightGoalFormData
   ): void {
     this.personalInfoValidator.validateUnitSystem(formData.unitSystem)
     this.personalInfoValidator.validateGender(formData.gender)
@@ -145,8 +147,8 @@ export class FormValidatorService implements IFormValidator {
     this.goalValidator.validateWeeksToWeightGoal(formData.weeksToWeightGoal)
   }
 
-  validateEstimateTimeToWeightGoalFormData(
-    formData: EstimateTimeToWeightGoalFormData
+  validateIEstimateTimeToWeightGoalFormData(
+    formData: IEstimateTimeToWeightGoalFormData
   ): void {
     this.personalInfoValidator.validateUnitSystem(formData.unitSystem)
     this.personalInfoValidator.validateGender(formData.gender)

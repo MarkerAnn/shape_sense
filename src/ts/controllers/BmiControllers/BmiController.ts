@@ -1,11 +1,11 @@
 import { BmiView } from '../../views/BmiViews/Bmiview'
-import { BmiFormData } from '../../types/FormTypes'
+import { IBmiFormData } from '../../interfaces/InterfaceForms'
 import { UserModel } from '../../models/UserModel'
 import { HealthCalculatorModel } from '../../models/HealthCalculatorModel'
 import { BaseController } from '../AbstractBaseController'
 import { IFormValidator } from '../../interfaces/InterfaceFormValidator'
 import { UnitSystem } from '../../enums/UnitSystem'
-import { FormattedBmiResults } from '../../interfaces/FormattedResults'
+import { IFormattedBmiResults } from '../../interfaces/FormattedResults'
 
 export class BmiController extends BaseController {
   protected view: BmiView
@@ -33,7 +33,7 @@ export class BmiController extends BaseController {
   protected handleCalculate(formData: FormData): void {
     try {
       const data = this.parseFormData(formData)
-      this.formValidator.validateBmiFormData(data)
+      this.formValidator.validateIBmiFormData(data)
       this.user.setData(data)
       this.updateView()
       this.view.hideError()
@@ -47,8 +47,8 @@ export class BmiController extends BaseController {
     return userData.unitSystem ?? UnitSystem.METRIC
   }
 
-  private parseFormData(formData: FormData): BmiFormData {
-    const data: BmiFormData = {
+  private parseFormData(formData: FormData): IBmiFormData {
+    const data: IBmiFormData = {
       unitSystem: formData.get('unitSystem') as UnitSystem,
       weight: parseFloat(formData.get('weight') as string),
       height: parseFloat(formData.get('height') as string),
@@ -63,7 +63,7 @@ export class BmiController extends BaseController {
     const healthRisk = this.calculator.getHealthRisk()
     const idealWeight = this.calculator.getIdealWeight()
 
-    const formattedResults: FormattedBmiResults = {
+    const formattedResults: IFormattedBmiResults = {
       bmi: this.formatValue(bmi),
       category: bmiType,
       healthRisk: healthRisk,

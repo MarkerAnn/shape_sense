@@ -1,10 +1,10 @@
-// eslint-disable-next-line max-len
+/* eslint-disable max-len */
 import { bodyFatPercentageTemplate } from '../../templates/BodyCompositionTemplates/bodyFatPercentageTemplate'
 import { AbstractView } from '../AbstractView'
 import { UnitSystem } from '../../enums/UnitSystem'
-// eslint-disable-next-line max-len
 import { IFormattedBodyFatPercentageResults } from '../../interfaces/FormattedResults'
 import { Gender } from '../../enums/Gender'
+/* eslint-enable max-len */
 
 export class BodyFatPercentageView extends AbstractView {
   private hipInputGroup: HTMLElement | null = null
@@ -26,8 +26,8 @@ export class BodyFatPercentageView extends AbstractView {
   public bindGenderChange(handler: (gender: Gender) => void): void {
     const genderInputs = document.querySelectorAll('input[name="gender"]')
     genderInputs.forEach((input) => {
-      input.addEventListener('change', (e) => {
-        const target = e.target as HTMLInputElement
+      input.addEventListener('change', (event) => {
+        const target = event.target as HTMLInputElement
         handler(target.value as Gender)
       })
     })

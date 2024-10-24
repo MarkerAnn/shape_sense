@@ -1,5 +1,5 @@
 /* eslint-disable max-len */
-import { InterfaceHealthCalculator } from '../interfaces/InterfaceHealthCalculator'
+import { IHealthCalculator } from '../interfaces/InterfaceHealthCalculator'
 import { HealthCalculatorFactory } from 'body-measurements'
 import { UserModel } from '../models/UserModel'
 import { UnitSystem } from '../enums/UnitSystem'
@@ -9,7 +9,7 @@ import { BmiCategory } from '../enums/BmiCategory'
 import { getHealthRisk } from '../enums/HealthRisk'
 /* eslint-enable max-len */
 
-export class HealthCalculatorAdapter implements InterfaceHealthCalculator {
+export class HealthCalculatorAdapter implements IHealthCalculator {
   private calculator: ReturnType<
     typeof HealthCalculatorFactory.createHealthCalculator
   >

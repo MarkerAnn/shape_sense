@@ -1,7 +1,7 @@
 import { AbstractView } from '../AbstractView'
 import { bmiTemplate } from '../../templates/BmiTemplates/bmiTemplate'
 import { UnitSystem } from '../../enums/UnitSystem'
-import { FormattedBmiResults } from '../../interfaces/FormattedResults'
+import { IFormattedBmiResults } from '../../interfaces/FormattedResults'
 
 export class BmiView extends AbstractView {
   constructor(getSelectedUnitSystem: () => UnitSystem) {
@@ -15,7 +15,7 @@ export class BmiView extends AbstractView {
     this.initializeSelectField('unitSystem')
   }
 
-  updateResults(data: FormattedBmiResults): void {
+  updateResults(data: IFormattedBmiResults): void {
     if (!this.resultsTable) return
 
     const rows = this.resultsTable.rows

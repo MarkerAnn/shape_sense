@@ -2,16 +2,16 @@ import { ActivityLevel } from '../enums/ActivityLevel'
 import { Gender } from '../enums/Gender'
 import { UnitSystem } from '../enums/UnitSystem'
 
-interface BaseFormData {
+interface IBaseFormData {
   unitSystem: UnitSystem
 }
 
-export interface BmiFormData extends BaseFormData {
+export interface IBmiFormData extends IBaseFormData {
   height: number
   weight: number
 }
 
-export interface TotalDailyEnergyExpenditureFormData extends BaseFormData {
+export interface ITotalDailyEnergyExpenditureFormData extends IBaseFormData {
   gender: Gender
   activityLevel: ActivityLevel
   weight: number
@@ -19,17 +19,17 @@ export interface TotalDailyEnergyExpenditureFormData extends BaseFormData {
   age: number
 }
 
-export interface WaistHipRatioFormData extends BaseFormData {
+export interface IWaistHipRatioFormData extends IBaseFormData {
   waist: number
   hip: number
 }
 
-export interface WaistHeightRatioFormData extends BaseFormData {
+export interface IWaistHeightRatioFormData extends IBaseFormData {
   waist: number
   height: number
 }
 
-export interface BodyFatPercentageFormData extends BaseFormData {
+export interface IBodyFatPercentageFormData extends IBaseFormData {
   gender: Gender
   waist: number
   neck: number
@@ -37,14 +37,14 @@ export interface BodyFatPercentageFormData extends BaseFormData {
   weight: number
 }
 
-export interface BasalMetabolicRateFormData extends BaseFormData {
+export interface IBasalMetabolicRateFormData extends IBaseFormData {
   gender: Gender
   weight: number
   height: number
   age: number
 }
 
-export interface CaloriesForWeightGoalFormData extends BaseFormData {
+export interface ICaloriesForWeightGoalFormData extends IBaseFormData {
   weight: number
   height: number
   weightGoal: number
@@ -54,7 +54,7 @@ export interface CaloriesForWeightGoalFormData extends BaseFormData {
   activityLevel: ActivityLevel
 }
 
-export interface EstimateTimeToWeightGoalFormData extends BaseFormData {
+export interface IEstimateTimeToWeightGoalFormData extends IBaseFormData {
   weight: number
   height: number
   dailyCalories: number

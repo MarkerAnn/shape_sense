@@ -84,7 +84,8 @@ export const caloriesForWeightGoalTemplate = `
           name="${FORM_FIELDS.weightGoal}" placeholder="kg">
         </div>
         <div class="input-group">
-          <label for="${FORM_FIELDS.weeksToWeightGoal}">Weeks to Reach Goal</label>
+          <label for="${FORM_FIELDS.weeksToWeightGoal}">
+          Weeks to Reach Goal</label>
           <input type="text" id="${FORM_FIELDS.weeksToWeightGoal}" 
           name="${FORM_FIELDS.weeksToWeightGoal}" placeholder="weeks">
         </div>

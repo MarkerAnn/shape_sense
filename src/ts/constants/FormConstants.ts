@@ -1,4 +1,4 @@
-import { FormFieldName, FormSelectors } from '../types/FormFieldTypes'
+import { FormFieldName, IFormSelectors } from '../types/FormFieldTypes'
 
 export const FORM_FIELDS: Record<string, FormFieldName> = {
   weight: 'weight',
@@ -17,7 +17,7 @@ export const FORM_FIELDS: Record<string, FormFieldName> = {
 
 export type FormField = keyof typeof FORM_FIELDS
 
-export const FORM_SELECTORS: FormSelectors = {
+export const FORM_SELECTORS: IFormSelectors = {
   inputs: {
     weight: `#${FORM_FIELDS.weight}`,
     height: `#${FORM_FIELDS.height}`,

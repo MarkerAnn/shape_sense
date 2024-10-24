@@ -13,7 +13,7 @@ export type SelectFieldName = 'unitSystem' | 'gender' | 'activityLevel'
 
 export type FormFieldName = InputFieldName | SelectFieldName
 
-export interface FormSelectors {
+export interface IFormSelectors {
   readonly inputs: Record<InputFieldName, string>
   readonly selects: Record<SelectFieldName, string>
   readonly common: {

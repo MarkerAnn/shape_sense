@@ -4,7 +4,7 @@ import { WaistToHeightRatioView } from '../../views/BodyCompositionViews/WaistTo
 import { UserModel } from '../../models/UserModel'
 import { HealthCalculatorModel } from '../../models/HealthCalculatorModel'
 import { IFormValidator } from '../../interfaces/InterfaceFormValidator'
-import { WaistHeightRatioFormData } from '../../types/FormTypes'
+import { IWaistHeightRatioFormData } from '../../interfaces/InterfaceForms'
 import { UnitSystem } from '../../enums/UnitSystem'
 import { IFormattedWaistToHeightRatioResults } from '../../interfaces/FormattedResults'
 /* eslint-enable max-len */
@@ -35,7 +35,7 @@ export class WaistToHeightRatioController extends BaseController {
   protected handleCalculate(formData: FormData): void {
     try {
       const data = this.parseFormData(formData)
-      this.formValidator.validateWaistHeightRatioFormData(data)
+      this.formValidator.validateIWaistHeightRatioFormData(data)
       this.user.setData(data)
       this.updateView()
       this.view.hideError()
@@ -44,8 +44,8 @@ export class WaistToHeightRatioController extends BaseController {
     }
   }
 
-  private parseFormData(formData: FormData): WaistHeightRatioFormData {
-    const data: WaistHeightRatioFormData = {
+  private parseFormData(formData: FormData): IWaistHeightRatioFormData {
+    const data: IWaistHeightRatioFormData = {
       unitSystem: formData.get('unitSystem') as UnitSystem,
       waist: parseFloat(formData.get('waist') as string),
       height: parseFloat(formData.get('height') as string),

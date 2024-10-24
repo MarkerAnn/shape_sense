@@ -113,7 +113,7 @@ export default [
         },
       ],
       'no-console': 'warn',
-      'no-magic-numbers': ['warn', { ignore: [-1, 0, 1, 2] }],
+      'no-magic-numbers': ['warn', { ignore: [-1, 0, 1, 2, 3] }],
       'prefer-arrow-callback': 'error',
       'no-var': 'error',
       //   'import/order': [

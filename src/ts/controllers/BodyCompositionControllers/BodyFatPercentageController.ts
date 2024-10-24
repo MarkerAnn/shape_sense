@@ -4,7 +4,7 @@ import { BaseController } from '../AbstractBaseController'
 import { UserModel } from '../../models/UserModel'
 import { HealthCalculatorModel } from '../../models/HealthCalculatorModel'
 import { IFormValidator } from '../../interfaces/InterfaceFormValidator'
-import { BodyFatPercentageFormData } from '../../types/FormTypes'
+import { IBodyFatPercentageFormData } from '../../interfaces/InterfaceForms'
 import { UnitSystem } from '../../enums/UnitSystem'
 import { Gender } from '../../enums/Gender'
 // eslint-disable-next-line max-len
@@ -56,7 +56,7 @@ export class BodyFatPercentageController extends BaseController {
   protected handleCalculate(formData: FormData): void {
     try {
       const data = this.parseFormData(formData)
-      this.formValidator.validateBodyFatPercentageFormData(data)
+      this.formValidator.validateIBodyFatPercentageFormData(data)
       this.user.setData(data)
       this.updateView()
       this.view.hideError()
@@ -65,8 +65,8 @@ export class BodyFatPercentageController extends BaseController {
     }
   }
 
-  private parseFormData(formData: FormData): BodyFatPercentageFormData {
-    const data: BodyFatPercentageFormData = {
+  private parseFormData(formData: FormData): IBodyFatPercentageFormData {
+    const data: IBodyFatPercentageFormData = {
       unitSystem: formData.get('unitSystem') as UnitSystem,
       gender: formData.get('gender') as Gender,
       weight: parseFloat(formData.get('weight') as string),

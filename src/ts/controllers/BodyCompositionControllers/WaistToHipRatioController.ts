@@ -4,7 +4,7 @@ import { WaistToHipRatioView } from '../../views/BodyCompositionViews/WaistToHip
 import { UserModel } from '../../models/UserModel'
 import { HealthCalculatorModel } from '../../models/HealthCalculatorModel'
 import { IFormValidator } from '../../interfaces/InterfaceFormValidator'
-import { WaistHipRatioFormData } from '../../types/FormTypes'
+import { IWaistHipRatioFormData } from '../../interfaces/InterfaceForms'
 import { UnitSystem } from '../../enums/UnitSystem'
 import { IFormattedWaistToHipRationResults } from '../../interfaces/FormattedResults'
 /* eslint-enable max-len */
@@ -44,8 +44,8 @@ export class WaistToHipRatioController extends BaseController {
     }
   }
 
-  protected parseFormData(formData: FormData): WaistHipRatioFormData {
-    const data: WaistHipRatioFormData = {
+  protected parseFormData(formData: FormData): IWaistHipRatioFormData {
+    const data: IWaistHipRatioFormData = {
       unitSystem: formData.get('unitSystem') as UnitSystem,
       waist: parseFloat(formData.get('waist') as string),
       hip: parseFloat(formData.get('hip') as string),

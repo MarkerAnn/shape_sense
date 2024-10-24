@@ -1,4 +1,4 @@
-export interface FormattedBmiResults {
+export interface IFormattedBmiResults {
   bmi: string
   category: string
   healthRisk: string

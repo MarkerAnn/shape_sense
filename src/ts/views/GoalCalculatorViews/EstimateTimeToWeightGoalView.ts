@@ -1,8 +1,9 @@
-// eslint-disable-next-line max-len
+/* eslint-disable max-len */
 import { estimateTimeToWeightGoalTemplate } from '../../templates/GoalCalculationTemplates/estimateTimeToWeightGoalTemplate'
 import { AbstractView } from '../AbstractView'
 import { UnitSystem } from '../../enums/UnitSystem'
 import { IFormattedTimeToWeightGoalResults } from '../../interfaces/FormattedResults'
+/* eslint-disable max-len */
 
 export class EstimateTimeToWeightGoalView extends AbstractView {
   constructor(getSelectedUnitSystem: () => UnitSystem) {

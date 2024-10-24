@@ -4,7 +4,7 @@ import { UserModel } from '../../models/UserModel'
 import { HealthCalculatorModel } from '../../models/HealthCalculatorModel'
 import { BasalMetabolicRateView } from '../../views/BasalMetabolicRateViews/BasalMetabolicRateView'
 import { IFormValidator } from '../../interfaces/InterfaceFormValidator'
-import { BasalMetabolicRateFormData } from '../../types/FormTypes'
+import { IBasalMetabolicRateFormData } from '../../interfaces/InterfaceForms'
 import { UnitSystem } from '../../enums/UnitSystem'
 import { Gender } from '../../enums/Gender'
 import { IFormatBasaMetabolicRateResults } from '../../interfaces/FormattedResults'
@@ -36,7 +36,7 @@ export class BasalMetabolicRateController extends BaseController {
   protected handleCalculate(formData: FormData): void {
     try {
       const data = this.parseFormData(formData)
-      this.formValidator.validateBasalMetabolicRateFormData(data)
+      this.formValidator.validateIBasalMetabolicRateFormData(data)
       this.user.setData(data)
       this.updateView()
       this.view.hideError()
@@ -45,8 +45,8 @@ export class BasalMetabolicRateController extends BaseController {
     }
   }
 
-  private parseFormData(formData: FormData): BasalMetabolicRateFormData {
-    const data: BasalMetabolicRateFormData = {
+  private parseFormData(formData: FormData): IBasalMetabolicRateFormData {
+    const data: IBasalMetabolicRateFormData = {
       unitSystem: formData.get('unitSystem') as UnitSystem,
       gender: formData.get('gender') as Gender,
       weight: parseFloat(formData.get('weight') as string),

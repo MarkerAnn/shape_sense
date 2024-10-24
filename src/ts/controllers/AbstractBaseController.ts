@@ -5,10 +5,10 @@ import { UserModel } from '../models/UserModel'
 HealthCalculatorModel
 import { User } from '../types/User'
 import { AbstractView } from '../views/AbstractView'
-import { InterfaceController } from '../interfaces/InterfaceController'
+import { IController } from '../interfaces/InterfaceController'
 import { IFormValidator } from '../interfaces/InterfaceFormValidator'
 
-export abstract class BaseController implements InterfaceController {
+export abstract class BaseController implements IController {
   protected user: UserModel
   protected calculator: HealthCalculatorModel
   protected abstract view: AbstractView

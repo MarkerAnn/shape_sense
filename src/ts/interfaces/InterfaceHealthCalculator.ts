@@ -1,5 +1,5 @@
 import { BmiCategory } from '../enums/BmiCategory'
-export interface InterfaceHealthCalculator {
+export interface IHealthCalculator {
   getBmi(): number
   getBmiType(): BmiCategory
   getHealthRisk(): string

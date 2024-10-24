@@ -1,9 +1,9 @@
-// eslint-disable-next-line max-len
+/* eslint-disable max-len */
 import { waistToHeightRatioTemplate } from '../../templates/BodyCompositionTemplates/waistToHeightTemplate'
 import { AbstractView } from '../AbstractView'
 import { UnitSystem } from '../../enums/UnitSystem'
-// eslint-disable-next-line max-len
 import { IFormattedWaistToHeightRatioResults } from '../../interfaces/FormattedResults'
+/* eslint-enable max-len */
 
 export class WaistToHeightRatioView extends AbstractView {
   constructor(getSelectedUnitSystem: () => UnitSystem) {

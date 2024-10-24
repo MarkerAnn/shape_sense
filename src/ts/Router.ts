@@ -1,11 +1,11 @@
-import { InterfaceController } from './interfaces/InterfaceController'
+import { IController } from './interfaces/InterfaceController'
 import { UserModel } from './models/UserModel'
 import { HealthCalculatorModel } from './models/HealthCalculatorModel'
 import { getRouteFromPath } from './enums/Routes'
 import { ControllerFactory } from './factories/ControllerFactory'
 
 export class Router {
-  private currentController: InterfaceController | null = null
+  private currentController: IController | null = null
   private controllerFactory: ControllerFactory
 
   constructor(user: UserModel, calculator: HealthCalculatorModel) {

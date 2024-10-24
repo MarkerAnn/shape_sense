@@ -1,3 +1,3 @@
-export interface InterfaceController {
+export interface IController {
   init(container: HTMLElement): void
 }

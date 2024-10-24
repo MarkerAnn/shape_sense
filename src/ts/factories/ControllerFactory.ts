@@ -1,5 +1,5 @@
 /* eslint-disable max-len */
-import { InterfaceController } from '../interfaces/InterfaceController'
+import { IController } from '../interfaces/InterfaceController'
 import { UserModel } from '../models/UserModel'
 import { HealthCalculatorModel } from '../models/HealthCalculatorModel'
 import { HomeController } from '../controllers/HomeController'
@@ -26,19 +26,18 @@ export class ControllerFactory {
     this.formValidator = new FormValidatorService()
   }
 
-  createController(route: AllRouteType): InterfaceController {
-    const controllerMap: { [key in AllRouteType]: () => InterfaceController } =
-      {
-        HOME: () => this.createHomeController(),
-        BMI: () => this.createBmiController(),
-        WAIST_TO_HIP: () => this.createWaistToHipController(),
-        WAIST_TO_HEIGHT: () => this.createWaistToHeightController(),
-        BODY_FAT: () => this.createBodyFatController(),
-        BMR: () => this.createBmrController(),
-        TDEE: () => this.createTdeeController(),
-        WEIGHT_GOAL: () => this.createWeightGoalController(),
-        CALORIE_GOAL: () => this.createCalorieGoalController(),
-      }
+  createController(route: AllRouteType): IController {
+    const controllerMap: { [key in AllRouteType]: () => IController } = {
+      HOME: () => this.createHomeController(),
+      BMI: () => this.createBmiController(),
+      WAIST_TO_HIP: () => this.createWaistToHipController(),
+      WAIST_TO_HEIGHT: () => this.createWaistToHeightController(),
+      BODY_FAT: () => this.createBodyFatController(),
+      BMR: () => this.createBmrController(),
+      TDEE: () => this.createTdeeController(),
+      WEIGHT_GOAL: () => this.createWeightGoalController(),
+      CALORIE_GOAL: () => this.createCalorieGoalController(),
+    }
 
     const controllerCreator = controllerMap[route]
 
@@ -49,15 +48,15 @@ export class ControllerFactory {
     return controllerCreator()
   }
 
-  private createHomeController(): InterfaceController {
+  private createHomeController(): IController {
     return new HomeController()
   }
 
-  private createBmiController(): InterfaceController {
+  private createBmiController(): IController {
     return new BmiController(this.user, this.calculator, this.formValidator)
   }
 
-  private createWaistToHipController(): InterfaceController {
+  private createWaistToHipController(): IController {
     return new WaistToHipRatioController(
       this.user,
       this.calculator,
@@ -65,7 +64,7 @@ export class ControllerFactory {
     )
   }
 
-  private createWaistToHeightController(): InterfaceController {
+  private createWaistToHeightController(): IController {
     return new WaistToHeightRatioController(
       this.user,
       this.calculator,
@@ -73,7 +72,7 @@ export class ControllerFactory {
     )
   }
 
-  private createBodyFatController(): InterfaceController {
+  private createBodyFatController(): IController {
     return new BodyFatPercentageController(
       this.user,
       this.calculator,
@@ -81,7 +80,7 @@ export class ControllerFactory {
     )
   }
 
-  private createBmrController(): InterfaceController {
+  private createBmrController(): IController {
     return new BasalMetabolicRateController(
       this.user,
       this.calculator,
@@ -89,7 +88,7 @@ export class ControllerFactory {
     )
   }
 
-  private createTdeeController(): InterfaceController {
+  private createTdeeController(): IController {
     return new TotalDailyEnergyExpenditureController(
       this.user,
       this.calculator,
@@ -97,7 +96,7 @@ export class ControllerFactory {
     )
   }
 
-  private createWeightGoalController(): InterfaceController {
+  private createWeightGoalController(): IController {
     return new EstimateTimeToWeightGoalController(
       this.user,
       this.calculator,
@@ -105,7 +104,7 @@ export class ControllerFactory {
     )
   }
 
-  private createCalorieGoalController(): InterfaceController {
+  private createCalorieGoalController(): IController {
     return new CaloriesForWeightGoalController(
       this.user,
       this.calculator,

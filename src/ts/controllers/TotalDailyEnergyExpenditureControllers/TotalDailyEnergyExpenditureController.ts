@@ -1,14 +1,15 @@
-// eslint-disable-next-line max-len
+/* eslint-disable max-len */
 import { TotalDailyEnergyExpenditureView } from '../../views/TotalDailyEnergyExpenditureViews/TotalDailyEnergyExpenditureView'
 import { BaseController } from '../AbstractBaseController'
 import { UserModel } from '../../models/UserModel'
 import { HealthCalculatorModel } from '../../models/HealthCalculatorModel'
-import { TotalDailyEnergyExpenditureFormData } from '../../types/FormTypes'
+import { ITotalDailyEnergyExpenditureFormData } from '../../interfaces/InterfaceForms'
 import { UnitSystem } from '../../enums/UnitSystem'
 import { Gender } from '../../enums/Gender'
 import { ActivityLevel } from '../../enums/ActivityLevel'
 import { IFormattedTdeeResults } from '../../interfaces/FormattedResults'
 import { IFormValidator } from '../../interfaces/InterfaceFormValidator'
+/* eslint-enable max-len */
 
 export class TotalDailyEnergyExpenditureController extends BaseController {
   protected view: TotalDailyEnergyExpenditureView
@@ -38,7 +39,7 @@ export class TotalDailyEnergyExpenditureController extends BaseController {
   protected handleCalculate(formData: FormData): void {
     try {
       const data = this.parseFormData(formData)
-      this.formValidator.validateTotalDailyEnergyExpenditureFormData(data)
+      this.formValidator.validateITotalDailyEnergyExpenditureFormData(data)
       this.user.setData(data)
       this.updateView()
       this.view.hideError()
@@ -49,8 +50,8 @@ export class TotalDailyEnergyExpenditureController extends BaseController {
 
   private parseFormData(
     formData: FormData
-  ): TotalDailyEnergyExpenditureFormData {
-    const data: TotalDailyEnergyExpenditureFormData = {
+  ): ITotalDailyEnergyExpenditureFormData {
+    const data: ITotalDailyEnergyExpenditureFormData = {
       unitSystem: formData.get('unitSystem') as UnitSystem,
       gender: formData.get('gender') as Gender,
       weight: parseFloat(formData.get('weight') as string),

@@ -1,8 +1,9 @@
-// eslint-disable-next-line max-len
+/* eslint-disable max-len */
 import { caloriesForWeightGoalTemplate } from '../../templates/GoalCalculationTemplates/caloriesForWeightGoalTemplate'
 import { AbstractView } from '../AbstractView'
 import { UnitSystem } from '../../enums/UnitSystem'
 import { IFormattedCaloriesForWeightGoalResults } from '../../interfaces/FormattedResults'
+/* eslint-enable max-len */
 
 export class CaloriesForWeightGoalView extends AbstractView {
   constructor(getSelectedUnitSystem: () => UnitSystem) {
