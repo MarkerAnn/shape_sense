@@ -1,6 +1,14 @@
 import { FORM_FIELDS } from '../../constants/FormConstants'
 import { UnitSystem } from '../../enums/UnitSystem'
 
+/**
+ * Template for the Waist to Height Ratio Calculator.
+ * This template includes a section explaining the concept of Waist-to-Height Ratio (WHtR),
+ * its significance in assessing fat distribution and potential health risks,
+ * and a form for user input to calculate WHtR based on waist and height measurements.
+ *
+ * @constant {string} waistToHeightTemplate
+ */
 export const waistToHeightRatioTemplate = `
 <section class="container">
     <h2>Waist-to-Height Ratio Calculator</h2>

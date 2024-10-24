@@ -6,7 +6,17 @@ import {
 import { UnitSystem } from '../enums/UnitSystem'
 import { BaseValidator } from './BaseValidator'
 
+/**
+ * Class representing a GoalValidator.
+ * @extends BaseValidator
+ */
 export class GoalValidator extends BaseValidator {
+  /**
+   * Validates the weight goal.
+   * @param {number} weightGoal - The weight goal to validate.
+   * @param {UnitSystem} unitSystem - The unit system (IMPERIAL or METRIC).
+   * @throws Will throw an error if the weight goal is not a number or out of range.
+   */
   validateWeightGoal(weightGoal: number, unitSystem: UnitSystem): void {
     this.validateNumericInput(weightGoal, 'Weight goal')
     const isImperial = unitSystem === UnitSystem.IMPERIAL
@@ -28,6 +38,11 @@ export class GoalValidator extends BaseValidator {
     })
   }
 
+  /**
+   * Validates the weeks to weight goal.
+   * @param {number} weeksToWeightGoal - The number of weeks to weight goal to validate.
+   * @throws Will throw an error if the weeks to weight goal is not a number or out of range.
+   */
   validateWeeksToWeightGoal(weeksToWeightGoal: number): void {
     this.validateNumericInput(weeksToWeightGoal, 'Weeks to weight goal')
     this.validateRange({
@@ -39,6 +54,11 @@ export class GoalValidator extends BaseValidator {
     })
   }
 
+  /**
+   * Validates the daily calories.
+   * @param {number} dailyCalories - The daily calories to validate.
+   * @throws Will throw an error if the daily calories is not a number or out of range.
+   */
   validateDailyCalories(dailyCalories: number): void {
     this.validateNumericInput(dailyCalories, 'Daily calories')
     this.validateRange({

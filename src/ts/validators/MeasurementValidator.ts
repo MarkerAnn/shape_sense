@@ -6,7 +6,17 @@ import {
   CONVERSION_FACTORS,
 } from '../constants/ValidationConstants'
 
+/**
+ * Class representing a MeasurementValidator.
+ * @extends BaseValidator
+ */
 export class MeasurementValidator extends BaseValidator {
+  /**
+   * Validates the weight.
+   * @param {number} weight - The weight to validate.
+   * @param {UnitSystem} unitSystem - The unit system (IMPERIAL or METRIC).
+   * @throws Will throw an error if the weight is not a number or out of range.
+   */
   validateWeight(weight: number, unitSystem: UnitSystem): void {
     this.validateNumericInput(weight, 'Weight')
     const isImperial = unitSystem === UnitSystem.IMPERIAL
@@ -28,6 +38,12 @@ export class MeasurementValidator extends BaseValidator {
     })
   }
 
+  /**
+   * Validates the height.
+   * @param {number} height - The height to validate.
+   * @param {UnitSystem} unitSystem - The unit system (IMPERIAL or METRIC).
+   * @throws Will throw an error if the height is not a number or out of range.
+   */
   validateHeight(height: number, unitSystem: UnitSystem): void {
     this.validateNumericInput(height, 'Height')
     const isImperial = unitSystem === UnitSystem.IMPERIAL
@@ -46,31 +62,6 @@ export class MeasurementValidator extends BaseValidator {
       unit: isImperial
         ? VALIDATION_UNITS.IMPERIAL.HEIGHT
         : VALIDATION_UNITS.METRIC.HEIGHT,
-    })
-  }
-
-  validateBodyMeasurement(
-    value: number,
-    type: 'waist' | 'hip' | 'neck',
-    unitSystem: UnitSystem
-  ): void {
-    this.validateNumericInput(value, type)
-    const isImperial = unitSystem === UnitSystem.IMPERIAL
-    const { min, max } = this.getConvertedLimits({
-      min: VALIDATION_LIMITS[type].min,
-      max: VALIDATION_LIMITS[type].max,
-      shouldConvert: isImperial,
-      conversionFactor: CONVERSION_FACTORS.INCHES,
-    })
-
-    this.validateRange({
-      value,
-      min,
-      max,
-      name: type.charAt(0).toUpperCase() + type.slice(1),
-      unit: isImperial
-        ? VALIDATION_UNITS.IMPERIAL.MEASUREMENT
-        : VALIDATION_UNITS.METRIC.MEASUREMENT,
     })
   }
 }

@@ -1,6 +1,14 @@
 import { FORM_FIELDS } from '../../constants/FormConstants'
 import { UnitSystem } from '../../enums/UnitSystem'
 
+/**
+ * Template for the Waist to Hip Ratio Calculator.
+ * This template includes a section explaining the concept of Waist-to-Hip Ratio (WHR),
+ * its significance in assessing fat distribution and potential health risks,
+ * and a form for user input to calculate WHR based on waist and hip measurements.
+ *
+ * @constant {string} waistToHipRatioTemplate
+ */
 export const waistToHipRatioTemplate = `
 <section class="container">
     <h2>Waist to Hip Ratio Calculator</h2>

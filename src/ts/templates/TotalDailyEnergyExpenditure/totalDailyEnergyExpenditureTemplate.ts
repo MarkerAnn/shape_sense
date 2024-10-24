@@ -2,6 +2,14 @@ import { FORM_FIELDS } from '../../constants/FormConstants'
 import { ActivityLevel } from '../../enums/ActivityLevel'
 import { UnitSystem } from '../../enums/UnitSystem'
 
+/**
+ * Template for the Total Daily Energy Expenditure (TDEE) Calculator.
+ * This template includes a section explaining TDEE, its calculation methods,
+ * and a form for user input to calculate TDEE based on the Harris-Benedict
+ * and Mifflin-St Jeor equations.
+ *
+ * @constant {string} totalDailyEnergyExpenditureTemplate
+ */
 export const totalDailyEnergyExpenditureTemplate = `
   <section class="container">
     <h2>TDEE Calculator (Harris-Benedict & Mifflin-St Jeor)</h2>

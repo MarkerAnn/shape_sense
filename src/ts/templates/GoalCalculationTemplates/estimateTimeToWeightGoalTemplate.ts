@@ -3,6 +3,15 @@ import { ActivityLevel } from '../../enums/ActivityLevel'
 import { Gender } from '../../enums/Gender'
 import { UnitSystem } from '../../enums/UnitSystem'
 
+/**
+ * Template for the Estimated Time to Reach Weight Goal Calculator.
+ * This template includes a section explaining the concept of
+ * estimating the time to reach a weight goal,
+ * its calculation methods, and a form for user input to calculate the
+ * estimated time based on various factors.
+ *
+ * @constant {string} estimateTimeToWeightGoalTemplate
+ */
 export const estimateTimeToWeightGoalTemplate = `
   <section class="container">
     <h2>Estimated Time to Reach Weight Goal</h2>

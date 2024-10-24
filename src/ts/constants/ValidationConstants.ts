@@ -53,5 +53,3 @@ export const VALIDATION_LIMITS = {
     max: 520,
   },
 } as const
-
-// TODO: fixa magic numbers

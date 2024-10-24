@@ -3,6 +3,11 @@ import { UserModel } from './models/UserModel'
 import { HealthCalculatorModel } from './models/HealthCalculatorModel'
 import { HeaderManager } from './utils/HeaderManager'
 
+/**
+ * The `App` class initializes the main components of the Health Calculator Application,
+ * including the router, user model, and health calculator model. It also manages the
+ * application startup process.
+ */
 export class App {
   private router: Router
   private user: UserModel

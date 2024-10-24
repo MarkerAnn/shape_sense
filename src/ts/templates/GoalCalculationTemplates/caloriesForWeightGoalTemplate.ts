@@ -3,6 +3,14 @@ import { Gender } from '../../enums/Gender'
 import { ActivityLevel } from '../../enums/ActivityLevel'
 import { UnitSystem } from '../../enums/UnitSystem'
 
+/**
+ * Template for the Calories Needed to Reach Weight Goal Calculator.
+ * This template includes a section explaining the concept of calculating daily caloric needs
+ * to reach a weight goal, its calculation methods, and a form for user input to calculate
+ * the required daily calories based on various factors.
+ *
+ * @constant {string} caloriesForWeightGoalTemplate
+ */
 export const caloriesForWeightGoalTemplate = `
   <section class="container">
     <h2>Calories Needed to Reach Weight Goal</h2>
