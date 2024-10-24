@@ -7,15 +7,18 @@ import {
 } from '../constants/ValidationConstants'
 
 /**
- * Class representing a MeasurementValidator.
- * @extends BaseValidator
+ * MeasurementValidator class for validating weight, height, and body measurements.
+ * Extends the BaseValidator class.
+ *
+ * @extends {BaseValidator}
  */
 export class MeasurementValidator extends BaseValidator {
   /**
-   * Validates the weight.
-   * @param {number} weight - The weight to validate.
-   * @param {UnitSystem} unitSystem - The unit system (IMPERIAL or METRIC).
-   * @throws Will throw an error if the weight is not a number or out of range.
+   * Validates weight based on the provided unit system.
+   *
+   * @param {number} weight - The weight value to validate.
+   * @param {UnitSystem} unitSystem - The unit system (IMPERIAL or METRIC) used for validation.
+   * @throws {Error} Throws an error if the weight is not a valid number or is out of range.
    */
   validateWeight(weight: number, unitSystem: UnitSystem): void {
     this.validateNumericInput(weight, 'Weight')
@@ -39,10 +42,11 @@ export class MeasurementValidator extends BaseValidator {
   }
 
   /**
-   * Validates the height.
-   * @param {number} height - The height to validate.
-   * @param {UnitSystem} unitSystem - The unit system (IMPERIAL or METRIC).
-   * @throws Will throw an error if the height is not a number or out of range.
+   * Validates height based on the provided unit system.
+   *
+   * @param {number} height - The height value to validate.
+   * @param {UnitSystem} unitSystem - The unit system (IMPERIAL or METRIC) used for validation.
+   * @throws {Error} Throws an error if the height is not a valid number or is out of range.
    */
   validateHeight(height: number, unitSystem: UnitSystem): void {
     this.validateNumericInput(height, 'Height')
@@ -62,6 +66,39 @@ export class MeasurementValidator extends BaseValidator {
       unit: isImperial
         ? VALIDATION_UNITS.IMPERIAL.HEIGHT
         : VALIDATION_UNITS.METRIC.HEIGHT,
+    })
+  }
+
+  /**
+   * Validates a body measurement (e.g., waist, hip, neck) based on the provided unit system.
+   *
+   * @param {number} value - The measurement value to validate.
+   * @param {'waist' | 'hip' | 'neck'} type - The type of body measurement.
+   * @param {UnitSystem} unitSystem - The unit system (IMPERIAL or METRIC) used for validation.
+   * @throws {Error} Throws an error if the measurement is not a valid number or is out of range.
+   */
+  validateBodyMeasurement(
+    value: number,
+    type: 'waist' | 'hip' | 'neck',
+    unitSystem: UnitSystem
+  ): void {
+    this.validateNumericInput(value, type)
+    const isImperial = unitSystem === UnitSystem.IMPERIAL
+    const { min, max } = this.getConvertedLimits({
+      min: VALIDATION_LIMITS[type].min,
+      max: VALIDATION_LIMITS[type].max,
+      shouldConvert: isImperial,
+      conversionFactor: CONVERSION_FACTORS.INCHES,
+    })
+
+    this.validateRange({
+      value,
+      min,
+      max,
+      name: type.charAt(0).toUpperCase() + type.slice(1),
+      unit: isImperial
+        ? VALIDATION_UNITS.IMPERIAL.MEASUREMENT
+        : VALIDATION_UNITS.METRIC.MEASUREMENT,
     })
   }
 }
