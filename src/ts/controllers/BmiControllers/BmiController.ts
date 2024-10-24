@@ -48,13 +48,14 @@ export class BmiController extends BaseController {
   }
 
   private parseFormData(formData: FormData): BmiFormData {
-    return {
+    const data: BmiFormData = {
       unitSystem: formData.get('unitSystem') as UnitSystem,
       weight: parseFloat(formData.get('weight') as string),
       height: parseFloat(formData.get('height') as string),
     }
+
+    return data
   }
-  // TODO: ändra ovanstående? konsekvent med de andra controllers
 
   private updateView(): void {
     const bmi = this.calculator.getBmi()

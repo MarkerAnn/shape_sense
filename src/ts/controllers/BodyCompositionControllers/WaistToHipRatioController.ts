@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 import { BaseController } from '../AbstractBaseController'
 import { WaistToHipRatioView } from '../../views/BodyCompositionViews/WaistToHipRatioView'
 import { UserModel } from '../../models/UserModel'
@@ -6,6 +7,7 @@ import { IFormValidator } from '../../interfaces/InterfaceFormValidator'
 import { WaistHipRatioFormData } from '../../types/FormTypes'
 import { UnitSystem } from '../../enums/UnitSystem'
 import { IFormattedWaistToHipRationResults } from '../../interfaces/FormattedResults'
+/* eslint-enable max-len */
 
 export class WaistToHipRatioController extends BaseController {
   protected view: WaistToHipRatioView

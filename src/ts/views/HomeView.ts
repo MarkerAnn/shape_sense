@@ -1,4 +1,4 @@
-import { CalculatorDescriptions } from '../enums/CalculatorTypes'
+import { CALCULATOR_DESCRIPTION } from '../enums/CalculatorTypes'
 import {
   CALCULATOR_ROUTES,
   CalculatorRouteType,
@@ -43,6 +43,6 @@ export class HomeView {
   }
 
   private getCalculatorDescription(type: CalculatorRouteType): string {
-    return CalculatorDescriptions[type] ?? 'Description not available.'
+    return CALCULATOR_DESCRIPTION[type] ?? 'Description not available.'
   }
 }

@@ -1,4 +1,4 @@
-// eslint-disable-next-line max-len
+/* eslint-disable max-len */
 import { EstimateTimeToWeightGoalView } from '../../views/GoalCalculatorViews/EstimateTimeToWeightGoalView'
 import { BaseController } from '../AbstractBaseController'
 import { UserModel } from '../../models/UserModel'
@@ -9,6 +9,7 @@ import { Gender } from '../../enums/Gender'
 import { ActivityLevel } from '../../enums/ActivityLevel'
 import { IFormattedTimeToWeightGoalResults } from '../../interfaces/FormattedResults'
 import { IFormValidator } from '../../interfaces/InterfaceFormValidator'
+/* eslint-enable max-len */
 
 export class EstimateTimeToWeightGoalController extends BaseController {
   protected view: EstimateTimeToWeightGoalView

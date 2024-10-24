@@ -1,7 +1,9 @@
+export const INCH_TO_CM_CONVERSION_FACTOR = 2.54
+
 export const CONVERSION_FACTORS = {
   POUNDS: 2.20462,
   FEET: 3.28084,
-  INCHES: 1 / 2.54,
+  INCHES: 1 / INCH_TO_CM_CONVERSION_FACTOR,
 } as const
 
 export const VALIDATION_UNITS = {

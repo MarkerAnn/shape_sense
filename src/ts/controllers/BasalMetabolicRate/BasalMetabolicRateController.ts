@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 import { BaseController } from '../AbstractBaseController'
 import { UserModel } from '../../models/UserModel'
 import { HealthCalculatorModel } from '../../models/HealthCalculatorModel'
@@ -7,6 +8,7 @@ import { BasalMetabolicRateFormData } from '../../types/FormTypes'
 import { UnitSystem } from '../../enums/UnitSystem'
 import { Gender } from '../../enums/Gender'
 import { IFormatBasaMetabolicRateResults } from '../../interfaces/FormattedResults'
+/* eslint-enable max-len */
 
 export class BasalMetabolicRateController extends BaseController {
   protected view: BasalMetabolicRateView

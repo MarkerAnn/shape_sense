@@ -1,4 +1,4 @@
-// eslint-disable-next-line max-len
+/* eslint-disable max-len */
 import { CaloriesForWeightGoalView } from '../../views/GoalCalculatorViews/CaloriesForWeightGoalView'
 import { BaseController } from '../AbstractBaseController'
 import { UserModel } from '../../models/UserModel'
@@ -9,6 +9,7 @@ import { UnitSystem } from '../../enums/UnitSystem'
 import { Gender } from '../../enums/Gender'
 import { ActivityLevel } from '../../enums/ActivityLevel'
 import { IFormattedCaloriesForWeightGoalResults } from '../../interfaces/FormattedResults'
+/* eslint-enable max-len */
 
 export class CaloriesForWeightGoalController extends BaseController {
   protected view: CaloriesForWeightGoalView
