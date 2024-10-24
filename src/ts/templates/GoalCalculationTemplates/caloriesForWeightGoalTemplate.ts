@@ -33,40 +33,40 @@ export const caloriesForWeightGoalTemplate = `
 
       <form id="calories-goal-form">
         <div class="input-group">
-          <label for="${FORM_FIELDS.UNIT_SYSTEM}">Unit System</label>
-          <select id="${FORM_FIELDS.UNIT_SYSTEM}" 
-          name="${FORM_FIELDS.UNIT_SYSTEM}">
+          <label for="${FORM_FIELDS.unitSystem}">Unit System</label>
+          <select id="${FORM_FIELDS.unitSystem}" 
+          name="${FORM_FIELDS.unitSystem}">
             <option value="${UnitSystem.METRIC}">Metric</option>
             <option value="${UnitSystem.IMPERIAL}">Imperial</option>
           </select>
         </div>
         <div class="input-group">
-          <label for="${FORM_FIELDS.GENDER}">Gender</label>
-          <select id="${FORM_FIELDS.GENDER}" 
-          name="${FORM_FIELDS.GENDER}">
+          <label for="${FORM_FIELDS.gender}">Gender</label>
+          <select id="${FORM_FIELDS.gender}" 
+          name="${FORM_FIELDS.gender}">
             <option value="${Gender.MALE}">Male</option>
             <option value=${Gender.FEMALE}>Female</option>
           </select>
         </div>
         <div class="input-group">
-          <label for="${FORM_FIELDS.HEIGHT}">Height</label>
-          <input type="text" id="${FORM_FIELDS.HEIGHT}" 
-          name="${FORM_FIELDS.HEIGHT}" placeholder="cm">
+          <label for="${FORM_FIELDS.height}">Height</label>
+          <input type="text" id="${FORM_FIELDS.height}" 
+          name="${FORM_FIELDS.height}" placeholder="cm">
         </div>
         <div class="input-group">
-          <label for="${FORM_FIELDS.WEIGHT}">Weight</label>
-          <input type="text" id="${FORM_FIELDS.WEIGHT}" 
-          name="${FORM_FIELDS.WEIGHT}" placeholder="kg">
+          <label for="${FORM_FIELDS.weight}">Weight</label>
+          <input type="text" id="${FORM_FIELDS.weight}" 
+          name="${FORM_FIELDS.weight}" placeholder="kg">
         </div>
         <div class="input-group">
-          <label for="${FORM_FIELDS.AGE}">Age</label>
-          <input type="number" id="${FORM_FIELDS.AGE}" 
-          name="${FORM_FIELDS.AGE}" placeholder="years">
+          <label for="${FORM_FIELDS.age}">Age</label>
+          <input type="number" id="${FORM_FIELDS.age}" 
+          name="${FORM_FIELDS.age}" placeholder="years">
         </div>
         <div class="input-group">
-          <label for="${FORM_FIELDS.ACTIVITY_LEVEL}">Activity Level</label>
-          <select id="${FORM_FIELDS.ACTIVITY_LEVEL}" 
-          name="${FORM_FIELDS.ACTIVITY_LEVEL}">
+          <label for="${FORM_FIELDS.activityLevel}">Activity Level</label>
+          <select id="${FORM_FIELDS.activityLevel}" 
+          name="${FORM_FIELDS.activityLevel}">
             <option value="${ActivityLevel.SEDENTARY}">Sedentary
             </option>
             <option value="${ActivityLevel.LIGHTLY}">Lightly Active
@@ -79,14 +79,14 @@ export const caloriesForWeightGoalTemplate = `
           </select>
         </div>
         <div class="input-group">
-          <label for="${FORM_FIELDS.WEIGHT_GOAL}">Weight Goal</label>
-          <input type="text" id="${FORM_FIELDS.WEIGHT_GOAL}" 
-          name="${FORM_FIELDS.WEIGHT_GOAL}" placeholder="kg">
+          <label for="${FORM_FIELDS.weightGoal}">Weight Goal</label>
+          <input type="text" id="${FORM_FIELDS.weightGoal}" 
+          name="${FORM_FIELDS.weightGoal}" placeholder="kg">
         </div>
         <div class="input-group">
-          <label for="${FORM_FIELDS.WEEKS_TO_GOAL}">Weeks to Reach Goal</label>
-          <input type="text" id="${FORM_FIELDS.WEEKS_TO_GOAL}" 
-          name="${FORM_FIELDS.WEEKS_TO_GOAL}" placeholder="weeks">
+          <label for="${FORM_FIELDS.weeksToWeightGoal}">Weeks to Reach Goal</label>
+          <input type="text" id="${FORM_FIELDS.weeksToWeightGoal}" 
+          name="${FORM_FIELDS.weeksToWeightGoal}" placeholder="weeks">
         </div>
         <div class="button-group">
           <button type="reset">Reset</button>

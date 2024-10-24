@@ -293,8 +293,8 @@ const D = `
 
         <form id="bmi-form">
           <div class="input-group">
-            <label for="${FORM_FIELDS.UNIT_SYSTEM}">Unit System</label>
-            <select id="${FORM_FIELDS.UNIT_SYSTEM}" name="${FORM_FIELDS.UNIT_SYSTEM}">
+            <label for="${FORM_FIELDS.unitSystem}">Unit System</label>
+            <select id="${FORM_FIELDS.unitSystem}" name="${FORM_FIELDS.unitSystem}">
               <option value="metric">Metric</option>
               <option value="imperial">Imperial</option>
             </select>
@@ -1420,7 +1420,7 @@ class me extends y {
   }
   parseFormData(e) {
     return {
-      unitSystem: e.get('${FORM_FIELDS.UNIT_SYSTEM}'),
+      unitSystem: e.get('${FORM_FIELDS.unitSystem}'),
       weight: parseFloat(e.get('weight')),
       height: parseFloat(e.get('height')),
     }
@@ -1464,8 +1464,8 @@ const pe = `
 
         <form id="waist-hip-ratio-form">
             <div class="input-group">
-                <label for="${FORM_FIELDS.UNIT_SYSTEM}">Unit System</label>
-                <select id="${FORM_FIELDS.UNIT_SYSTEM}" name="${FORM_FIELDS.UNIT_SYSTEM}">
+                <label for="${FORM_FIELDS.unitSystem}">Unit System</label>
+                <select id="${FORM_FIELDS.unitSystem}" name="${FORM_FIELDS.unitSystem}">
                     <option value="metric">Metric</option>
                     <option value="imperial">Imperial</option>
                 </select>
@@ -1584,7 +1584,7 @@ class ye extends y {
   }
   parseFormData(e) {
     return {
-      unitSystem: e.get('${FORM_FIELDS.UNIT_SYSTEM}'),
+      unitSystem: e.get('${FORM_FIELDS.unitSystem}'),
       waist: parseFloat(e.get('waist')),
       hip: parseFloat(e.get('hip')),
     }
@@ -1618,8 +1618,8 @@ const fe = `
 
         <form id="waist-height-ratio-form">
             <div class="input-group">
-                <label for="${FORM_FIELDS.UNIT_SYSTEM}">Unit System</label>
-                <select id="${FORM_FIELDS.UNIT_SYSTEM}" name="${FORM_FIELDS.UNIT_SYSTEM}">
+                <label for="${FORM_FIELDS.unitSystem}">Unit System</label>
+                <select id="${FORM_FIELDS.unitSystem}" name="${FORM_FIELDS.unitSystem}">
                     <option value="metric">Metric</option>
                     <option value="imperial">Imperial</option>
                 </select>
@@ -1738,7 +1738,7 @@ class Ee extends y {
   }
   parseFormData(e) {
     return {
-      unitSystem: e.get('${FORM_FIELDS.UNIT_SYSTEM}'),
+      unitSystem: e.get('${FORM_FIELDS.unitSystem}'),
       waist: parseFloat(e.get('waist')),
       height: parseFloat(e.get('height')),
     }
@@ -1776,8 +1776,8 @@ const Te = `
 
         <form id="body-fat-percentage-form">
             <div class="input-group">
-                <label for="${FORM_FIELDS.UNIT_SYSTEM}">Unit System</label>
-                <select id="${FORM_FIELDS.UNIT_SYSTEM}" name="${FORM_FIELDS.UNIT_SYSTEM}">
+                <label for="${FORM_FIELDS.unitSystem}">Unit System</label>
+                <select id="${FORM_FIELDS.unitSystem}" name="${FORM_FIELDS.unitSystem}">
                     <option value="metric">Metric</option>
                     <option value="imperial">Imperial</option>
                 </select>
@@ -1954,7 +1954,7 @@ class be extends y {
   }
   parseFormData(e) {
     const a = {
-      unitSystem: e.get('${FORM_FIELDS.UNIT_SYSTEM}'),
+      unitSystem: e.get('${FORM_FIELDS.unitSystem}'),
       gender: e.get('gender'),
       weight: parseFloat(e.get('weight')),
       waist: parseFloat(e.get('waist')),
@@ -2016,8 +2016,8 @@ const Se = `
 
       <form id="tdee-form">
         <div class="input-group">
-          <label for="${FORM_FIELDS.UNIT_SYSTEM}">Unit System</label>
-          <select id="${FORM_FIELDS.UNIT_SYSTEM}" name="${FORM_FIELDS.UNIT_SYSTEM}">
+          <label for="${FORM_FIELDS.unitSystem}">Unit System</label>
+          <select id="${FORM_FIELDS.unitSystem}" name="${FORM_FIELDS.unitSystem}">
             <option value="metric">Metric</option>
             <option value="imperial">Imperial</option>
           </select>
@@ -2183,7 +2183,7 @@ class Ae extends y {
   }
   parseFormData(e) {
     return {
-      unitSystem: e.get('${FORM_FIELDS.UNIT_SYSTEM}'),
+      unitSystem: e.get('${FORM_FIELDS.unitSystem}'),
       gender: e.get('gender'),
       weight: parseFloat(e.get('weight')),
       height: parseFloat(e.get('height')),
@@ -2238,8 +2238,8 @@ const We = `
 
       <form id="bmr-form">
         <div class="input-group">
-          <label for="${FORM_FIELDS.UNIT_SYSTEM}">Unit System</label>
-          <select id="${FORM_FIELDS.UNIT_SYSTEM}" name="${FORM_FIELDS.UNIT_SYSTEM}">
+          <label for="${FORM_FIELDS.unitSystem}">Unit System</label>
+          <select id="${FORM_FIELDS.unitSystem}" name="${FORM_FIELDS.unitSystem}">
             <option value="metric">Metric</option>
             <option value="imperial">Imperial</option>
           </select>
@@ -2394,7 +2394,7 @@ class He extends y {
   }
   parseFormData(e) {
     return {
-      unitSystem: e.get('${FORM_FIELDS.UNIT_SYSTEM}'),
+      unitSystem: e.get('${FORM_FIELDS.unitSystem}'),
       gender: e.get('gender'),
       weight: parseFloat(e.get('weight')),
       height: parseFloat(e.get('height')),
@@ -2447,8 +2447,8 @@ const Me = `
 
       <form id="time-to-goal-form">
         <div class="input-group">
-          <label for="${FORM_FIELDS.UNIT_SYSTEM}">Unit System</label>
-          <select id="${FORM_FIELDS.UNIT_SYSTEM}" name="${FORM_FIELDS.UNIT_SYSTEM}">
+          <label for="${FORM_FIELDS.unitSystem}">Unit System</label>
+          <select id="${FORM_FIELDS.unitSystem}" name="${FORM_FIELDS.unitSystem}">
             <option value="metric">Metric</option>
             <option value="imperial">Imperial</option>
           </select>
@@ -2622,7 +2622,7 @@ class Fe extends y {
   }
   parseFormData(e) {
     return {
-      unitSystem: e.get('${FORM_FIELDS.UNIT_SYSTEM}'),
+      unitSystem: e.get('${FORM_FIELDS.unitSystem}'),
       gender: e.get('gender'),
       weight: parseFloat(e.get('weight')),
       height: parseFloat(e.get('height')),
@@ -2670,8 +2670,8 @@ const Le = `
 
       <form id="calories-goal-form">
         <div class="input-group">
-          <label for="${FORM_FIELDS.UNIT_SYSTEM}">Unit System</label>
-          <select id="${FORM_FIELDS.UNIT_SYSTEM}" name="${FORM_FIELDS.UNIT_SYSTEM}">
+          <label for="${FORM_FIELDS.unitSystem}">Unit System</label>
+          <select id="${FORM_FIELDS.unitSystem}" name="${FORM_FIELDS.unitSystem}">
             <option value="metric">Metric</option>
             <option value="imperial">Imperial</option>
           </select>
@@ -2848,7 +2848,7 @@ class Be extends y {
   }
   parseFormData(e) {
     return {
-      unitSystem: e.get('${FORM_FIELDS.UNIT_SYSTEM}'),
+      unitSystem: e.get('${FORM_FIELDS.unitSystem}'),
       gender: e.get('gender'),
       weight: parseFloat(e.get('weight')),
       height: parseFloat(e.get('height')),

@@ -37,29 +37,29 @@ export const bmiTemplate = `
         <p>
         For a more comprehensive assessment of health, 
         BMI should be used alongside other measurements, 
-        such as "${FORM_FIELDS.WAIST}"-to-"${FORM_FIELDS.HIP}" 
+        such as "${FORM_FIELDS.waist}"-to-"${FORM_FIELDS.hip}" 
         ratio or body fat percentage.
         </p>
         </div>
 
         <form id="bmi-form">
           <div class="input-group">
-            <label for="${FORM_FIELDS.UNIT_SYSTEM}">Unit System</label>
-            <select id="${FORM_FIELDS.UNIT_SYSTEM}" 
-            name="${FORM_FIELDS.UNIT_SYSTEM}">
+            <label for="${FORM_FIELDS.unitSystem}">Unit System</label>
+            <select id="${FORM_FIELDS.unitSystem}" 
+            name="${FORM_FIELDS.unitSystem}">
               <option value="${UnitSystem.METRIC}">Metric</option>
               <option value="${UnitSystem.IMPERIAL}">Imperial</option>
             </select>
           </div>
           <div class="input-group">
-            <label for="${FORM_FIELDS.HEIGHT}">Height</label>
-            <input type="text" id="${FORM_FIELDS.HEIGHT}" 
-            name="${FORM_FIELDS.HEIGHT}" placeholder="m">
+            <label for="${FORM_FIELDS.height}">Height</label>
+            <input type="text" id="${FORM_FIELDS.height}" 
+            name="${FORM_FIELDS.height}" placeholder="m">
           </div>
           <div class="input-group">
-            <label for="${FORM_FIELDS.WEIGHT}">Weight</label>
-            <input type="text" id="${FORM_FIELDS.WEIGHT}" 
-            name="${FORM_FIELDS.WEIGHT}" placeholder="kg">
+            <label for="${FORM_FIELDS.weight}">Weight</label>
+            <input type="text" id="${FORM_FIELDS.weight}" 
+            name="${FORM_FIELDS.weight}" placeholder="kg">
           </div>
           <div class="button-group">
             <button type="reset">Reset</button>

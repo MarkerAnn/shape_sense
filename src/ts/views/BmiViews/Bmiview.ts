@@ -2,54 +2,25 @@ import { AbstractView } from '../AbstractView'
 import { UnitSystem } from '../../enums/UnitSystem'
 import { User } from '../../types/User'
 import { bmiTemplate } from '../../templates/BmiTemplates/bmiTemplate'
-import { HtmlSelectors } from '../../enums/HtmlSelectors'
-import { InputFields } from '../../enums/InputFields'
 
 export class BmiView extends AbstractView {
-  private heightInput: HTMLInputElement | null = null
-  private weightInput: HTMLInputElement | null = null
-  private unitSystemSelect: HTMLSelectElement | null = null
-
   constructor() {
-    super(() => this.unitSystemSelect?.value as UnitSystem)
+    super(() => this.getUnitSystemValue())
   }
 
   render(container: HTMLElement): void {
     container.innerHTML = bmiTemplate
 
     this.initializeCommonElements()
-    this.initializeInputs([InputFields.HEIGHT, InputFields.WEIGHT])
+    this.initializeInputs(['weight', 'height'])
+    this.initializeSelectField('unitSystem')
 
-    this.weightInput = this.getElement(HtmlSelectors.WEIGHT) as HTMLInputElement
-    this.heightInput = this.getElement(HtmlSelectors.HEIGHT) as HTMLInputElement
-    this.unitSystemSelect = this.getElement(
-      HtmlSelectors.UNIT_SYSTEM
-    ) as HTMLSelectElement
-
-    this.unitSystemSelect?.addEventListener(
-      'change',
-      this.updatePlaceholders.bind(this)
-    )
+    const unitSelect = this.selects.get('unitSystem')
+    unitSelect?.addEventListener('change', () => this.updatePlaceholders())
   }
 
   fillForm(data: Partial<User>): void {
-    if (this.unitSystemSelect && data.unitSystem) {
-      this.unitSystemSelect.value = data.unitSystem
-    }
-
-    this.setInputValue(this.heightInput, data.height)
-    this.setInputValue(this.weightInput, data.weight)
-
-    this.updatePlaceholders()
-  }
-
-  private setInputValue(
-    input: HTMLInputElement | null,
-    value: number | undefined
-  ): void {
-    if (input && value) {
-      input.value = value.toString()
-    }
+    this.fillFormData(data)
   }
 
   bindCalculateEvent(handler: (data: FormData) => void): void {
@@ -60,25 +31,34 @@ export class BmiView extends AbstractView {
     })
   }
 
-  updateResults(data: {
-    bmi: number
-    category: string
-    healthRisk: string
-    idealWeight: [number, number]
-  }): void {
-    if (!this.resultsTable) {
-      return
-    }
+  updateResults(data: BmiResults): void {
+    if (!this.resultsTable) return
 
     const rows = this.resultsTable.rows
-    rows[0].cells[1].textContent = data.bmi.toFixed(2)
+    rows[0].cells[1].textContent = this.formatValue(data.bmi)
     rows[1].cells[1].textContent = data.category
     rows[2].cells[1].textContent = data.healthRisk
+    rows[3].cells[1].textContent = this.formatIdealWeight(data.idealWeight)
+  }
 
-    const minWeight = data.idealWeight[0].toFixed(0)
-    const maxWeight = data.idealWeight[1].toFixed(0)
-    rows[3].cells[1].textContent = `${minWeight} - ${maxWeight} kg`
+  private formatValue(value: number): string {
+    return value.toFixed(1)
+  }
+
+  private formatIdealWeight([min, max]: [number, number]): string {
+    return `${this.formatValue(min)} - ${this.formatValue(max)} kg`
+  }
+
+  private getUnitSystemValue(): UnitSystem {
+    const unitSelect = this.selects.get('unitSystem')
+    return (unitSelect?.value as UnitSystem) ?? UnitSystem.METRIC
   }
 }
 
-// TODO: Magic numbers
+// Interface för tydligare typning av resultat
+interface BmiResults {
+  bmi: number
+  category: string
+  healthRisk: string
+  idealWeight: [number, number]
+}

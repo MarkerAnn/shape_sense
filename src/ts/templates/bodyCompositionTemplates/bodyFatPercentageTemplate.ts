@@ -26,47 +26,47 @@ export const bodyFatPercentageTemplate = `
 
         <form id="body-fat-percentage-form">
             <div class="input-group">
-                <label for="${FORM_FIELDS.UNIT_SYSTEM}">Unit System</label>
-                <select id="${FORM_FIELDS.UNIT_SYSTEM}" 
-                name="${FORM_FIELDS.UNIT_SYSTEM}">
+                <label for="${FORM_FIELDS.unitSystem}">Unit System</label>
+                <select id="${FORM_FIELDS.unitSystem}" 
+                name="${FORM_FIELDS.unitSystem}">
                     <option value="${UnitSystem.METRIC}">Metric</option>
                     <option value="${UnitSystem.IMPERIAL}">Imperial</option>
                 </select>
             </div>
             <div class="input-group">
-                <label for="${FORM_FIELDS.GENDER}">Gender</label>
+                <label for="${FORM_FIELDS.gender}">Gender</label>
                 <div>
                     <input type="radio" id="male" 
-                    name="${FORM_FIELDS.GENDER}" value="male">
+                    name="${FORM_FIELDS.gender}" value="male">
                     <label for="male">Male</label>
                     <input type="radio" id="female" 
-                    name="${FORM_FIELDS.GENDER}" 
+                    name="${FORM_FIELDS.gender}" 
                     value="female">
                     <label for="female">Female</label>
                 </div>
             </div>
             <div class="input-group">
-                <label for="${FORM_FIELDS.WEIGHT}">Weight</label>
-                <input type="text" id="${FORM_FIELDS.WEIGHT}" 
-                name="${FORM_FIELDS.WEIGHT}" placeholder="kg">
+                <label for="${FORM_FIELDS.weight}">Weight</label>
+                <input type="text" id="${FORM_FIELDS.weight}" 
+                name="${FORM_FIELDS.weight}" placeholder="kg">
             </div>
             <div class="input-group">
-                <label for="${FORM_FIELDS.WAIST}">"${FORM_FIELDS.WAIST}" 
+                <label for="${FORM_FIELDS.waist}">"${FORM_FIELDS.waist}" 
                 Circumference</label>
-                <input type="text" id="${FORM_FIELDS.WAIST}" 
-                name="${FORM_FIELDS.WAIST}" placeholder="cm">
+                <input type="text" id="${FORM_FIELDS.waist}" 
+                name="${FORM_FIELDS.waist}" placeholder="cm">
             </div>
             <div class="input-group">
-                <label for="${FORM_FIELDS.HIP}">"${FORM_FIELDS.HIP}" 
+                <label for="${FORM_FIELDS.hip}">"${FORM_FIELDS.hip}" 
                 Circumference (for females only)</label>
-                <input type="text" id="${FORM_FIELDS.HIP}" 
-                name="${FORM_FIELDS.HIP}" placeholder="cm">
+                <input type="text" id="${FORM_FIELDS.hip}" 
+                name="${FORM_FIELDS.hip}" placeholder="cm">
             </div>
             <div class="input-group">
-                <label for="${FORM_FIELDS.NECK}">"${FORM_FIELDS.NECK}" 
+                <label for="${FORM_FIELDS.neck}">"${FORM_FIELDS.neck}" 
                 Circumference</label>
-                <input type="text" id="${FORM_FIELDS.NECK}" 
-                name="${FORM_FIELDS.NECK}" placeholder="cm">
+                <input type="text" id="${FORM_FIELDS.neck}" 
+                name="${FORM_FIELDS.neck}" placeholder="cm">
             </div>
             <div class="button-group">
                 <button type="reset">Reset</button>

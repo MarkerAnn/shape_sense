@@ -1,59 +1,61 @@
-export const FORM_FIELDS = {
-  WEIGHT: 'weight',
-  HEIGHT: 'height',
-  AGE: 'age',
-  WAIST: 'waist',
-  HIP: 'hip',
-  NECK: 'neck',
-  WEIGHT_GOAL: 'weightGoal',
-  WEEKS_TO_GOAL: 'weeksToWeightGoal',
-  DAILY_CALORIES: 'dailyCalories',
-  UNIT_SYSTEM: 'unitSystem',
-  GENDER: 'gender',
-  ACTIVITY_LEVEL: 'activityLevel',
+import { FormFieldName, FormSelectors } from '../types/FormFieldTypes'
+
+export const FORM_FIELDS: Record<string, FormFieldName> = {
+  weight: 'weight',
+  height: 'height',
+  age: 'age',
+  waist: 'waist',
+  hip: 'hip',
+  neck: 'neck',
+  weightGoal: 'weightGoal',
+  weeksToWeightGoal: 'weeksToWeightGoal',
+  dailyCalories: 'dailyCalories',
+  unitSystem: 'unitSystem',
+  gender: 'gender',
+  activityLevel: 'activityLevel',
 } as const
 
 export type FormField = keyof typeof FORM_FIELDS
 
-export const FORM_SELECTORS = {
-  INPUTS: {
-    [FORM_FIELDS.WEIGHT]: `#${FORM_FIELDS.WEIGHT}`,
-    [FORM_FIELDS.HEIGHT]: `#${FORM_FIELDS.HEIGHT}`,
-    [FORM_FIELDS.AGE]: `#${FORM_FIELDS.AGE}`,
-    [FORM_FIELDS.WAIST]: `#${FORM_FIELDS.WAIST}`,
-    [FORM_FIELDS.HIP]: `#${FORM_FIELDS.HIP}`,
-    [FORM_FIELDS.NECK]: `#${FORM_FIELDS.NECK}`,
-    [FORM_FIELDS.WEIGHT_GOAL]: `#${FORM_FIELDS.WEIGHT_GOAL}`,
-    [FORM_FIELDS.WEEKS_TO_GOAL]: `#${FORM_FIELDS.WEEKS_TO_GOAL}`,
-    [FORM_FIELDS.DAILY_CALORIES]: `#${FORM_FIELDS.DAILY_CALORIES}`,
+export const FORM_SELECTORS: FormSelectors = {
+  inputs: {
+    weight: `#${FORM_FIELDS.weight}`,
+    height: `#${FORM_FIELDS.height}`,
+    age: `#${FORM_FIELDS.age}`,
+    waist: `#${FORM_FIELDS.waist}`,
+    hip: `#${FORM_FIELDS.hip}`,
+    neck: `#${FORM_FIELDS.neck}`,
+    weightGoal: `#${FORM_FIELDS.weightGoal}`,
+    weeksToWeightGoal: `#${FORM_FIELDS.weeksToWeightGoal}`,
+    dailyCalories: `#${FORM_FIELDS.dailyCalories}`,
   },
-  SELECTS: {
-    [FORM_FIELDS.UNIT_SYSTEM]: `#${FORM_FIELDS.UNIT_SYSTEM}`,
-    [FORM_FIELDS.GENDER]: `#${FORM_FIELDS.GENDER}`,
-    [FORM_FIELDS.ACTIVITY_LEVEL]: `#${FORM_FIELDS.ACTIVITY_LEVEL}`,
+  selects: {
+    unitSystem: `#${FORM_FIELDS.unitSystem}`,
+    gender: `#${FORM_FIELDS.gender}`,
+    activityLevel: `#${FORM_FIELDS.activityLevel}`,
   },
-  COMMON: {
-    FORM: 'form',
-    RESULT_TABLE: '.resultTable',
-    ERROR_MESSAGE: '.errorMessage',
-    INPUT_GROUP: '.inputGroup',
+  common: {
+    form: 'form',
+    resultTable: '.resultTable',
+    errorMessage: '.errorMessage',
+    inputGroup: '.inputGroup',
   },
 } as const
 
 export const UNIT_PLACEHOLDERS = {
   metric: {
-    [FORM_FIELDS.HEIGHT]: 'm',
-    [FORM_FIELDS.WEIGHT]: 'kg',
-    [FORM_FIELDS.WAIST]: 'cm',
-    [FORM_FIELDS.HIP]: 'cm',
-    [FORM_FIELDS.NECK]: 'cm',
+    [FORM_FIELDS.height]: 'm',
+    [FORM_FIELDS.weight]: 'kg',
+    [FORM_FIELDS.waist]: 'cm',
+    [FORM_FIELDS.hip]: 'cm',
+    [FORM_FIELDS.neck]: 'cm',
   },
   imperial: {
-    [FORM_FIELDS.HEIGHT]: 'ft',
-    [FORM_FIELDS.WEIGHT]: 'lbs',
-    [FORM_FIELDS.WAIST]: 'in',
-    [FORM_FIELDS.HIP]: 'in',
-    [FORM_FIELDS.NECK]: 'in',
+    [FORM_FIELDS.height]: 'ft',
+    [FORM_FIELDS.weight]: 'lbs',
+    [FORM_FIELDS.waist]: 'in',
+    [FORM_FIELDS.hip]: 'in',
+    [FORM_FIELDS.neck]: 'in',
   },
 } as const
 

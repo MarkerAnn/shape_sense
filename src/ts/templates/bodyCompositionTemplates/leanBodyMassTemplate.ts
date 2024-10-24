@@ -23,35 +23,35 @@ export const leanBodyMassTemplate = `
 
         <form id="lean-body-mass-form">
             <div class="input-group">
-                <label for="${FORM_FIELDS.UNIT_SYSTEM}">Unit System</label>
-                <select id="${FORM_FIELDS.UNIT_SYSTEM}" 
-                name="${FORM_FIELDS.UNIT_SYSTEM}">
+                <label for="${FORM_FIELDS.unitSystem}">Unit System</label>
+                <select id="${FORM_FIELDS.unitSystem}" 
+                name="${FORM_FIELDS.unitSystem}">
                     <option value="${UnitSystem.METRIC}">Metric</option>
                     <option value="${UnitSystem.IMPERIAL}">Imperial</option>
                 </select>
             </div>
             <div class="input-group">
-                <label for="${FORM_FIELDS.GENDER}">Gender</label>
+                <label for="${FORM_FIELDS.gender}">Gender</label>
                 <div>
                     <input type="radio" id="male-lbm" 
-                    name="${FORM_FIELDS.GENDER}" 
+                    name="${FORM_FIELDS.gender}" 
                     value="male">
                     <label for="male-lbm">Male</label>
                     <input type="radio" id="female-lbm" 
-                    name="${FORM_FIELDS.GENDER}" 
+                    name="${FORM_FIELDS.gender}" 
                     value="female">
                     <label for="female-lbm">Female</label>
                 </div>
             </div>
             <div class="input-group">
-                <label for="${FORM_FIELDS.WEIGHT}">Weight</label>
-                <input type="text" id="${FORM_FIELDS.WEIGHT}" 
-                name="${FORM_FIELDS.WEIGHT}" placeholder="kg">
+                <label for="${FORM_FIELDS.weight}">Weight</label>
+                <input type="text" id="${FORM_FIELDS.weight}" 
+                name="${FORM_FIELDS.weight}" placeholder="kg">
             </div>
             <div class="input-group">
-                <label for="${FORM_FIELDS.HEIGHT}">Height</label>
-                <input type="text" id="${FORM_FIELDS.HEIGHT}" 
-                name="${FORM_FIELDS.HEIGHT}" placeholder="cm">
+                <label for="${FORM_FIELDS.height}">Height</label>
+                <input type="text" id="${FORM_FIELDS.height}" 
+                name="${FORM_FIELDS.height}" placeholder="cm">
             </div>
             <div class="button-group">
                 <button type="reset">Reset</button>
