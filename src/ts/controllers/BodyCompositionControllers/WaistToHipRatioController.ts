@@ -5,6 +5,7 @@ import { HealthCalculatorModel } from '../../models/HealthCalculatorModel'
 import { FormValidator } from '../../utils/FormValidator'
 import { WaistHipRatioFormData } from '../../types/FormTypes'
 import { UnitSystem } from '../../enums/UnitSystem'
+import { IFormattedWaistToHipRationResults } from '../../interfaces/FormattedResults'
 
 export class WaistToHipRatioController extends BaseController {
   protected view: WaistToHipRatioView
@@ -12,25 +13,23 @@ export class WaistToHipRatioController extends BaseController {
 
   constructor(user: UserModel, calculator: HealthCalculatorModel) {
     super(user, calculator)
-    this.view = new WaistToHipRatioView()
+    this.view = new WaistToHipRatioView(this.getUnitSystemValue.bind(this))
     this.formValidator = new FormValidator()
   }
 
   init(container: HTMLElement): void {
     this.view.render(container)
-    this.fillFormWithUserData()
-    this.view.bindCalculateEvent(this.handleCalculate.bind(this))
-    this.view.bindResetEvent(this.handleReset.bind(this))
+    this.fillFormData(this.user.getData())
+    this.bindFormEvents(this.handleCalculate.bind(this))
   }
 
-  protected fillFormWithUserData(): void {
+  protected getUnitSystemValue(): UnitSystem {
     const userData = this.user.getData()
-    this.view.fillForm(userData)
+    return userData.unitSystem ?? UnitSystem.METRIC
   }
 
-  private handleCalculate(formData: FormData): void {
+  protected handleCalculate(formData: FormData): void {
     try {
-      console.log('handleCalculate called with:', formData)
       const data = this.parseFormData(formData)
       this.formValidator.validateWaistToHipRatioFormData(data)
       this.user.setData(data)
@@ -41,7 +40,7 @@ export class WaistToHipRatioController extends BaseController {
     }
   }
 
-  private parseFormData(formData: FormData): WaistHipRatioFormData {
+  protected parseFormData(formData: FormData): WaistHipRatioFormData {
     const data: WaistHipRatioFormData = {
       unitSystem: formData.get('unitSystem') as UnitSystem,
       waist: parseFloat(formData.get('waist') as string),
@@ -52,13 +51,14 @@ export class WaistToHipRatioController extends BaseController {
 
   private updateView(): void {
     const waistToHipRatio = this.calculator.getWaistToHipRatio()
-    console.log('Ratio:', waistToHipRatio)
-    this.view.updateResults(waistToHipRatio)
+
+    const formattedResults: IFormattedWaistToHipRationResults = {
+      waistToHipRatio: this.formatValue(waistToHipRatio),
+    }
+    this.view.updateResults(formattedResults)
   }
 
-  private handleReset(): void {
-    this.user.resetData()
-    this.view.resetForm()
-    this.view.hideError()
+  private formatValue(value: number): string {
+    return value.toFixed(2)
   }
 }

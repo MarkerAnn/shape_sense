@@ -60,6 +60,7 @@ export const UNIT_PLACEHOLDERS = {
 } as const
 
 export const CALCULATOR_ROUTES = {
+  HOME: '/',
   BMI: '/bmi',
   BMR: '/bmr',
   TDEE: '/tdee',
@@ -69,3 +70,5 @@ export const CALCULATOR_ROUTES = {
   CALORIE_GOAL: '/calorie-goal',
   WEIGHT_GOAL: '/weight-goal',
 } as const
+
+// TODO: Ta bort routes?

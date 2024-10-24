@@ -1,7 +1,7 @@
 import { FORM_FIELDS } from '../../constants/FormConstants'
 import { UnitSystem } from '../../enums/UnitSystem'
 
-export const waitToHeightRatioTemplate = `
+export const waistToHeightRatioTemplate = `
 <section class="container">
     <h2>"${FORM_FIELDS.waist}"-to-Height Ratio Calculator</h2>
     <div class="content">

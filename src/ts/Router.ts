@@ -14,11 +14,10 @@ export class Router {
 
   listen(): void {
     window.addEventListener('hashchange', () => {
-      const path = window.location.hash.slice(1) // Deletes the # character
+      const path = window.location.hash.slice(1)
       this.navigate(path)
     })
 
-    // Navigate to the current URL or the default route
     const initialPath = window.location.hash.slice(1) || '/'
     this.navigate(initialPath)
   }
@@ -36,7 +35,6 @@ export class Router {
         this.currentController = this.controllerFactory.createController(route)
         this.currentController.init(app)
       } catch (error) {
-        console.error('Error creating controller:', error)
         app.innerHTML = '<h2>An error occurred</h2>'
       }
     } else {
@@ -44,5 +42,3 @@ export class Router {
     }
   }
 }
-
-// TODO: Change console.error to a more user-friendly error message

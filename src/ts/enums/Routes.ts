@@ -1,16 +1,8 @@
 // src/ts/enums/Routes.ts
-import { CALCULATOR_ROUTES } from '../constants/FormConstants'
+import { ALL_ROUTES, AllRouteType } from '../constants/RoutesConstants'
 
-export type RouteType = keyof typeof CALCULATOR_ROUTES
-export type RoutePath = (typeof CALCULATOR_ROUTES)[RouteType]
-
-export const ROUTES = {
-  HOME: '/',
-  ...CALCULATOR_ROUTES,
-} as const
-
-export function getRouteFromPath(path: string): RouteType | undefined {
-  const routes = Object.entries(ROUTES)
+export function getRouteFromPath(path: string): AllRouteType | undefined {
+  const routes = Object.entries(ALL_ROUTES)
   const route = routes.find(([_, value]) => value === path)
-  return route ? (route[0] as RouteType) : undefined
+  return route ? (route[0] as AllRouteType) : undefined
 }

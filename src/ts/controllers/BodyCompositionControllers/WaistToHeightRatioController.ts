@@ -5,6 +5,7 @@ import { HealthCalculatorModel } from '../../models/HealthCalculatorModel'
 import { FormValidator } from '../../utils/FormValidator'
 import { WaistHeightRatioFormData } from '../../types/FormTypes'
 import { UnitSystem } from '../../enums/UnitSystem'
+import { IFormattedWaistToHeightRatioResults } from '../../interfaces/FormattedResults'
 
 export class WaistToHeightRatioController extends BaseController {
   protected view: WaistToHeightRatioView
@@ -12,25 +13,23 @@ export class WaistToHeightRatioController extends BaseController {
 
   constructor(user: UserModel, calculator: HealthCalculatorModel) {
     super(user, calculator)
-    this.view = new WaistToHeightRatioView()
+    this.view = new WaistToHeightRatioView(this.getUnitSystemValue.bind(this))
     this.formValidator = new FormValidator()
   }
 
   init(container: HTMLElement): void {
     this.view.render(container)
-    this.fillFormWithUserData()
-    this.view.bindCalculateEvent(this.handleCalculate.bind(this))
-    this.view.bindResetEvent(this.handleReset.bind(this))
+    this.fillFormData(this.user.getData())
+    this.bindFormEvents(this.handleCalculate.bind(this))
   }
 
-  protected fillFormWithUserData(): void {
+  protected getUnitSystemValue(): UnitSystem {
     const userData = this.user.getData()
-    this.view.fillForm(userData)
+    return userData.unitSystem ?? UnitSystem.METRIC
   }
 
-  private handleCalculate(formData: FormData): void {
+  protected handleCalculate(formData: FormData): void {
     try {
-      console.log('handleCalculate called with:', formData)
       const data = this.parseFormData(formData)
       this.formValidator.validateWaistHeightRatioFormData(data)
       this.user.setData(data)
@@ -52,12 +51,14 @@ export class WaistToHeightRatioController extends BaseController {
 
   private updateView(): void {
     const waistToHeightRatio = this.calculator.getWaistToHeightRatio()
-    this.view.updateResults(waistToHeightRatio)
+
+    const formattedData: IFormattedWaistToHeightRatioResults = {
+      waistToHeightRatio: this.formatValue(waistToHeightRatio),
+    }
+    this.view.updateResults(formattedData)
   }
 
-  private handleReset(): void {
-    this.user.resetData()
-    this.view.resetForm()
-    this.view.hideError()
+  private formatValue(value: number): string {
+    return value.toFixed(2)
   }
 }

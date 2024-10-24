@@ -2,130 +2,69 @@
 import { bodyFatPercentageTemplate } from '../../templates/BodyCompositionTemplates/bodyFatPercentageTemplate'
 import { AbstractView } from '../AbstractView'
 import { UnitSystem } from '../../enums/UnitSystem'
-import { User } from '../../types/User'
+// eslint-disable-next-line max-len
+import { IFormattedBodyFatPercentageResults } from '../../interfaces/FormattedResults'
 import { Gender } from '../../enums/Gender'
-import { HtmlSelectors } from '../../enums/HtmlSelectors'
-import { InputFields } from '../../enums/InputFields'
 
 export class BodyFatPercentageView extends AbstractView {
-  private weightInput: HTMLInputElement | null = null
-  private waistInput: HTMLInputElement | null = null
-  private hipInput: HTMLInputElement | null = null
-  private neckInput: HTMLInputElement | null = null
-  private unitSystemSelect: HTMLSelectElement | null = null
-  private genderInputs: HTMLInputElement[] = []
+  private hipInputGroup: HTMLElement | null = null
 
-  constructor() {
-    super(() => this.unitSystemSelect?.value as UnitSystem)
+  constructor(getSelectedUnitSystem: () => UnitSystem) {
+    super(getSelectedUnitSystem)
   }
 
   render(container: HTMLElement): void {
     container.innerHTML = bodyFatPercentageTemplate
 
     this.initializeCommonElements()
-    this.initializeInputs([
-      InputFields.WEIGHT,
-      InputFields.WAIST,
-      InputFields.HIP,
-      InputFields.NECK,
-    ])
+    this.initializeInputs(['weight', 'waist', 'hip', 'neck'])
+    this.initializeSelectField('unitSystem')
 
-    this.weightInput = this.getElement(HtmlSelectors.WEIGHT) as HTMLInputElement
-    this.waistInput = this.getElement(HtmlSelectors.WAIST) as HTMLInputElement
-    this.hipInput = this.getElement(HtmlSelectors.HIP) as HTMLInputElement
-    this.neckInput = this.getElement(HtmlSelectors.NECK) as HTMLInputElement
-    this.unitSystemSelect = this.getElement(
-      HtmlSelectors.UNIT_SYSTEM
-    ) as HTMLSelectElement
-    const inputs = this.form?.querySelectorAll('input[name="gender"]')
-    this.genderInputs = Array.from(inputs || []) as HTMLInputElement[]
+    this.hipInputGroup = this.getHipInputGroup()
+  }
 
-    this.unitSystemSelect?.addEventListener(
-      'change',
-      this.updatePlaceholders.bind(this)
-    )
-    this.genderInputs.forEach((input) => {
-      input.addEventListener('change', this.updateHipInputVisibility.bind(this))
+  public bindGenderChange(handler: (gender: Gender) => void): void {
+    const genderInputs = document.querySelectorAll('input[name="gender"]')
+    genderInputs.forEach((input) => {
+      input.addEventListener('change', (e) => {
+        const target = e.target as HTMLInputElement
+        handler(target.value as Gender)
+      })
     })
-
-    this.updateHipInputVisibility()
   }
 
-  fillForm(data: Partial<User>): void {
-    if (this.unitSystemSelect && data.unitSystem) {
-      this.unitSystemSelect.value = data.unitSystem
-    }
-
-    this.setInputValue(this.weightInput, data.weight)
-    this.setInputValue(this.waistInput, data.waist)
-    this.setInputValue(this.neckInput, data.neck)
-
-    if (data.gender) {
-      this.setGender(data.gender)
-      this.handleHipInput(data)
-    }
-
-    this.updatePlaceholders()
-    this.updateHipInputVisibility()
-  }
-
-  private setInputValue(
-    input: HTMLInputElement | null,
-    value: number | undefined
-  ): void {
-    if (input && value !== undefined) {
-      input.value = value.toString()
-    }
-  }
-
-  private setGender(gender: Gender): void {
-    const genderInput = this.genderInputs.find(
-      (input) => input.value === gender
-    )
+  public setGenderSelection(gender: Gender): void {
+    const genderInput = document.querySelector(
+      `input[value="${gender}"]`
+    ) as HTMLInputElement
     if (genderInput) {
       genderInput.checked = true
     }
   }
 
-  private handleHipInput(data: Partial<User>): void {
-    if (this.hipInput && data.hip && data.gender === Gender.FEMALE) {
-      this.hipInput.value = data.hip.toString()
+  public toggleHipInputVisibility(show: boolean): void {
+    if (this.hipInputGroup) {
+      this.hipInputGroup.style.display = show ? 'block' : 'none'
     }
   }
 
-  private updateHipInputVisibility(): void {
-    const hipInputGroup = this.getElement(
-      '.input-group:has(#hip)'
-    ) as HTMLElement
-    const isFemale = (
-      this.getElement('input[value="female"]') as HTMLInputElement
-    )?.checked
-
-    if (hipInputGroup) {
-      hipInputGroup.style.display = isFemale ? 'block' : 'none'
+  public clearHipInput(): void {
+    const hipInput = this.inputs.get('hip')
+    if (hipInput) {
+      hipInput.value = ''
     }
   }
 
-  bindCalculateEvent(handler: (data: FormData) => void): void {
-    this.form?.addEventListener('submit', (event) => {
-      event.preventDefault()
-      const formData = new FormData(this.form as HTMLFormElement)
-      handler(formData)
-    })
+  private getHipInputGroup(): HTMLElement | null {
+    const hipInput = this.inputs.get('hip')
+    return hipInput?.closest('.input-group') || null
   }
 
-  updateResults(data: {
-    bodyFatPercentage: number
-    leanBodyMass: number
-  }): void {
-    if (!this.resultsTable) {
-      return
-    }
+  updateResults(data: IFormattedBodyFatPercentageResults): void {
+    if (!this.resultsTable) return
 
     const rows = this.resultsTable.rows
-    rows[0].cells[1].textContent = data.bodyFatPercentage.toFixed(2) + '%'
-    rows[1].cells[1].textContent = data.leanBodyMass.toFixed(2) + ' kg'
+    rows[0].cells[1].textContent = data.bodyFatPercentage
+    rows[1].cells[1].textContent = data.leanBodyMass
   }
 }
-
-// TODO: Fortsätt fylla i de andra vyerna med enums och typer

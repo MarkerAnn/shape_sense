@@ -1,10 +1,11 @@
-import { BmiView, FormattedBmiResults } from '../../views/BmiViews/Bmiview'
+import { BmiView } from '../../views/BmiViews/Bmiview'
 import { BmiFormData } from '../../types/FormTypes'
 import { UserModel } from '../../models/UserModel'
 import { HealthCalculatorModel } from '../../models/HealthCalculatorModel'
 import { BaseController } from '../AbstractBaseController'
 import { FormValidator } from '../../utils/FormValidator'
 import { UnitSystem } from '../../enums/UnitSystem'
+import { FormattedBmiResults } from '../../interfaces/FormattedResults'
 
 export class BmiController extends BaseController {
   protected view: BmiView
@@ -20,6 +21,11 @@ export class BmiController extends BaseController {
     this.view.render(container)
     this.fillFormData(this.user.getData())
     this.bindFormEvents(this.handleCalculate.bind(this))
+  }
+
+  protected getUnitSystemValue(): UnitSystem {
+    const userData = this.user.getData()
+    return userData.unitSystem ?? UnitSystem.METRIC
   }
 
   protected handleCalculate(formData: FormData): void {
@@ -46,6 +52,7 @@ export class BmiController extends BaseController {
       height: parseFloat(formData.get('height') as string),
     }
   }
+  // TODO: ändra ovanstående? konsekvent med de andra controllers
 
   private updateView(): void {
     const bmi = this.calculator.getBmi()
@@ -68,10 +75,5 @@ export class BmiController extends BaseController {
 
   private formatIdealWeight([min, max]: [number, number]): string {
     return `${this.formatValue(min)} - ${this.formatValue(max)} kg`
-  }
-
-  protected getUnitSystemValue(): UnitSystem {
-    const userData = this.user.getData()
-    return userData.unitSystem ?? UnitSystem.METRIC
   }
 }

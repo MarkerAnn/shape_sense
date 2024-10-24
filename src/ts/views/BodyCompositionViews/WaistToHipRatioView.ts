@@ -1,86 +1,26 @@
 // eslint-disable-next-line max-len
-import { waistHipRatioTemplate } from '../../templates/BodyCompositionTemplates/waistToHipTemplate'
+import { waistToHipRatioTemplate } from '../../templates/BodyCompositionTemplates/waistToHipTemplate'
 import { AbstractView } from '../AbstractView'
 import { UnitSystem } from '../../enums/UnitSystem'
-import { User } from '../../types/User'
-import { HtmlSelectors } from '../../enums/HtmlSelectors'
-import { InputFields } from '../../enums/InputFields'
+import { IFormattedWaistToHipRationResults } from '../../interfaces/FormattedResults'
 
 export class WaistToHipRatioView extends AbstractView {
-  private waistInput: HTMLInputElement | null = null
-  private hipInput: HTMLInputElement | null = null
-  private unitSystemSelect: HTMLSelectElement | null = null
-
-  constructor() {
-    super(() => this.unitSystemSelect?.value as UnitSystem)
+  constructor(getSelectedUnitSystem: () => UnitSystem) {
+    super(getSelectedUnitSystem)
   }
 
   render(container: HTMLElement): void {
-    container.innerHTML = waistHipRatioTemplate
+    container.innerHTML = waistToHipRatioTemplate
 
     this.initializeCommonElements()
-    this.initializeInputs([InputFields.WAIST, InputFields.HIP])
-
-    this.waistInput = this.getElement(HtmlSelectors.WAIST) as HTMLInputElement
-    this.hipInput = this.getElement(HtmlSelectors.HIP) as HTMLInputElement
-    this.unitSystemSelect = this.getElement('#unitSystem') as HTMLSelectElement
-
-    this.unitSystemSelect?.addEventListener(
-      'change',
-      this.updatePlaceholders.bind(this)
-    )
+    this.initializeInputs(['hip', 'waist'])
+    this.initializeSelectField('unitSystem')
   }
 
-  fillForm(data: Partial<User>): void {
-    if (this.unitSystemSelect && data.unitSystem) {
-      this.unitSystemSelect.value = data.unitSystem
-    }
+  updateResults(data: IFormattedWaistToHipRationResults): void {
+    if (!this.resultsTable) return
 
-    this.setInputValue(this.waistInput, data.waist)
-    this.setInputValue(this.hipInput, data.hip)
-
-    this.updatePlaceholders()
-  }
-
-  private setInputValue(
-    input: HTMLInputElement | null,
-    value: number | undefined
-  ): void {
-    if (input && value) {
-      input.value = value.toString()
-    }
-  }
-
-  // updatePlaceholders(): void {
-  //   const isImperial = this.unitSystemSelect?.value === UnitSystem.IMPERIAL
-  //   const placeholders = isImperial
-  //     ? { waist: 'in', hip: 'in' }
-  //     : { waist: 'cm', hip: 'cm' }
-
-  //   Object.keys(this.inputs).forEach((key) => {
-  //     this.inputs[key].setAttribute(
-  //       'placeholder',
-  //       placeholders[key as keyof typeof placeholders]
-  //     )
-  //   })
-  // }
-
-  bindCalculateEvent(handler: (data: FormData) => void): void {
-    this.form?.addEventListener('submit', (event) => {
-      event.preventDefault()
-      const formData = new FormData(this.form as HTMLFormElement)
-      handler(formData)
-    })
-  }
-
-  updateResults(waistHipRatio: number): void {
-    if (this.resultsTable) {
-      const resultCell = this.resultsTable.querySelector(
-        'td:nth-child(2)'
-      ) as HTMLTableCellElement
-      if (resultCell) {
-        resultCell.textContent = waistHipRatio.toFixed(2)
-      }
-    }
+    const rows = this.resultsTable.rows
+    rows[0].cells[1].textContent = data.waistToHipRatio
   }
 }

@@ -51,19 +51,19 @@ export const bodyFatPercentageTemplate = `
                 name="${FORM_FIELDS.weight}" placeholder="kg">
             </div>
             <div class="input-group">
-                <label for="${FORM_FIELDS.waist}">"${FORM_FIELDS.waist}" 
+                <label for="${FORM_FIELDS.waist}">Waist - 
                 Circumference</label>
                 <input type="text" id="${FORM_FIELDS.waist}" 
                 name="${FORM_FIELDS.waist}" placeholder="cm">
             </div>
             <div class="input-group">
-                <label for="${FORM_FIELDS.hip}">"${FORM_FIELDS.hip}" 
+                <label for="${FORM_FIELDS.hip}">Hip -
                 Circumference (for females only)</label>
                 <input type="text" id="${FORM_FIELDS.hip}" 
                 name="${FORM_FIELDS.hip}" placeholder="cm">
             </div>
             <div class="input-group">
-                <label for="${FORM_FIELDS.neck}">"${FORM_FIELDS.neck}" 
+                <label for="${FORM_FIELDS.neck}">Neck - 
                 Circumference</label>
                 <input type="text" id="${FORM_FIELDS.neck}" 
                 name="${FORM_FIELDS.neck}" placeholder="cm">

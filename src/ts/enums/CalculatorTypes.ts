@@ -1,8 +1,6 @@
-import { CALCULATOR_ROUTES } from '../constants/FormConstants'
+import { CalculatorRouteType } from '../constants/RoutesConstants'
 
-export type CalculatorType = keyof typeof CALCULATOR_ROUTES
-
-export const CalculatorDescriptions: Record<CalculatorType, string> = {
+export const CalculatorDescriptions: Record<CalculatorRouteType, string> = {
   BMI: 'Body Mass Index (BMI) - A measure of body fat based on weight and height.',
   BMR: 'Basal Metabolic Rate (BMR) - The amount of energy your body needs to maintain basic functions while at rest.',
   TDEE: 'Total Daily Energy Expenditure (TDEE) - The number of calories you burn daily.',

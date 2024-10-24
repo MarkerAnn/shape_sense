@@ -6,6 +6,7 @@ import { FormValidator } from '../../utils/FormValidator'
 import { BasalMetabolicRateFormData } from '../../types/FormTypes'
 import { UnitSystem } from '../../enums/UnitSystem'
 import { Gender } from '../../enums/Gender'
+import { IFormatBasaMetabolicRateResults } from '../../interfaces/FormattedResults'
 
 export class BasalMetabolicRateController extends BaseController {
   protected view: BasalMetabolicRateView
@@ -13,23 +14,22 @@ export class BasalMetabolicRateController extends BaseController {
 
   constructor(user: UserModel, calculator: HealthCalculatorModel) {
     super(user, calculator)
-    this.view = new BasalMetabolicRateView()
+    this.view = new BasalMetabolicRateView(this.getUnitSystemValue.bind(this))
     this.formValidator = new FormValidator()
   }
 
   init(container: HTMLElement): void {
     this.view.render(container)
-    this.fillFormWithUserData()
-    this.view.bindCalculateEvent(this.handleCalculate.bind(this))
-    this.view.bindResetEvent(this.handleReset.bind(this))
+    this.fillFormData(this.user.getData())
+    this.bindFormEvents(this.handleCalculate.bind(this))
   }
 
-  protected fillFormWithUserData(): void {
+  protected getUnitSystemValue(): UnitSystem {
     const userData = this.user.getData()
-    this.view.fillForm(userData)
+    return userData.unitSystem ?? UnitSystem.METRIC
   }
 
-  private handleCalculate(formData: FormData): void {
+  protected handleCalculate(formData: FormData): void {
     try {
       const data = this.parseFormData(formData)
       this.formValidator.validateBasalMetabolicRateFormData(data)
@@ -49,6 +49,11 @@ export class BasalMetabolicRateController extends BaseController {
       height: parseFloat(formData.get('height') as string),
       age: parseFloat(formData.get('age') as string),
     }
+
+    if (!Object.values(Gender).includes(data.gender)) {
+      throw new Error('Invalid gender value')
+    }
+
     return data
   }
 
@@ -57,15 +62,19 @@ export class BasalMetabolicRateController extends BaseController {
       this.calculator.getBmrHarrisBenedict()
     const basalMetabolicRateMifflinStJeor =
       this.calculator.getBmrMifflinStJeor()
-    this.view.updateResults({
-      basalMetabolicRateHarrisBenedict,
-      basalMetabolicRateMifflinStJeor,
-    })
+
+    const formattedResults: IFormatBasaMetabolicRateResults = {
+      basalMetabolicRateHarrisBenedict: this.formatValue(
+        basalMetabolicRateHarrisBenedict
+      ),
+      basalMetabolicRateMifflinStJeor: this.formatValue(
+        basalMetabolicRateMifflinStJeor
+      ),
+    }
+    this.view.updateResults(formattedResults)
   }
 
-  private handleReset(): void {
-    this.user.resetData()
-    this.view.resetForm()
-    this.view.hideError()
+  private formatValue(value: number): string {
+    return `${value.toFixed(0)} kcal/day`
   }
 }

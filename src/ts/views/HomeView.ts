@@ -1,8 +1,8 @@
+import { CalculatorDescriptions } from '../enums/CalculatorTypes'
 import {
-  CalculatorType,
-  CalculatorDescriptions,
-} from '../enums/CalculatorTypes'
-import { CALCULATOR_ROUTES } from '../constants/FormConstants'
+  CALCULATOR_ROUTES,
+  CalculatorRouteType,
+} from '../constants/RoutesConstants'
 
 export class HomeView {
   render(container: HTMLElement): void {
@@ -15,33 +15,34 @@ export class HomeView {
   }
 
   private renderCalculatorItems(): string {
-    return Object.keys(CALCULATOR_ROUTES)
+    return Object.entries(CALCULATOR_ROUTES)
       .map(
-        (type) => `
+        ([type, route]) => `
         <div class="calculator-item">
           <div>
-            <h3>${this.capitalizeWords(type)}</h3>
-            <p>${this.getCalculatorDescription(type as CalculatorType)}</p>
+            <h3>${this.formatDisplayText(type)}</h3>
+            <p>${this.getCalculatorDescription(type as CalculatorRouteType)}</p>
             <div class="button-container">
-            <a href="#/${type.toLowerCase()}" class="button">Calculate</a>
+            <a href="#${route}" class="button">Calculate</a>
             </div>
           </div>
-          <img src="./assets/images/${type.toLowerCase()}.png" 
-          alt="${type} illustration">
+          <img src="./assets/images${route}.png" 
+          alt="${this.formatDisplayText(type)} illustration">
         </div>
       `
       )
       .join('')
   }
 
-  private capitalizeWords(text: string): string {
+  private formatDisplayText(text: string): string {
     return text
-      .split('-')
+      .replace(/_/g, ' ')
+      .split(' ')
       .map((word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
       .join(' ')
   }
 
-  private getCalculatorDescription(type: CalculatorType): string {
-    return CalculatorDescriptions[type] || 'Description not available.'
+  private getCalculatorDescription(type: CalculatorRouteType): string {
+    return CalculatorDescriptions[type] ?? 'Description not available.'
   }
 }

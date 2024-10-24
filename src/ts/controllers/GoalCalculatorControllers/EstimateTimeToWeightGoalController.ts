@@ -8,6 +8,7 @@ import { EstimateTimeToWeightGoalFormData } from '../../types/FormTypes'
 import { UnitSystem } from '../../enums/UnitSystem'
 import { Gender } from '../../enums/Gender'
 import { ActivityLevel } from '../../enums/ActivityLevel'
+import { IFormattedTimeToWeightGoalResults } from '../../interfaces/FormattedResults'
 
 export class EstimateTimeToWeightGoalController extends BaseController {
   protected view: EstimateTimeToWeightGoalView
@@ -15,26 +16,27 @@ export class EstimateTimeToWeightGoalController extends BaseController {
 
   constructor(user: UserModel, calculator: HealthCalculatorModel) {
     super(user, calculator)
-    this.view = new EstimateTimeToWeightGoalView()
+    this.view = new EstimateTimeToWeightGoalView(
+      this.getUnitSystemValue.bind(this)
+    )
     this.formValidator = new FormValidator()
   }
 
   init(container: HTMLElement): void {
     this.view.render(container)
-    this.fillFormWithUserData()
-    this.view.bindCalculateEvent(this.handleCalculate.bind(this))
-    this.view.bindResetEvent(this.handleReset.bind(this))
+    this.fillFormData(this.user.getData())
+    this.bindFormEvents(this.handleCalculate.bind(this))
   }
 
-  protected fillFormWithUserData(): void {
+  protected getUnitSystemValue(): UnitSystem {
     const userData = this.user.getData()
-    this.view.fillForm(userData)
+    return userData.unitSystem ?? UnitSystem.METRIC
   }
 
-  private handleCalculate(formData: FormData): void {
+  protected handleCalculate(formData: FormData): void {
     try {
       const data = this.parseFormData(formData)
-      this.formValidator.validateEstimateTimeToWeightGoalFormData(data)
+      this.formValidator.validateTotalDailyEnergyExpenditureFormData(data)
       this.user.setData(data)
       this.updateView()
       this.view.hideError()
@@ -58,13 +60,15 @@ export class EstimateTimeToWeightGoalController extends BaseController {
   }
 
   private updateView(): void {
-    const timeToGoal = this.calculator.getEstimateTimeToWeightGoal()
-    this.view.updateResults(timeToGoal)
+    const weeksToWeightGoal = this.calculator.getEstimateTimeToWeightGoal()
+
+    const formattedResults: IFormattedTimeToWeightGoalResults = {
+      weeksToWeightGoal: this.formatValue(weeksToWeightGoal),
+    }
+    this.view.updateResults(formattedResults)
   }
 
-  private handleReset(): void {
-    this.user.resetData()
-    this.view.resetForm()
-    this.view.hideError()
+  private formatValue(value: number): string {
+    return `${value.toFixed(1)} weeks`
   }
 }

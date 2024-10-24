@@ -8,6 +8,7 @@ import { TotalDailyEnergyExpenditureFormData } from '../../types/FormTypes'
 import { UnitSystem } from '../../enums/UnitSystem'
 import { Gender } from '../../enums/Gender'
 import { ActivityLevel } from '../../enums/ActivityLevel'
+import { IFormattedTdeeResults } from '../../interfaces/FormattedResults'
 
 export class TotalDailyEnergyExpenditureController extends BaseController {
   protected view: TotalDailyEnergyExpenditureView
@@ -15,23 +16,24 @@ export class TotalDailyEnergyExpenditureController extends BaseController {
 
   constructor(user: UserModel, calculator: HealthCalculatorModel) {
     super(user, calculator)
-    this.view = new TotalDailyEnergyExpenditureView()
+    this.view = new TotalDailyEnergyExpenditureView(
+      this.getUnitSystemValue.bind(this)
+    )
     this.formValidator = new FormValidator()
   }
 
   init(container: HTMLElement): void {
     this.view.render(container)
-    this.fillFormWithUserData()
-    this.view.bindCalculateEvent(this.handleCalculate.bind(this))
-    this.view.bindResetEvent(this.handleReset.bind(this))
+    this.fillFormData(this.user.getData())
+    this.bindFormEvents(this.handleCalculate.bind(this))
   }
 
-  protected fillFormWithUserData(): void {
+  protected getUnitSystemValue(): UnitSystem {
     const userData = this.user.getData()
-    this.view.fillForm(userData)
+    return userData.unitSystem ?? UnitSystem.METRIC
   }
 
-  private handleCalculate(formData: FormData): void {
+  protected handleCalculate(formData: FormData): void {
     try {
       const data = this.parseFormData(formData)
       this.formValidator.validateTotalDailyEnergyExpenditureFormData(data)
@@ -64,15 +66,18 @@ export class TotalDailyEnergyExpenditureController extends BaseController {
     const totalDailyEnergyExpenditureMifflin =
       this.calculator.getTdeeMifflinStJeor()
 
-    this.view.updateResults({
-      totalDailyEnergyExpenditureHarris,
-      totalDailyEnergyExpenditureMifflin,
-    })
+    const formattedResults: IFormattedTdeeResults = {
+      totalDailyEnergyExpenditureHarris: this.formatValue(
+        totalDailyEnergyExpenditureHarris
+      ),
+      totalDailyEnergyExpenditureMifflin: this.formatValue(
+        totalDailyEnergyExpenditureMifflin
+      ),
+    }
+    this.view.updateResults(formattedResults)
   }
 
-  private handleReset(): void {
-    this.user.resetData()
-    this.view.resetForm()
-    this.view.hideError()
+  private formatValue(value: number): string {
+    return `${value.toFixed(0)} kcal/day`
   }
 }

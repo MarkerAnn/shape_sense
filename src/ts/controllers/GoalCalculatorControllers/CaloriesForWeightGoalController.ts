@@ -8,6 +8,7 @@ import { CaloriesForWeightGoalFormData } from '../../types/FormTypes'
 import { UnitSystem } from '../../enums/UnitSystem'
 import { Gender } from '../../enums/Gender'
 import { ActivityLevel } from '../../enums/ActivityLevel'
+import { IFormattedCaloriesForWeightGoalResults } from '../../interfaces/FormattedResults'
 
 export class CaloriesForWeightGoalController extends BaseController {
   protected view: CaloriesForWeightGoalView
@@ -15,34 +16,31 @@ export class CaloriesForWeightGoalController extends BaseController {
 
   constructor(user: UserModel, calculator: HealthCalculatorModel) {
     super(user, calculator)
-    this.view = new CaloriesForWeightGoalView()
+    this.view = new CaloriesForWeightGoalView(
+      this.getUnitSystemValue.bind(this)
+    )
     this.formValidator = new FormValidator()
   }
 
   init(container: HTMLElement): void {
     this.view.render(container)
-    this.fillFormWithUserData()
-    this.view.bindCalculateEvent(this.handleCalculate.bind(this))
-    this.view.bindResetEvent(this.handleReset.bind(this))
+    this.fillFormData(this.user.getData())
+    this.bindFormEvents(this.handleCalculate.bind(this))
   }
 
-  protected fillFormWithUserData(): void {
+  protected getUnitSystemValue(): UnitSystem {
     const userData = this.user.getData()
-    this.view.fillForm(userData)
+    return userData.unitSystem ?? UnitSystem.METRIC
   }
 
-  private handleCalculate(formData: FormData): void {
+  protected handleCalculate(formData: FormData): void {
     try {
       const data = this.parseFormData(formData)
-      console.log('data', data)
-      this.formValidator.validateCaloriesForWeightGoalFormData(data)
+      this.formValidator.validateTotalDailyEnergyExpenditureFormData(data)
       this.user.setData(data)
-      console.log('user', this.user)
       this.updateView()
-      console.log('view', this.view)
       this.view.hideError()
     } catch (error) {
-      console.error('error', error)
       this.handleErrors(error as Error)
     }
   }
@@ -65,13 +63,14 @@ export class CaloriesForWeightGoalController extends BaseController {
 
   private updateView(): void {
     const dailyCalories = this.calculator.getCaloriesForWeightGoal()
-    console.log('dailyCalories', dailyCalories)
-    this.view.updateResults(dailyCalories)
+
+    const formattedResults: IFormattedCaloriesForWeightGoalResults = {
+      dailyCalories: this.formatValue(dailyCalories),
+    }
+    this.view.updateResults(formattedResults)
   }
 
-  private handleReset(): void {
-    this.user.resetData()
-    this.view.resetForm()
-    this.view.hideError()
+  private formatValue(value: number): string {
+    return `${value.toFixed(0)} kcal/day`
   }
 }

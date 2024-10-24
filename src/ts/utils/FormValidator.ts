@@ -12,14 +12,14 @@ import {
   EstimateTimeToWeightGoalFormData,
 } from '../types/FormTypes'
 
-interface ConversionConfig {
+interface IConversionConfigurate {
   min: number
   max: number
   shouldConvert: boolean
   conversionFactor: number
 }
 
-interface RangeValidationConfig {
+interface IRangeValidationConfigurate {
   value: number
   min: number
   max: number
@@ -199,7 +199,7 @@ export class FormValidator {
     })
   }
 
-  private getConvertedLimits(config: ConversionConfig): {
+  private getConvertedLimits(config: IConversionConfigurate): {
     min: number
     max: number
   } {
@@ -213,7 +213,7 @@ export class FormValidator {
     }
   }
 
-  private validateRange(config: RangeValidationConfig): void {
+  private validateRange(config: IRangeValidationConfigurate): void {
     const { value, min, max, name, unit } = config
     if (value < min || value > max) {
       throw new Error(`${name} must be between ${min} and ${max} ${unit}`)
