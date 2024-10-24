@@ -3,7 +3,7 @@ import { UnitSystem } from '../../enums/UnitSystem'
 
 export const waistToHeightRatioTemplate = `
 <section class="container">
-    <h2>"${FORM_FIELDS.waist}"-to-Height Ratio Calculator</h2>
+    <h2>Waist-to-Height Ratio Calculator</h2>
     <div class="content">
         <p class="description">
             Calculate your "${FORM_FIELDS.waist}"-to-Height Ratio 
@@ -32,7 +32,7 @@ export const waistToHeightRatioTemplate = `
                 </select>
             </div>
             <div class="input-group">
-                <label for="${FORM_FIELDS.waist}">"${FORM_FIELDS.waist}" 
+                <label for="${FORM_FIELDS.waist}">Waist -
                 Circumference</label>
                 <input type="text" id="${FORM_FIELDS.waist}" 
                 name="${FORM_FIELDS.waist}" placeholder="cm">
@@ -53,7 +53,7 @@ export const waistToHeightRatioTemplate = `
             <h2>Results</h2>
             <table class="resultTable">
                 <tr>
-                    <td>"${FORM_FIELDS.waist}"-to-Height Ratio</td>
+                    <td>Waist-to-Height Ratio</td>
                     <td>-</td>
                 </tr>
             </table>
@@ -63,7 +63,7 @@ export const waistToHeightRatioTemplate = `
         Sources:
         <ul>
             <li>Journal of Clinical Endocrinology & Metabolism – 
-            "${FORM_FIELDS.waist}"-to-Height Ratio Research</li>
+            Waist-to-Height Ratio Research</li>
             <li>American Heart Association – Cardiovascular Health</li>
         </ul>
     </div>

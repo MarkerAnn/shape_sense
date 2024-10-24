@@ -3,10 +3,10 @@ import { UnitSystem } from '../../enums/UnitSystem'
 
 export const waistToHipRatioTemplate = `
 <section class="container">
-    <h2>"${FORM_FIELDS.waist}"-to-"${FORM_FIELDS.hip}" Ratio Calculator</h2>
+    <h2>Waist to Hip Ratio Calculator</h2>
     <div class="content">
         <p class="description">
-            Calculate your "${FORM_FIELDS.waist}"-to-"${FORM_FIELDS.hip}" 
+            Calculate your Waist-to-Hip 
             Ratio (WHR) to understand your fat 
             distribution and potential health risks.
         </p>
@@ -33,13 +33,13 @@ export const waistToHipRatioTemplate = `
                 </select>
             </div>
             <div class="input-group">
-                <label for="${FORM_FIELDS.waist}">"${FORM_FIELDS.waist}" 
+                <label for="${FORM_FIELDS.waist}">Waist - 
                 Circumference</label>
                 <input type="text" id="${FORM_FIELDS.waist}" 
                 name="${FORM_FIELDS.waist}" placeholder="cm">
             </div>
             <div class="input-group">
-                <label for="${FORM_FIELDS.hip}">"${FORM_FIELDS.hip}" 
+                <label for="${FORM_FIELDS.hip}">Hip -
                 Circumference</label>
                 <input type="text" id="${FORM_FIELDS.hip}" 
                 name="${FORM_FIELDS.hip}" placeholder="cm">
@@ -55,8 +55,7 @@ export const waistToHipRatioTemplate = `
             <h2>Results</h2>
             <table class="resultTable">
                 <tr>
-                    <td>"${FORM_FIELDS.waist}"-to-"${FORM_FIELDS.hip}" 
-                    Ratio</td>
+                    <td>Waist to Hip Ratio</td>
                     <td>-</td>
                 </tr>
             </table>
@@ -65,7 +64,7 @@ export const waistToHipRatioTemplate = `
         Sources:
         <ul>
             <li>World Health Organization (WHO) – 
-            "${FORM_FIELDS.waist}"-to-"${FORM_FIELDS.hip}" Ratio</li>
+            waist-to-hip Ratio</li>
             <li>Centers for Disease Control and Prevention (CDC) – 
             Health Guidelines</li>
         </ul>
