@@ -2,8 +2,6 @@ body {
   font-family: 'Arial', sans-serif;
   margin: 0;
   padding: 0;
-  /* background-color: #f5f5f5; */
-  /* background-color: #fff; */
   background-color: #f9f6ec;
 }
 
@@ -70,7 +68,7 @@ nav ul li a:hover {
   justify-content: center;
   align-items: flex-start;
   height: 400px;
-  background: url('/assets/images/header.png') no-repeat center center/cover;
+  background: url('/assets/images/header.png') no-repeat bottom center / cover;
   text-align: center;
 }
 
@@ -92,7 +90,6 @@ nav ul li a:hover {
   margin: 1rem 0;
   border-radius: 10px;
   box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
-  /* box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); */
 }
 
 .calculator-item div {
@@ -122,8 +119,8 @@ nav ul li a:hover {
 }
 
 .button-container {
-  display: flex; /* Flexbox för att hantera justeringen */
-  justify-content: flex-end; /* Justerar innehållet till höger */
+  display: flex;
+  justify-content: flex-end; 
 }
 
 .button:hover {
@@ -136,12 +133,6 @@ nav ul li a:hover {
 }
 
 /**********************************************************/
-/* body {
-  font-family: Arial, sans-serif;
-  background-color: #f5f5f5;
-  margin: 0;
-  padding: 0;
-} */
 
 .content {
   /* max-width: 600px; */
@@ -151,13 +142,6 @@ nav ul li a:hover {
   border-radius: 10px;
   box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
 }
-
-/* h1,
-h2,
-h3 {
-  text-align: center;
-  color: #333;
-} */
 
 .description,
 .additional-info {
@@ -294,4 +278,69 @@ td {
   font-size: 1.1em;
   margin-top: 10px;
   padding: 5px;
+}
+
+/************************** Media Query  **************************/
+@media (max-width: 768px) {
+  .container {
+    padding: 0 1rem;
+  }
+
+  .hero {
+    height: 250px;
+  }
+
+  .hero-text h1 {
+    font-size: 1.8rem;
+  }
+
+  .calculator-item {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .calculator-item img {
+    max-width: 100%;
+    margin: 10px 0;
+  }
+
+  .button-container {
+    justify-content: center;
+  }
+
+  .resultTable,
+  .resultTable th,
+  .resultTable td {
+    display: block;
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  body {
+    font-size: 0.9rem;
+  }
+
+  .header-content {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0 1rem;
+  }
+
+  nav ul {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .hero-text h1 {
+    font-size: 1.4rem;
+  }
+
+  .calculator-item {
+    flex-direction: column;
+    align-items: flex-start; 
+
+  .button {
+    width: 100%;
+    max-width: 300px; 
 }
