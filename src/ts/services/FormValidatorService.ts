@@ -127,6 +127,10 @@ export class FormValidatorService implements IFormValidator {
       formData.height,
       formData.unitSystem
     )
+    this.measurementValidator.validateWeight(
+      formData.weight,
+      formData.unitSystem
+    )
     this.measurementValidator.validateBodyMeasurement(
       formData.waist,
       'waist',

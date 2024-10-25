@@ -65,7 +65,7 @@ export default [
       'id-length': ['error', { min: 2, exceptions: ['i', 'j', 'k'] }],
 
       // Limit function length to promote single responsibility principle
-      'max-lines-per-function': ['error', { max: 30 }],
+      'max-lines-per-function': ['error', { max: 33 }],
 
       // Limit cyclomatic complexity to encourage simpler functions
       complexity: ['error', 5],

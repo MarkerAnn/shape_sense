@@ -93,6 +93,7 @@ export class BodyFatPercentageController extends BaseController {
     const data: IBodyFatPercentageFormData = {
       unitSystem: formData.get('unitSystem') as UnitSystem,
       gender: formData.get('gender') as Gender,
+      weight: parseFloat(formData.get('weight') as string),
       height: parseFloat(formData.get('height') as string),
       waist: parseFloat(formData.get('waist') as string),
       neck: parseFloat(formData.get('neck') as string),

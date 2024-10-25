@@ -81,6 +81,7 @@ export interface IBodyFatPercentageFormData extends IBaseFormData {
   neck: number
   hip?: number
   height: number
+  weight: number
 }
 
 /**

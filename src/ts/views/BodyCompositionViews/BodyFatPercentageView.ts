@@ -32,7 +32,7 @@ export class BodyFatPercentageView extends AbstractView {
     container.innerHTML = bodyFatPercentageTemplate
 
     this.initializeCommonElements()
-    this.initializeInputs(['height', 'waist', 'hip', 'neck'])
+    this.initializeInputs(['height', 'weight', 'waist', 'hip', 'neck'])
     this.initializeSelectField('unitSystem')
 
     this.hipInputGroup = this.getHipInputGroup()
