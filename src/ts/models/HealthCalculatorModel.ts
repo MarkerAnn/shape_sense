@@ -170,5 +170,3 @@ export class HealthCalculatorModel implements IHealthCalculator {
     return this.calculator.getEstimateTimeToWeightGoal()
   }
 }
-
-// 91 rader innan kommentarer

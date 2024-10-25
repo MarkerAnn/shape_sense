@@ -40,5 +40,3 @@ export interface IValidationLimits {
   min: number
   max: number
 }
-
-// 20 rader innan jsdoc

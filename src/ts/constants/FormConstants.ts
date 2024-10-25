@@ -116,5 +116,3 @@ export const UNIT_PLACEHOLDERS = {
     [FORM_FIELDS.neck]: 'in',
   },
 } as const
-
-// 60 rader

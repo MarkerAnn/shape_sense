@@ -55,5 +55,3 @@ export type CalculatorRouteType = keyof typeof CALCULATOR_ROUTES
  * @typedef {keyof typeof ALL_ROUTES} AllRouteType
  */
 export type AllRouteType = keyof typeof ALL_ROUTES
-
-// 23 rader

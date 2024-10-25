@@ -28,5 +28,3 @@ export class HomeController implements IController {
     this.view.render(container)
   }
 }
-
-// 15 rader

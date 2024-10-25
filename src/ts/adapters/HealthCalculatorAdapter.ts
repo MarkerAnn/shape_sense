@@ -219,5 +219,3 @@ export class HealthCalculatorAdapter implements IHealthCalculator {
     return this.calculator.getCaloriesForWeightGoal()
   }
 }
-
-// 140 rader

@@ -11,5 +11,3 @@ export enum ActivityLevel {
   VERY = 'very',
   EXTREMELY = 'extremely',
 }
-
-// 7 rader

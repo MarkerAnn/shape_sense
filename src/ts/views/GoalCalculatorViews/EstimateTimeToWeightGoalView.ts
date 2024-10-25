@@ -5,10 +5,26 @@ import { UnitSystem } from '../../enums/UnitSystem'
 import { IFormattedTimeToWeightGoalResults } from '../../interfaces/FormattedResults'
 /* eslint-disable max-len */
 
+/**
+ * View class for rendering and updating the Estimated Time to Reach Weight Goal calculator.
+ * Extends the AbstractView to provide specific functionality for this calculator.
+ *
+ * @class
+ * @extends {AbstractView}
+ */
 export class EstimateTimeToWeightGoalView extends AbstractView {
+  /**
+   * Creates an instance of EstimateTimeToWeightGoalView.
+   *
+   * @param {() => UnitSystem} getSelectedUnitSystem - Function to get the selected unit system.
+   */
   constructor(getSelectedUnitSystem: () => UnitSystem) {
     super(getSelectedUnitSystem)
   }
+
+  /**
+   * @inheritdoc
+   */
   render(container: HTMLElement): void {
     container.innerHTML = estimateTimeToWeightGoalTemplate
 
@@ -23,6 +39,9 @@ export class EstimateTimeToWeightGoalView extends AbstractView {
     this.initializeSelectField('unitSystem')
   }
 
+  /**
+   * @inheritdoc
+   */
   updateResults(data: IFormattedTimeToWeightGoalResults): void {
     if (!this.resultsTable) return
 

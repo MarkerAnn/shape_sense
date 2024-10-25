@@ -102,5 +102,3 @@ export class CaloriesForWeightGoalController extends BaseController {
     return `${value.toFixed(0)} kcal/day`
   }
 }
-
-// 80 rader

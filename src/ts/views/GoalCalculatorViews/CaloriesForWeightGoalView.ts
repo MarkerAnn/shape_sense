@@ -5,11 +5,26 @@ import { UnitSystem } from '../../enums/UnitSystem'
 import { IFormattedCaloriesForWeightGoalResults } from '../../interfaces/FormattedResults'
 /* eslint-enable max-len */
 
+/**
+ * View class for rendering and updating the Calories Needed to Reach Weight Goal calculator.
+ * Extends the AbstractView to provide specific functionality for this calculator.
+ *
+ * @class
+ * @extends {AbstractView}
+ */
 export class CaloriesForWeightGoalView extends AbstractView {
+  /**
+   * Creates an instance of CaloriesForWeightGoalView.
+   *
+   * @param {() => UnitSystem} getSelectedUnitSystem - Function to get the selected unit system.
+   */
   constructor(getSelectedUnitSystem: () => UnitSystem) {
     super(getSelectedUnitSystem)
   }
 
+  /**
+   * @inheritdoc
+   */
   render(container: HTMLElement): void {
     container.innerHTML = caloriesForWeightGoalTemplate
 
@@ -24,6 +39,9 @@ export class CaloriesForWeightGoalView extends AbstractView {
     this.initializeSelectField('unitSystem')
   }
 
+  /**
+   * @inheritdoc
+   */
   updateResults(data: IFormattedCaloriesForWeightGoalResults): void {
     if (!this.resultsTable) return
 

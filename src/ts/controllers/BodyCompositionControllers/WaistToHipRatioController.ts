@@ -90,5 +90,3 @@ export class WaistToHipRatioController extends BaseController {
     return value.toFixed(2)
   }
 }
-
-// 80 rader

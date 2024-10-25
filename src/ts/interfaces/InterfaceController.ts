@@ -11,5 +11,3 @@ export interface IController {
    */
   init(container: HTMLElement): void
 }
-
-// 4 rader

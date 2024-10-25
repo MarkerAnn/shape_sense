@@ -108,5 +108,3 @@ export class TotalDailyEnergyExpenditureController extends BaseController {
     return `${value.toFixed(0)} kcal/day`
   }
 }
-
-// 87 rader

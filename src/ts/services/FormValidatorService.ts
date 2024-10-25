@@ -123,8 +123,8 @@ export class FormValidatorService implements IFormValidator {
   ): void {
     this.personalInfoValidator.validateUnitSystem(formData.unitSystem)
     this.personalInfoValidator.validateGender(formData.gender)
-    this.measurementValidator.validateWeight(
-      formData.weight,
+    this.measurementValidator.validateHeight(
+      formData.height,
       formData.unitSystem
     )
     this.measurementValidator.validateBodyMeasurement(

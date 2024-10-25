@@ -15,4 +15,3 @@ export enum BmiCategory {
   OBESE_CLASS_II = 'obese, class II',
   OBESE_CLASS_III = 'obese, class III',
 }
-// 11 rader

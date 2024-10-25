@@ -13,4 +13,3 @@ export function getRouteFromPath(path: string): AllRouteType | undefined {
   const route = routes.find(([_key, value]) => value === path)
   return route ? (route[0] as AllRouteType) : undefined
 }
-// 5 rader

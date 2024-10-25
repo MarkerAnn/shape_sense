@@ -106,5 +106,3 @@ export class BasalMetabolicRateController extends BaseController {
     return `${value.toFixed(0)} kcal/day`
   }
 }
-
-// 86 rader

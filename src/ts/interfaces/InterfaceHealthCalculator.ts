@@ -114,5 +114,3 @@ export interface IHealthCalculator {
    */
   getCaloriesForWeightGoal(): number
 }
-
-//21 rader innan jsdoc

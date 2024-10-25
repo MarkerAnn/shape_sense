@@ -80,7 +80,7 @@ export interface IBodyFatPercentageFormData extends IBaseFormData {
   waist: number
   neck: number
   hip?: number
-  weight: number
+  height: number
 }
 
 /**
@@ -142,5 +142,3 @@ export interface IEstimateTimeToWeightGoalFormData extends IBaseFormData {
   gender: Gender
   activityLevel: ActivityLevel
 }
-
-// 67 rader

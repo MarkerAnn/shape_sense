@@ -57,7 +57,6 @@ export class ControllerFactory {
       WEIGHT_GOAL: () => this.createWeightGoalController(),
       CALORIE_GOAL: () => this.createCalorieGoalController(),
     }
-
     const controllerCreator = controllerMap[route]
 
     if (!controllerCreator) {
@@ -185,5 +184,3 @@ export class ControllerFactory {
     )
   }
 }
-
-// 114 rader

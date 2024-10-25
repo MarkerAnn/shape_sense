@@ -25,5 +25,3 @@ export const CALCULATOR_DESCRIPTION: Record<CalculatorRouteType, string> = {
   CALORIE_GOAL: 'Estimate daily calorie needs to reach your weight goal',
   WEIGHT_GOAL: 'Calculate the time needed to reach your desired weight.',
 } as const
-
-// 21 rader

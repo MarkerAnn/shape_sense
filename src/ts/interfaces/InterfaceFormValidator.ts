@@ -83,5 +83,3 @@ export interface IFormValidator {
     formData: IEstimateTimeToWeightGoalFormData
   ): void
 }
-
-// 30 rader innan jsdoc

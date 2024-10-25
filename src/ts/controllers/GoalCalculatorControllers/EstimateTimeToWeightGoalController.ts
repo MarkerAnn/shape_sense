@@ -99,5 +99,3 @@ export class EstimateTimeToWeightGoalController extends BaseController {
     return `${value.toFixed(1)} weeks`
   }
 }
-
-// 78 rader

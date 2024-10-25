@@ -4,11 +4,26 @@ import { AbstractView } from '../AbstractView'
 import { UnitSystem } from '../../enums/UnitSystem'
 import { IFormattedTdeeResults } from '../../interfaces/FormattedResults'
 
+/**
+ * View class for rendering and updating the Total Daily Energy Expenditure (TDEE) calculator.
+ * Extends the AbstractView to provide specific functionality for the TDEE calculator.
+ *
+ * @class
+ * @extends {AbstractView}
+ */
 export class TotalDailyEnergyExpenditureView extends AbstractView {
+  /**
+   * Creates an instance of TotalDailyEnergyExpenditureView.
+   *
+   * @param {() => UnitSystem} getSelectedUnitSystem - Function to get the selected unit system.
+   */
   constructor(getSelectedUnitSystem: () => UnitSystem) {
     super(getSelectedUnitSystem)
   }
 
+  /**
+   * @inheritdoc
+   */
   render(container: HTMLElement): void {
     container.innerHTML = totalDailyEnergyExpenditureTemplate
 
@@ -17,6 +32,9 @@ export class TotalDailyEnergyExpenditureView extends AbstractView {
     this.initializeSelectField('unitSystem')
   }
 
+  /**
+   * @inheritdoc
+   */
   updateResults(data: IFormattedTdeeResults): void {
     if (!this.resultsTable) return
 

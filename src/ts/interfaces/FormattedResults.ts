@@ -86,5 +86,3 @@ export interface IFormatBasaMetabolicRateResults {
   basalMetabolicRateHarrisBenedict: string
   basalMetabolicRateMifflinStJeor: string
 }
-
-// 37 rader

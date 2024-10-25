@@ -30,5 +30,3 @@ const healthRiskDescriptions: Record<BmiCategory, string> = {
 export function getHealthRisk(bmiCategory: BmiCategory): string {
   return healthRiskDescriptions[bmiCategory] || 'Unknown health risk.'
 }
-
-// 14 rader
