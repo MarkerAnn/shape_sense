@@ -120,7 +120,7 @@ nav ul li a:hover {
 
 .button-container {
   display: flex;
-  justify-content: flex-end; 
+  justify-content: flex-end;
 }
 
 .button:hover {
@@ -338,9 +338,11 @@ td {
 
   .calculator-item {
     flex-direction: column;
-    align-items: flex-start; 
+    align-items: flex-start;
 
-  .button {
-    width: 100%;
-    max-width: 300px; 
+    .button {
+      width: 100%;
+      max-width: 300px;
+    }
+  }
 }

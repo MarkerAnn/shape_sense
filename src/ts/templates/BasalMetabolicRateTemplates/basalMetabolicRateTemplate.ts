@@ -1,6 +1,14 @@
 import { FORM_FIELDS } from '../../constants/FormConstants'
 import { UnitSystem } from '../../enums/UnitSystem'
-
+/**
+ * Template for the Basal Metabolic Rate (BMR) Calculator.
+ * This template includes a section explaining the concept of BMR,
+ * its significance in understanding daily energy requirements,
+ * and a form for user input to calculate BMR based on the Harris-Benedict
+ * and Mifflin-St Jeor equations.
+ *
+ * @constant {string} basalMetabolicRateTemplate
+ */
 export const basalMetabolicRateTemplate = `
   <section class="container">
     <h2>BMR Calculator (Harris-Benedict & Mifflin-St Jeor)</h2>

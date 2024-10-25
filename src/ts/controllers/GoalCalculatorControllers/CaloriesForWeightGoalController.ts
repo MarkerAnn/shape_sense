@@ -11,9 +11,24 @@ import { ActivityLevel } from '../../enums/ActivityLevel'
 import { IFormattedCaloriesForWeightGoalResults } from '../../interfaces/FormattedResults'
 /* eslint-enable max-len */
 
+/**
+ * Controller for handling the calculation of daily calories needed to reach a weight goal.
+ * Extends the BaseController to provide specific functionality for this calculation.
+ *
+ * @class
+ * @extends {BaseController}
+ */
 export class CaloriesForWeightGoalController extends BaseController {
   protected view: CaloriesForWeightGoalView
 
+  /**
+   * Creates an instance of CaloriesForWeightGoalController.
+   * Initializes the view and binds the unit system value method.
+   *
+   * @param {UserModel} user - The user model containing user data.
+   * @param {HealthCalculatorModel} calculator - The health calculator model.
+   * @param {IFormValidator} formValidator - The form validator service.
+   */
   constructor(
     user: UserModel,
     calculator: HealthCalculatorModel,
@@ -25,17 +40,27 @@ export class CaloriesForWeightGoalController extends BaseController {
     )
   }
 
+  /**
+   * @inheritdoc
+   */
   init(container: HTMLElement): void {
     this.view.render(container)
     this.fillFormData(this.user.getData())
     this.bindFormEvents(this.handleCalculate.bind(this))
   }
 
+  /**
+   * @inheritdoc
+   */
   protected getUnitSystemValue(): UnitSystem {
     const userData = this.user.getData()
     return userData.unitSystem ?? UnitSystem.METRIC
   }
 
+  /**
+   *
+   * @inheritdoc
+   */
   protected handleCalculate(formData: FormData): void {
     try {
       const data = this.parseFormData(formData)
@@ -77,3 +102,5 @@ export class CaloriesForWeightGoalController extends BaseController {
     return `${value.toFixed(0)} kcal/day`
   }
 }
+
+// 80 rader

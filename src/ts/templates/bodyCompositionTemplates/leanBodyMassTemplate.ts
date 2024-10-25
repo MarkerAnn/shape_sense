@@ -1,6 +1,13 @@
 import { FORM_FIELDS } from '../../constants/FormConstants'
 import { UnitSystem } from '../../enums/UnitSystem'
-
+/**
+ * Template for the Lean Body Mass Calculator.
+ * This template includes a section explaining the concept of Lean Body Mass (LBM),
+ * its significance in understanding muscle mass and setting fitness goals,
+ * and a form for user input to calculate LBM based on various factors.
+ *
+ * @constant {string} leanBodyMassTemplate
+ */
 export const leanBodyMassTemplate = `
 <section class="container">
     <h2>Lean Body Mass Calculator</h2>

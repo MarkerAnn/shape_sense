@@ -11,9 +11,24 @@ import { IFormattedTdeeResults } from '../../interfaces/FormattedResults'
 import { IFormValidator } from '../../interfaces/InterfaceFormValidator'
 /* eslint-enable max-len */
 
+/**
+ * Controller for handling Total Daily Energy Expenditure (TDEE) calculations.
+ * Extends the BaseController to provide specific functionality for TDEE.
+ *
+ * @class
+ * @extends {BaseController}
+ */
 export class TotalDailyEnergyExpenditureController extends BaseController {
   protected view: TotalDailyEnergyExpenditureView
 
+  /**
+   * Creates an instance of TotalDailyEnergyExpenditureController.
+   * Initializes the view and binds the unit system value method.
+   *
+   * @param {UserModel} user - The user model containing user data.
+   * @param {HealthCalculatorModel} calculator - The health calculator model.
+   * @param {IFormValidator} formValidator - The form validator service.
+   */
   constructor(
     user: UserModel,
     calculator: HealthCalculatorModel,
@@ -25,17 +40,26 @@ export class TotalDailyEnergyExpenditureController extends BaseController {
     )
   }
 
+  /**
+   * @inheritdoc
+   */
   init(container: HTMLElement): void {
     this.view.render(container)
     this.fillFormData(this.user.getData())
     this.bindFormEvents(this.handleCalculate.bind(this))
   }
 
+  /**
+   * @inheritdoc
+   */
   protected getUnitSystemValue(): UnitSystem {
     const userData = this.user.getData()
     return userData.unitSystem ?? UnitSystem.METRIC
   }
 
+  /**
+   * @inheritdoc
+   */
   protected handleCalculate(formData: FormData): void {
     try {
       const data = this.parseFormData(formData)
@@ -84,3 +108,5 @@ export class TotalDailyEnergyExpenditureController extends BaseController {
     return `${value.toFixed(0)} kcal/day`
   }
 }
+
+// 87 rader

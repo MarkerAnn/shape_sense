@@ -9,9 +9,24 @@ import { UnitSystem } from '../../enums/UnitSystem'
 import { IFormattedWaistToHipRationResults } from '../../interfaces/FormattedResults'
 /* eslint-enable max-len */
 
+/**
+ * Controller for handling the calculation of Waist to Hip Ratio.
+ * Extends the BaseController to provide specific functionality for this calculation.
+ *
+ * @class
+ * @extends {BaseController}
+ */
 export class WaistToHipRatioController extends BaseController {
   protected view: WaistToHipRatioView
 
+  /**
+   * Creates an instance of WaistToHipRatioController.
+   * Initializes the view and binds the unit system value method.
+   *
+   * @param {UserModel} user - The user model containing user data.
+   * @param {HealthCalculatorModel} calculator - The health calculator model.
+   * @param {IFormValidator} formValidator - The form validator service.
+   */
   constructor(
     user: UserModel,
     calculator: HealthCalculatorModel,
@@ -21,17 +36,26 @@ export class WaistToHipRatioController extends BaseController {
     this.view = new WaistToHipRatioView(this.getUnitSystemValue.bind(this))
   }
 
+  /**
+   * @inheritdoc
+   */
   init(container: HTMLElement): void {
     this.view.render(container)
     this.fillFormData(this.user.getData())
     this.bindFormEvents(this.handleCalculate.bind(this))
   }
 
+  /**
+   * @inheritdoc
+   */
   protected getUnitSystemValue(): UnitSystem {
     const userData = this.user.getData()
     return userData.unitSystem ?? UnitSystem.METRIC
   }
 
+  /**
+   * @inheritdoc
+   */
   protected handleCalculate(formData: FormData): void {
     try {
       const data = this.parseFormData(formData)
@@ -44,7 +68,7 @@ export class WaistToHipRatioController extends BaseController {
     }
   }
 
-  protected parseFormData(formData: FormData): IWaistHipRatioFormData {
+  private parseFormData(formData: FormData): IWaistHipRatioFormData {
     const data: IWaistHipRatioFormData = {
       unitSystem: formData.get('unitSystem') as UnitSystem,
       waist: parseFloat(formData.get('waist') as string),
@@ -66,3 +90,5 @@ export class WaistToHipRatioController extends BaseController {
     return value.toFixed(2)
   }
 }
+
+// 80 rader

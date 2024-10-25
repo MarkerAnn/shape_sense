@@ -1,6 +1,13 @@
 import { FORM_FIELDS } from '../../constants/FormConstants'
 import { UnitSystem } from '../../enums/UnitSystem'
-
+/**
+ * Template for the Body Mass Index (BMI) Calculator.
+ * This template includes a section explaining the concept of BMI,
+ * its significance in assessing body weight relative to height,
+ * and a form for user input to calculate BMI based on height and weight.
+ *
+ * @constant {string} bmiTemplate
+ */
 export const bmiTemplate = `
       <section class="container">
         <h2>BMI Calculator</h2>

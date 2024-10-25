@@ -1,5 +1,12 @@
 import { CalculatorRouteType } from '../constants/RoutesConstants'
 
+/**
+ * An object mapping calculator route types to their corresponding descriptions.
+ * Provides descriptions for various health and fitness calculators.
+ *
+ * @constant
+ * @type {Record<CalculatorRouteType, string>}
+ */
 export const CALCULATOR_DESCRIPTION: Record<CalculatorRouteType, string> = {
   BMI:
     'Body Mass Index (BMI) - A measure of body ' +
@@ -18,3 +25,5 @@ export const CALCULATOR_DESCRIPTION: Record<CalculatorRouteType, string> = {
   CALORIE_GOAL: 'Estimate daily calorie needs to reach your weight goal',
   WEIGHT_GOAL: 'Calculate the time needed to reach your desired weight.',
 } as const
+
+// 21 rader

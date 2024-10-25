@@ -1,5 +1,10 @@
 import { BmiCategory } from './BmiCategory'
 
+/**
+ * An object mapping BMI categories to their corresponding health risk descriptions.
+ * @constant
+ * @type {Record<BmiCategory, string>}
+ */
 const healthRiskDescriptions: Record<BmiCategory, string> = {
   [BmiCategory.UNDERWEIGHT_SEVERE]:
     'High risk of malnutrition, weakened immune system, and more.',
@@ -16,6 +21,14 @@ const healthRiskDescriptions: Record<BmiCategory, string> = {
     'Severe health risks including reduced life expectancy.',
 }
 
+/**
+ * Gets the health risk description for a given BMI category.
+ *
+ * @param {BmiCategory} bmiCategory - The BMI category to get the health risk for.
+ * @returns {string} The health risk description corresponding to the BMI category.
+ */
 export function getHealthRisk(bmiCategory: BmiCategory): string {
   return healthRiskDescriptions[bmiCategory] || 'Unknown health risk.'
 }
+
+// 14 rader

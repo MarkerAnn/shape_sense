@@ -1,3 +1,10 @@
+/**
+ * Enum representing the different categories of Body Mass Index (BMI).
+ * Each category corresponds to a specific range of BMI values and describes
+ * the associated weight status.
+ *
+ * @enum {string}
+ */
 export enum BmiCategory {
   UNDERWEIGHT_SEVERE = 'underweight, severe thinness',
   UNDERWEIGHT_MODERATE = 'underweight, moderate thinness',
@@ -8,3 +15,4 @@ export enum BmiCategory {
   OBESE_CLASS_II = 'obese, class II',
   OBESE_CLASS_III = 'obese, class III',
 }
+// 11 rader

@@ -1,6 +1,13 @@
 import { FORM_FIELDS } from '../../constants/FormConstants'
 import { UnitSystem } from '../../enums/UnitSystem'
-
+/**
+ * Template for the Body Fat Percentage and Lean Body Mass Calculator.
+ * This template includes a section explaining the concepts of Body Fat Percentage (BFP)
+ * and Lean Body Mass (LBM), their significance in understanding health and fitness,
+ * and a form for user input to calculate BFP and LBM based on various factors.
+ *
+ * @constant {string} bodyFatPercentageTemplate
+ */
 export const bodyFatPercentageTemplate = `
 <section class="container">
      <h2>Body Fat Percentage and Lean Body Mass Calculator</h2>
