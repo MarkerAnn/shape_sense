@@ -171,7 +171,7 @@ src/
 
 ## Contributing
 
-We welcome contributions! Please see our [Contributing Guidelines](CONTRIBUTING.md) for detailed information about:
+We welcome contributions! Please see our [Contributing Guidelines](CONTRIBUTE.md) for detailed information about:
 
 - Code style and standards
 - Commit message conventions
@@ -186,8 +186,6 @@ We welcome contributions! Please see our [Contributing Guidelines](CONTRIBUTING.
 3. Make your changes
 4. Run tests and linting
 5. Submit a pull request
-
-For more detailed information, please refer to the [Contributing Guidelines](CONTRIBUTING.md).
 
 ## Testing
 
