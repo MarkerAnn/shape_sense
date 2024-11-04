@@ -2,3 +2,7 @@ node_modules
 
 # Local Netlify folder
 .netlify
+
+# School documents
+KRAVSPECIFIKATION.md
+REFLECTION.md

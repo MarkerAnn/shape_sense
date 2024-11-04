@@ -181,6 +181,10 @@ export abstract class AbstractView {
    */
   public updatePlaceholders(): void {
     const unitSystem = this.getSelectedUnitSystem()
+    console.log(
+      'Updating placeholders from AbstractView, unit system:',
+      unitSystem
+    )
     this.inputs.forEach((input, fieldName) => {
       const placeholder = UNIT_PLACEHOLDERS[unitSystem][fieldName]
       if (placeholder) {

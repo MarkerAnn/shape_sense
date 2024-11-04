@@ -133,6 +133,7 @@ export abstract class BaseController implements IController {
    * @protected
    */
   protected updatePlaceholders(): void {
+    console.log('Updating placeholders from BaseController')
     this.view.updatePlaceholders()
   }
 

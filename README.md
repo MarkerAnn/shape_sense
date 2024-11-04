@@ -8,6 +8,8 @@ A health calculator suite providing accurate measurements and calculations for h
 
 🌐 [shape-sense-zone.netlify.app](https://shape-sense-zone.netlify.app)
 
+[User guide](USER_GUIDE.md)
+
 ## Table of Contents
 
 - [Overview](#overview)
