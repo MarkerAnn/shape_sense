@@ -2,6 +2,7 @@ import { User } from '../types/User'
 import { UnitSystem } from '../enums/UnitSystem'
 import { FORM_SELECTORS, UNIT_PLACEHOLDERS } from '../constants/FormConstants'
 import { InputFieldName, SelectFieldName } from '../types/FormFieldTypes'
+import { debug } from '../utils/debug'
 
 /**
  * Abstract base class for creating views. Provides common functionality for managing forms, inputs,
@@ -53,8 +54,28 @@ export abstract class AbstractView {
    * @param fieldNames - An array of input field names to be initialized.
    */
   protected initializeInputs(fieldNames: InputFieldName[]): void {
-    fieldNames.forEach((fieldName) => this.initializedInputField(fieldName))
+    debug.log('=== Debug Input Initialization ===')
+    debug.log('Initializing fields:', fieldNames)
+
+    fieldNames.forEach((fieldName) => {
+      debug.log(`Initializing field: ${fieldName}`)
+      const selector = FORM_SELECTORS.inputs[fieldName]
+      debug.log(`Using selector: ${selector}`)
+
+      const input = this.getElement(selector) as HTMLInputElement
+      debug.log('Found element:', input)
+
+      if (input) {
+        this.inputs.set(fieldName, input)
+        debug.log(`Successfully stored ${fieldName} in inputs map`)
+      } else {
+        debug.log(`Failed to find element for ${fieldName}`)
+      }
+    })
   }
+  // protected initializeInputs(fieldNames: InputFieldName[]): void {
+  //   fieldNames.forEach((fieldName) => this.initializedInputField(fieldName))
+  // }
 
   /**
    * Initializes a single input field and stores it in the inputs map.
@@ -181,14 +202,24 @@ export abstract class AbstractView {
    */
   public updatePlaceholders(): void {
     const unitSystem = this.getSelectedUnitSystem()
-    console.log(
-      'Updating placeholders from AbstractView, unit system:',
-      unitSystem
-    )
+    debug.log('=== Debug Placeholder Update ===')
+    debug.log('Current inputs in map:', Array.from(this.inputs.keys()))
+
     this.inputs.forEach((input, fieldName) => {
+      debug.log(`Processing field: ${fieldName}`)
       const placeholder = UNIT_PLACEHOLDERS[unitSystem][fieldName]
+      debug.log(
+        `Found placeholder: ${placeholder} for unit system: ${unitSystem}`
+      )
+
       if (placeholder) {
+        const before = input.placeholder
         input.placeholder = placeholder
+        debug.log(
+          `Updated placeholder for ${fieldName}: ${before} -> ${placeholder}`
+        )
+      } else {
+        debug.log(`No placeholder found for ${fieldName}`)
       }
     })
   }

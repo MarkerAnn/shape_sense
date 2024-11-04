@@ -30,7 +30,7 @@ export const waistToHeightRatioTemplate = `
             guideline for maintaining a healthier profile.
         </p>
 
-        <form id="${FORM_FIELDS.waist}"-height-ratio-form">
+        <form id="waist-height-ratio-form">
             <div class="input-group">
                 <label for="${FORM_FIELDS.unitSystem}">Unit System</label>
                 <select id="${FORM_FIELDS.unitSystem}" 

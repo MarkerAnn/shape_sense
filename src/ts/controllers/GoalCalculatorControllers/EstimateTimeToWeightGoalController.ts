@@ -53,8 +53,13 @@ export class EstimateTimeToWeightGoalController extends BaseController {
    * @inheritdoc
    */
   protected getUnitSystemValue(): UnitSystem {
-    const userData = this.user.getData()
-    return userData.unitSystem ?? UnitSystem.METRIC
+    const unitSelect = document.querySelector(
+      'select#unitSystem'
+    ) as HTMLSelectElement
+    if (unitSelect) {
+      return unitSelect.value as UnitSystem
+    }
+    return UnitSystem.METRIC
   }
 
   /**

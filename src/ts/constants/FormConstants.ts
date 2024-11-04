@@ -104,6 +104,7 @@ export const UNIT_PLACEHOLDERS = {
   metric: {
     [FORM_FIELDS.height]: 'm',
     [FORM_FIELDS.weight]: 'kg',
+    [FORM_FIELDS.weightGoal]: 'kg',
     [FORM_FIELDS.waist]: 'cm',
     [FORM_FIELDS.hip]: 'cm',
     [FORM_FIELDS.neck]: 'cm',
@@ -111,6 +112,7 @@ export const UNIT_PLACEHOLDERS = {
   imperial: {
     [FORM_FIELDS.height]: 'ft',
     [FORM_FIELDS.weight]: 'lbs',
+    [FORM_FIELDS.weightGoal]: 'lbs',
     [FORM_FIELDS.waist]: 'in',
     [FORM_FIELDS.hip]: 'in',
     [FORM_FIELDS.neck]: 'in',

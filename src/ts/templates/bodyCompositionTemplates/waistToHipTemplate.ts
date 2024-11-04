@@ -31,7 +31,7 @@ export const waistToHipRatioTemplate = `
             <strong>1.0 for men</strong> and <strong>0.85 for women</strong>.
         </p>
 
-        <form id="${FORM_FIELDS.waist}"-"${FORM_FIELDS.hip}"-ratio-form">
+        <form id="waist-hip-ratio-form">
             <div class="input-group">
                 <label for="${FORM_FIELDS.unitSystem}">Unit System</label>
                 <select id="${FORM_FIELDS.unitSystem}" 
