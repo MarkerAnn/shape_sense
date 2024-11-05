@@ -8,13 +8,44 @@ import {
  */
 export abstract class BaseValidator {
   /**
-   * Validates that the input is a positive number.
-   * @param {number} value - The value to validate.
-   * @param {string} fieldName - The name of the field being validated.
-   * @throws Will throw an error if the value is not a positive number.
+   * Parses a numeric input value, handling both comma and period as decimal separators.
+   * @param value - The value to parse, can be number or string
+   * @param fieldName - The name of the field being parsed
+   * @returns The parsed number
+   * @throws Error if the value cannot be parsed to a valid number
    */
-  protected validateNumericInput(value: number, fieldName: string): void {
-    if (typeof value !== 'number' || isNaN(value) || value <= 0) {
+  protected parseNumericInput(
+    value: number | string,
+    fieldName: string
+  ): number {
+    if (typeof value === 'number') {
+      return value
+    }
+
+    // Replace comma with period for decimal numbers
+    const normalizedValue = value.replace(',', '.')
+    const parsedValue = parseFloat(normalizedValue)
+
+    if (isNaN(parsedValue)) {
+      throw new Error(`Invalid ${fieldName} value`)
+    }
+
+    return parsedValue
+  }
+
+  /**
+   * Validates that the input is a positive number.
+   * @param value - The value to validate
+   * @param fieldName - The name of the field being validated
+   * @throws Will throw an error if the value is not a positive number
+   */
+  protected validateNumericInput(
+    value: number | string,
+    fieldName: string
+  ): void {
+    const parsedValue = this.parseNumericInput(value, fieldName)
+
+    if (parsedValue <= 0) {
       throw new Error(`Invalid ${fieldName} value`)
     }
   }

@@ -42,6 +42,26 @@ export abstract class BaseController implements IController {
   }
 
   /**
+   * Parses a numeric value from form data, handling both comma and period
+   * as decimal separators
+   */
+  protected parseNumericValue(value: string | null): number {
+    if (!value) {
+      throw new Error('Missing required value')
+    }
+
+    // Replace comma with period for decimal numbers
+    const normalizedValue = value.replace(',', '.')
+    const parsedValue = parseFloat(normalizedValue)
+
+    if (isNaN(parsedValue)) {
+      throw new Error('Invalid numeric value')
+    }
+
+    return parsedValue
+  }
+
+  /**
    * Initializes the controller by rendering the view into the specified container.
    *
    * @abstract

@@ -75,8 +75,8 @@ export class BmiController extends BaseController {
   private parseFormData(formData: FormData): IBmiFormData {
     const data: IBmiFormData = {
       unitSystem: formData.get('unitSystem') as UnitSystem,
-      weight: parseFloat(formData.get('weight') as string),
-      height: parseFloat(formData.get('height') as string),
+      weight: this.parseNumericValue(formData.get('weight') as string),
+      height: this.parseNumericValue(formData.get('height') as string),
     }
 
     return data
