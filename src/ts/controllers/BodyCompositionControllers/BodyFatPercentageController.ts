@@ -9,6 +9,7 @@ import { UnitSystem } from '../../enums/UnitSystem'
 import { Gender } from '../../enums/Gender'
 // eslint-disable-next-line max-len
 import { IFormattedBodyFatPercentageResults } from '../../interfaces/FormattedResults'
+import { UnitConverter } from '../../utils/unitConverter'
 
 /**
  * Controller for handling the calculation of Body Fat Percentage.
@@ -119,18 +120,19 @@ export class BodyFatPercentageController extends BaseController {
   private updateView(): void {
     const bodyFatPercentage = this.calculator.getBodyFatPercentage()
     const leanBodyMass = this.calculator.getLeanBodyMass()
+    const isImperial = UnitConverter.isImperial(this.getUnitSystemValue())
 
     const formattedResults: IFormattedBodyFatPercentageResults = {
-      bodyFatPercentage: this.formatBodyFatPercentage(bodyFatPercentage),
-      leanBodyMass: this.formatLeanBodyMass(leanBodyMass),
+      bodyFatPercentage: UnitConverter.formatBodyFat(bodyFatPercentage),
+      leanBodyMass: UnitConverter.formatLeanMass(leanBodyMass, isImperial),
     }
     this.view.updateResults(formattedResults)
   }
 
-  private formatBodyFatPercentage(value: number): string {
-    return `${value.toFixed(2)} %`
-  }
-  private formatLeanBodyMass(value: number): string {
-    return `${value.toFixed(2)} kg`
-  }
+  // private formatBodyFatPercentage(value: number): string {
+  //   return `${value.toFixed(2)} %`
+  // }
+  // private formatLeanBodyMass(value: number): string {
+  //   return `${value.toFixed(2)} kg`
+  // }
 }

@@ -6,6 +6,7 @@ import { BaseController } from '../AbstractBaseController'
 import { IFormValidator } from '../../interfaces/InterfaceFormValidator'
 import { UnitSystem } from '../../enums/UnitSystem'
 import { IFormattedBmiResults } from '../../interfaces/FormattedResults'
+import { UnitConverter } from '../../utils/unitConverter'
 
 /**
  * Controller for handling the calculation of Body Mass Index (BMI).
@@ -86,21 +87,18 @@ export class BmiController extends BaseController {
     const bmiType = this.calculator.getBmiType()
     const healthRisk = this.calculator.getHealthRisk()
     const idealWeight = this.calculator.getIdealWeight()
+    const isImperial = UnitConverter.isImperial(this.getUnitSystemValue())
 
     const formattedResults: IFormattedBmiResults = {
       bmi: this.formatValue(bmi),
       category: bmiType,
       healthRisk: healthRisk,
-      idealWeight: this.formatIdealWeight(idealWeight),
+      idealWeight: UnitConverter.formatWeightRange(idealWeight, isImperial),
     }
     this.view.updateResults(formattedResults)
   }
 
   private formatValue(value: number): string {
     return value.toFixed(1)
-  }
-
-  private formatIdealWeight([min, max]: [number, number]): string {
-    return `${this.formatValue(min)} - ${this.formatValue(max)} kg`
   }
 }
