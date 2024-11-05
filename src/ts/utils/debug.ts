@@ -7,6 +7,7 @@ function isLocalhost(): boolean {
   return false
 }
 
+/* eslint-disable no-console */
 export const debug = {
   log: function (...args: unknown[]): void {
     if (isLocalhost()) {
@@ -26,3 +27,4 @@ export const debug = {
     }
   },
 }
+/* eslint-enable no-console */

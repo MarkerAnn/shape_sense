@@ -22,6 +22,6 @@ export const CALCULATOR_DESCRIPTION: Record<CalculatorRouteType, string> = {
     'Calculate the ratio between your waist circumference and height.',
   BODY_FAT:
     'Estimate the percentage of fat in your body based on measurements.',
-  CALORIE_GOAL: 'Estimate daily calorie needs to reach your weight goal',
+  CALORIE_GOAL: 'Estimate daily caloric needs to reach your weight goal',
   WEIGHT_GOAL: 'Calculate the time needed to reach your desired weight.',
 } as const
