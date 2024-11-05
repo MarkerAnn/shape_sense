@@ -81,12 +81,14 @@ export class EstimateTimeToWeightGoalController extends BaseController {
     const data: IEstimateTimeToWeightGoalFormData = {
       unitSystem: formData.get('unitSystem') as UnitSystem,
       gender: formData.get('gender') as Gender,
-      weight: parseFloat(formData.get('weight') as string),
-      height: parseFloat(formData.get('height') as string),
-      age: parseFloat(formData.get('age') as string),
+      weight: this.parseNumericValue(formData.get('weight') as string),
+      height: this.parseNumericValue(formData.get('height') as string),
+      age: this.parseNumericValue(formData.get('age') as string),
       activityLevel: formData.get('activityLevel') as ActivityLevel,
-      weightGoal: parseFloat(formData.get('weightGoal') as string),
-      dailyCalories: parseFloat(formData.get('dailyCalories') as string),
+      weightGoal: this.parseNumericValue(formData.get('weightGoal') as string),
+      dailyCalories: this.parseNumericValue(
+        formData.get('dailyCalories') as string
+      ),
     }
     return data
   }

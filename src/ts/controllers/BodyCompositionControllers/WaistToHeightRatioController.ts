@@ -76,8 +76,8 @@ export class WaistToHeightRatioController extends BaseController {
   private parseFormData(formData: FormData): IWaistHeightRatioFormData {
     const data: IWaistHeightRatioFormData = {
       unitSystem: formData.get('unitSystem') as UnitSystem,
-      waist: parseFloat(formData.get('waist') as string),
-      height: parseFloat(formData.get('height') as string),
+      waist: this.parseNumericValue(formData.get('waist') as string),
+      height: this.parseNumericValue(formData.get('height') as string),
     }
     return data
   }

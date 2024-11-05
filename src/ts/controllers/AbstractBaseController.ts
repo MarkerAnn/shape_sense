@@ -52,7 +52,7 @@ export abstract class BaseController implements IController {
 
     // Replace comma with period for decimal numbers
     const normalizedValue = value.replace(',', '.')
-    const parsedValue = parseFloat(normalizedValue)
+    const parsedValue = Number(normalizedValue)
 
     if (isNaN(parsedValue)) {
       throw new Error('Invalid numeric value')

@@ -76,8 +76,8 @@ export class WaistToHipRatioController extends BaseController {
   private parseFormData(formData: FormData): IWaistHipRatioFormData {
     const data: IWaistHipRatioFormData = {
       unitSystem: formData.get('unitSystem') as UnitSystem,
-      waist: parseFloat(formData.get('waist') as string),
-      hip: parseFloat(formData.get('hip') as string),
+      waist: this.parseNumericValue(formData.get('waist') as string),
+      hip: this.parseNumericValue(formData.get('hip') as string),
     }
     return data
   }

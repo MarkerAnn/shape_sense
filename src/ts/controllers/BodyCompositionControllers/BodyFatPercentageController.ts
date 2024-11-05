@@ -99,16 +99,16 @@ export class BodyFatPercentageController extends BaseController {
     const data: IBodyFatPercentageFormData = {
       unitSystem: formData.get('unitSystem') as UnitSystem,
       gender: formData.get('gender') as Gender,
-      weight: parseFloat(formData.get('weight') as string),
-      height: parseFloat(formData.get('height') as string),
-      waist: parseFloat(formData.get('waist') as string),
-      neck: parseFloat(formData.get('neck') as string),
+      weight: this.parseNumericValue(formData.get('weight') as string),
+      height: this.parseNumericValue(formData.get('height') as string),
+      waist: this.parseNumericValue(formData.get('waist') as string),
+      neck: this.parseNumericValue(formData.get('neck') as string),
     }
 
     if (data.gender === Gender.FEMALE) {
       const hipValue = formData.get('hip')
       if (hipValue) {
-        data.hip = parseFloat(hipValue as string)
+        data.hip = this.parseNumericValue(hipValue as string)
       } else {
         throw new Error('Hip measurement is required for females.')
       }
